@@ -12,23 +12,31 @@
         <div class="version">
             <ul class="quickLink">
                 <span>快速連結</span>
-                <li>跳過登入會員</li>
+                <li @click="handLink" data-link="index">跳過登入會員</li>
             </ul>
             <img class="AppIcon" src="./img/AppUI.png" alt="">
             <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/01</span> </span>
         </div>
-        <div class="navbar" v-if="false">
-            <li>圖片1</li>
-            <li>圖片2</li>
-            <li>圖片3</li>
-            <li>圖片4</li>
+
+        <div class="navbar" v-if="NavIconBool">
+            <ul 
+            :style="`background: url(${navIconImg});`">
+
+                <li
+                v-for="list in NavIcon.data"
+                :data-nav="list.key"
+                :key="list.key"
+                @click="handNavIcon"
+                ></li>
+               
+            </ul>
         </div>
        
         <div class="container">
             <main class="content"
             :style="`background: url(${contentBg});`"
             >
-            <section class="Login">
+            <section class="Login" v-if="NowRenderSection === 'login'">
 
                 <div class="BtnBox" v-if="LoginStep === 0">
                     <button @click="handNextLogin" data-login="next" class="orgBtn">會員登入</button>
@@ -37,10 +45,194 @@
                     </button>
                 </div>
                 <div class="BtnBox" v-if="LoginStep === 1">
-                    <button data-login="next" class="whiteBtn">下一步</button>
+                    <button @click="handLink" data-link="index" class="whiteBtn">下一步</button>
+                </div>
+            </section>
+            <section class="home" v-if="NowRenderSection === 'home'">
+                <div class="header">
+                    <h2 class="title">
+                        <div class="titleMsg">
+                            <p v-show="NavIcon.data[0].act">09088***55</p> 
+                            <p v-show="NavIcon.data[0].act">Hi 宋*雯</p> 
+                            <p v-show="NavIcon.data[1].act">申辦服務</p> 
+                            <p v-show="NavIcon.data[2].act">myfone online購物優惠</p> 
+                            <p v-show="NavIcon.data[3].act">我的帳戶</p> 
+                        </div>
+                    </h2>
+                    <div class="mailIcon">
+                        <img src="./img/mail_icon.png" alt="">
+                    </div>
+                </div>
+
+                <div class="ItemBox home" v-show="NavIcon.data[0].act">
+                    <div class="banner">
+                        <img src="./img/home/banner.png" alt="banner">
+                    </div>
+                    <div class="block">
+                        <div class="itemTitle">
+                            <span class="ringIcon">老客戶專屬優惠</span>
+                        </div>
+                        <div class="itemMsg">
+                            <a href="
+                            https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst5457E361347647AA981D1B38621F2DB5SF4Kk&ru=https%3A%2F%2Fshop.tstartel.com%2Fpromo_market%2F188sptd_23%2Findex.html
+                            " target="_blank" id="home_dicount">
+                                <span>超低價 ! 4G吃到飽月租只要188(網速21Mbps)，每月現省$311(別家499起)!</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="itemTitle">
+                            <span class="infoIcon">門號用量</span>
+                            <span class="callPayDate">本期計算至 12/10</span>
+                        </div>
+                        <div class="itemMsg">
+                            <div class="calldata">
+                                <li>
+                                    <span>剩餘上網</span>
+                                    <span>119.3MB</span>
+                                    <span>可用 200.0 MB</span>
+                                    <a target="_blank" href="https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php">加購</a>
+                                </li>
+                                <li v-show="calldataStatus === 'open'">
+                                    <span>已撥通話</span>
+                                    <span>5分</span>
+                                    <span>網內+網外+市話</span>
+                                </li>
+                                <li v-show="calldataStatus === 'close'">
+                                    <span>已撥網內</span>
+                                    <span>3分</span>
+                                    <span>前3分鐘免費/通</span>
+                                </li>
+                                <li v-show="calldataStatus === 'close'">
+                                    <span>已撥網外</span>
+                                    <span>0分</span>
+                                    <span>送10分鐘/月</span>
+                                </li>
+                                <li v-show="calldataStatus === 'close'">
+                                    <span>已撥市話</span>
+                                    <span>2分</span>
+                                    <span>無優惠</span>
+                                </li>
+                                <div class="btn" data-status="open" v-show="calldataStatus === 'open'"
+                                @click="handCalldataStatus">
+                                    <img src="./img/home/baropen.png"  style="transform: rotate(0deg);">
+                                </div>
+                                <div class="btn" data-status="close" v-show="calldataStatus === 'close'"
+                                @click="handCalldataStatus">
+                                    <img src="./img/home/baropen.png"  style="transform: rotate(180deg);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="itemTitle">帳單</div>
+                        <div class="itemMsg">
+                            <a href="#">
+                                <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                            <div class="bill">
+                                <span>應繳 $0</span>
+                                <span>你已完成繳款</span>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="itemTitle">合約方案</div>
+                        <div class="itemMsg">
+                            <a href="#">
+                                <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                            <div class="plan">
+                                <span>4G_無約單門號專案</span>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="itemTitle">手機裝置</div>
+                        <div class="itemMsg">
+                           <div class="device">
+                            <img src="./img/home/andriod.png" alt="andriod">
+                            <span>
+                                你正在使用andriod手機
+                            </span>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="block otherLink">
+                        <ul>
+                            <li><a target="_blank" href="https://littlemy.taiwanmobile.com/?eservice=TSTAPP&TA=null&M=null">
+                                <span>常見問題</span></a></li>
+                            <li><a target="_blank" href="https://www.taiwanmobile.com/mobile/storelbs/lbs.html?t=1701363430907">
+                                <span>服務據點</span></a></li>
+                            <li><a target="_blank" href="https://www.facebook.com/taiwanmobile/?locale=zh_TW">
+                                <span>Facebook</span></a></li>
+                            <li><a target="_blank" href="https://instagram.com/taiwanmobile_official?igshid=NGVhN2U2NjQ0Yg==">
+                                <span>Instagram</span></a></li>
+                            <li><a target="_blank" href="https://liff.line.me/1645278921-kWRPP32q/?accountId=twmline">
+                                <span>LINE</span></a></li>
+                            <li><a target="_blank" href="https://youtube.com/@taiwanmobile?si=V-gf4PxvGeeZ-_GD">
+                                <span>YouTube</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="block null"></div>
+                </div>
+                <div class="ItemBox service" v-show="NavIcon.data[1].act">
+                    <div class="serviceNav">
+                        <li 
+                        v-for="list in serviceNav.data"
+                        :key="list.key"
+                        :data-service="list.key"
+                        :class="[{'active': list.act}]"
+                        @click="handserviceNav"
+                        >
+                        <span>{{list.msg}}</span>
+                        </li>
+                        <!-- <li class="active" data-service="et">
+                            <span>影音娛樂</span>
+                        </li>
+                        <li data-service="rt">
+                            <span>續約/升5G</span>
+                        </li>
+                        <li data-service="aq">
+                            <span>辦新門號</span>
+                        </li> -->
+                    </div>
+                    <div class="block" v-for="list in serviceItemRender">
+                        <img class="iconImg" :src="`./img/service/${list.key}${list.num}.png`" alt="">
+                        <div class="itemTitle appIcon">{{list.title}}</div>
+                        <div class="itemMsg">{{list.msg}}</div>
+                        <div class="itemPrice">{{list.price}}</div>
+                        <img class="serviceBanner" :src="`./img/service/banner_${list.key}${list.num}.png`" alt="">
+                        <!-- <img class="iconImg" src="./img/service/et1.png" alt="">
+                        <div class="itemTitle appIcon">Disney+</div>
+                        <div class="itemMsg">標準方案(原價270/月)</div>
+                        <div class="itemPrice">$270/月</div>
+                        <img class="serviceBanner" src="./img/service/banner_et1.png" alt=""> -->
+                        
+                    </div>  
+                    <div class="block nodata" v-if="serviceItemNodata">
+                        <div class="msg">
+                            <span>目前沒有適合的方案</span>
+                            <span>先去其他地方逛逛吧</span>
+                        </div>
+                    </div>                    
+                    <div class="block null">
+                        <div class="itemTitle appIcon"></div>
+                        <div class="itemMsg"></div>
+                    </div>                    
+
+                </div>
+                <div class="ItemBox discount" v-show="NavIcon.data[2].act">
+                    <div class="block null"></div>
+                </div>
+                <div class="ItemBox setting" v-show="NavIcon.data[3].act">
+                    <div class="block null"></div>
+                </div>
+            </section>
+
+            <section class="detail">
 
             </section>
-            </div>
 
             </main>
             

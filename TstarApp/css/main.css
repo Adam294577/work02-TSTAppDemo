@@ -25,6 +25,7 @@
   font-weight: bold;
 }
 .version .quickLink li {
+  cursor: pointer;
   margin-top: 0.5rem;
   padding-left: 1rem;
 }
@@ -65,23 +66,6 @@
   background: white;
 }
 
-.Login .BtnBox {
-  position: absolute;
-  bottom: 4rem;
-  text-align: center;
-}
-.Login .BtnBox button {
-  margin-top: 0.5rem;
-}
-.Login .BtnBox button.whiteBtn {
-  cursor: pointer;
-  transform: translateY(-180px) scale(1.5);
-  margin-left: 45%;
-  text-align: center;
-  color: rgb(255, 94, 0);
-  font-weight: bold;
-}
-
 .container {
   margin: auto;
   width: 450px;
@@ -103,10 +87,6 @@
   overflow-y: scroll;
   position: relative;
   padding-top: 4rem;
-}
-.content .testImg {
-  position: absolute;
-  top: 0;
 }
 .content::-webkit-scrollbar {
   display: none;
@@ -156,7 +136,298 @@
   top: 840px;
   width: 390px;
   height: 50px;
-  background: #FFF;
+  background: rgba(37, 32, 32, 0.6352941176);
   z-index: 3;
+}
+.navbar ul {
   display: flex;
+  justify-content: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  top: -10px;
+}
+.navbar ul li {
+  width: 25%;
+  height: 50px;
+  text-align: center;
+  color: #FFF;
+}
+
+.Login .BtnBox {
+  position: absolute;
+  bottom: 4rem;
+  text-align: center;
+}
+.Login .BtnBox button {
+  margin-top: 0.5rem;
+}
+.Login .BtnBox button.whiteBtn {
+  cursor: pointer;
+  transform: translateY(-180px) scale(1.5);
+  margin-left: 45%;
+  text-align: center;
+  color: rgb(255, 94, 0);
+  font-weight: bold;
+}
+
+.home .header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.home .header .title {
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+.home .header .title p {
+  padding: 0;
+  margin: 0;
+  color: #FFF;
+  font-weight: normal;
+}
+.home .header .mailIcon {
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+.home .ItemBox .block {
+  background: #09153f;
+  margin-top: 1rem;
+  border-radius: 10px;
+  position: relative;
+}
+.home .ItemBox .block:last-child {
+  padding-bottom: 4rem;
+  background: transparent;
+}
+.home .ItemBox .block .itemMsg {
+  padding-bottom: 1rem;
+}
+.home .ItemBox .block .itemMsg a, .home .ItemBox .block .itemMsg span {
+  color: #FFF;
+  text-decoration: none;
+}
+.home .ItemBox .block .itemTitle {
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-bottom: 0.5rem;
+  color: #c1c2e9;
+  font-size: 20px;
+  font-weight: bold;
+}
+.home .ItemBox .block .see {
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+}
+.home .ItemBox.home .block.otherLink {
+  background: transparent;
+}
+.home .ItemBox.home .block.otherLink ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.home .ItemBox.home .block.otherLink ul li {
+  position: relative;
+  width: 48%;
+  background: #09153f;
+  margin-left: 5px;
+  margin-top: 1rem;
+  padding: 0.5rem 0;
+}
+.home .ItemBox.home .block.otherLink ul li::before {
+  position: absolute;
+  left: 2rem;
+}
+.home .ItemBox.home .block.otherLink ul li a {
+  display: block;
+  width: 100%;
+}
+.home .ItemBox.home .block.otherLink ul li span {
+  display: inline-block;
+  width: 100%;
+  color: #FFF;
+  text-align: center;
+}
+.home .ItemBox.home .block.otherLink ul li:nth-child(1)::before {
+  content: url(../img/home/otherLink01.png);
+}
+.home .ItemBox.home .block.otherLink ul li:nth-child(2)::before {
+  content: url(../img/home/otherLink02.png);
+}
+.home .ItemBox.home .block.otherLink ul li:nth-child(3)::before {
+  content: url(../img/home/otherLink03.png);
+}
+.home .ItemBox.home .block.otherLink ul li:nth-child(4)::before {
+  content: url(../img/home/otherLink04.png);
+}
+.home .ItemBox.home .block.otherLink ul li:nth-child(5)::before {
+  content: url(../img/home/otherLink05.png);
+}
+.home .ItemBox.home .block.otherLink ul li:nth-child(6)::before {
+  content: url(../img/home/otherLink06.png);
+}
+.home .ItemBox.home .itemTitle span.ringIcon {
+  padding-left: 1rem;
+}
+.home .ItemBox.home .itemTitle span.ringIcon::before {
+  position: absolute;
+  left: 0.5rem;
+  content: url("../img/home/ringIcon.png");
+}
+.home .ItemBox.home .itemTitle span.infoIcon::after {
+  position: relative;
+  top: 3px;
+  left: 5px;
+  content: url("../img/home/infoIcon.png");
+}
+.home .ItemBox.home .itemMsg .calldata {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-bottom: 1rem;
+}
+.home .ItemBox.home .itemMsg .calldata li {
+  width: 45%;
+  margin-top: 1rem;
+  height: 120px;
+  background: #000;
+  position: relative;
+}
+.home .ItemBox.home .itemMsg .calldata li a {
+  width: 60px;
+  text-align: center;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: rgb(255, 94, 0);
+  border-radius: 30px;
+}
+.home .ItemBox.home .itemMsg .calldata li span {
+  display: block;
+  padding-left: 1rem;
+}
+.home .ItemBox.home .itemMsg .calldata li span:nth-child(1) {
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+.home .ItemBox.home .itemMsg .calldata li span:nth-child(2) {
+  font-size: 23px;
+  font-weight: bold;
+  color: rgb(255, 94, 0);
+}
+.home .ItemBox.home .itemMsg .calldata li span:nth-child(3) {
+  color: #a4a8c4;
+}
+.home .ItemBox.home .itemMsg .calldata .btn {
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.home .ItemBox.home .itemMsg .bill {
+  padding-left: 2rem;
+  font-size: 22px;
+  font-weight: bold;
+  position: relative;
+}
+.home .ItemBox.home .itemMsg .bill span:nth-child(2) {
+  position: absolute;
+  right: 2rem;
+}
+.home .ItemBox.home .itemMsg .plan {
+  padding-left: 2rem;
+}
+.home .ItemBox.home .itemMsg .device img {
+  margin-left: 1rem;
+}
+.home .ItemBox.home .itemMsg .device span {
+  position: absolute;
+  margin-left: 1rem;
+  top: 3rem;
+}
+.home .ItemBox.home .banner {
+  margin-top: 1rem;
+}
+.home .ItemBox.home .callPayDate {
+  position: absolute;
+  right: 1rem;
+  color: #FFF;
+}
+.home .ItemBox.home #home_dicount {
+  display: inline-block;
+  width: 100%;
+  padding: 0 1rem;
+  padding-bottom: 1rem;
+}
+.home .ItemBox.service .block.nodata {
+  background: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.home .ItemBox.service .block.nodata span {
+  margin-top: 1rem;
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #d5d9fe;
+  font-weight: bold;
+}
+.home .ItemBox.service .serviceNav {
+  background: #19254d;
+  display: flex;
+  justify-content: space-around;
+}
+.home .ItemBox.service .serviceNav li {
+  width: 33%;
+  color: #d5d9fe;
+  padding: 1rem 0;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+.home .ItemBox.service .serviceNav li.active {
+  color: rgb(255, 94, 0);
+}
+.home .ItemBox.service .serviceNav li.active span {
+  position: relative;
+}
+.home .ItemBox.service .serviceNav li.active span::after {
+  content: "";
+  position: absolute;
+  top: 125%;
+  display: inline-block;
+  width: 90%;
+  height: 2px;
+  left: 5%;
+  background: rgb(255, 94, 0);
+}
+.home .ItemBox.service .iconImg {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+}
+.home .ItemBox.service .itemTitle.appIcon {
+  font-size: 18px;
+  padding-left: 3rem;
+  position: relative;
+}
+.home .ItemBox.service .itemMsg {
+  color: #FFF;
+  padding-left: 1rem;
+}
+.home .ItemBox.service .itemPrice {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: rgb(255, 94, 0);
+  font-weight: bold;
+}
+.home .ItemBox.service .serviceBanner {
+  position: relative;
+  top: -1px;
+  width: 100%;
 }/*# sourceMappingURL=main.css.map */
