@@ -5,6 +5,83 @@
   list-style-type: none;
 }
 
+.version {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 150px;
+  height: 100vh;
+}
+.version .quickLink {
+  width: 100%;
+  padding-top: 2rem;
+  background: #CCC;
+}
+.version .quickLink span {
+  display: inline-block;
+  padding-left: 1.5rem;
+  font-size: 24px;
+  font-weight: bold;
+}
+.version .quickLink li {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+.version .AppIcon {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scale(0.7);
+  bottom: 3rem;
+}
+.version .updateTxt {
+  position: absolute;
+  bottom: 1rem;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+.version .updateTxt .updateMsg {
+  text-align: center;
+}
+
+.orgBtn, .whiteBtn {
+  width: 200px;
+  padding: 0.5rem;
+  border-radius: 20px;
+  border: navajowhite;
+  color: #FFF;
+}
+.orgBtn a, .whiteBtn a {
+  text-decoration: none;
+  color: #FFF;
+}
+
+.orgBtn {
+  background: rgb(255, 94, 0);
+}
+
+.whiteBtn {
+  background: white;
+}
+
+.Login .BtnBox {
+  position: absolute;
+  bottom: 4rem;
+  text-align: center;
+}
+.Login .BtnBox button {
+  margin-top: 0.5rem;
+}
+.Login .BtnBox button.whiteBtn {
+  cursor: pointer;
+  transform: translateY(-180px) scale(1.5);
+  margin-left: 45%;
+  text-align: center;
+  color: rgb(255, 94, 0);
+  font-weight: bold;
+}
+
 .container {
   margin: auto;
   width: 450px;
@@ -16,6 +93,8 @@
 }
 
 .content {
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 390px;
   margin: auto;
   height: 790px;
@@ -24,6 +103,10 @@
   overflow-y: scroll;
   position: relative;
   padding-top: 4rem;
+}
+.content .testImg {
+  position: absolute;
+  top: 0;
 }
 .content::-webkit-scrollbar {
   display: none;
@@ -49,10 +132,10 @@
 
 .footer {
   position: relative;
-  z-index: -1;
-  top: -47px;
-  height: 20px;
-  width: 380px;
+  z-index: 2;
+  top: -45px;
+  height: 18px;
+  width: 375px;
   margin: auto;
   background: #000;
 }

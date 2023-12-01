@@ -5,7 +5,84 @@
     list-style-type: none;
 }
 
-
+.version{
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 150px;
+    // border: 1px solid #F00;
+    height: 100vh;
+    .quickLink{
+        width: 100%;
+        padding-top: 2rem;
+        background: #CCC;
+        span{
+            display: inline-block;
+            padding-left: 1.5rem;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        li{
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+        }
+    }
+    .AppIcon{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) scale(0.7);
+        bottom: 3rem;
+    }
+    .updateTxt{
+        position: absolute;
+        bottom: 1rem;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        .updateMsg{
+            text-align: center;
+        }
+    }
+}
+.orgBtn,.whiteBtn{
+    width: 200px;
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: navajowhite;
+    color: #FFF;
+    a{
+        text-decoration: none;
+        color: #FFF;
+    }
+}
+.orgBtn{
+    background: rgb(255, 94, 0);
+}
+.whiteBtn{
+    background: white;
+}
+.Login{
+    .BtnBox{
+        // border: 1px solid #F00;
+        position: absolute;
+        bottom: 4rem;
+        text-align: center;
+        button{
+            // display: none;
+            margin-top: 0.5rem;
+            &.whiteBtn{
+                // display: inline-block;
+                cursor: pointer;
+                transform: translateY(-180px) scale(1.5);
+                margin-left: 45%;
+                text-align: center;
+                color: rgb(255, 94, 0);
+                font-weight: bold;
+            }
+        }
+    }
+}
 .container{
     margin: auto;
     width: 450px;
@@ -17,6 +94,13 @@
     overflow: hidden;
 }
 .content{
+    background-repeat: no-repeat;
+    background-size: cover;
+    // background: ;
+    .testImg{
+        position: absolute;
+        top: 0;
+    }
     // display: none;
     width: 390px;
     margin: auto;
@@ -57,10 +141,10 @@
 }
 .footer{
     position: relative;
-    z-index: -1;
-    top: -47px;
-    height: 20px;
-    width: 380px;
+    z-index: 2;
+    top: -45px;
+    height: 18px;
+    width: 375px;
     margin: auto;
     background: #000;
     

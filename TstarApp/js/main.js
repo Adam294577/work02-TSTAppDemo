@@ -5,9 +5,24 @@ window.onload = () =>{
     const App = {
 
         setup(){
-            const test = ref(5207)
+            // contentBg
+            const contentBg = ref('./img/ContBg/UserlogIn.png')
+            // Login
+            const LoginStep = ref(0)
+            const handNextLogin = (el) =>{
+                let key = el.currentTarget.dataset.login
+                if(key === 'next'){
+                    LoginStep.value ++
+                }
+                if(LoginStep.value === 1){
+                    contentBg.value = "./img/ContBg/UserlogIn02.png"
+                }
+            }
             return{
-                test
+                contentBg,
+                // Login
+                LoginStep,
+                handNextLogin,
             }   
         },
 

@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>  
-    <title>台灣之星demo</title>
+    <title>台灣大哥大TS_Demo</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
     <div id="app">
+        <div class="version">
+            <ul class="quickLink">
+                <span>快速連結</span>
+                <li>跳過登入會員</li>
+            </ul>
+            <img class="AppIcon" src="./img/AppUI.png" alt="">
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/01</span> </span>
+        </div>
         <div class="navbar" v-if="false">
             <li>圖片1</li>
             <li>圖片2</li>
@@ -17,16 +25,22 @@
         </div>
        
         <div class="container">
-            <a href="./test.html">123</a>
-            <main class="content">
-                <p>內容測試1</p>
-                <p>內容測試2</p>
-                <p>內容測試3</p>
-                <p>內容測試4</p>
-                <p>內容測試5</p>
-                <p>內容測試6</p>
-                <p>內容測試7</p>
-                <p>內容測試8</p>
+            <main class="content"
+            :style="`background: url(${contentBg});`"
+            >
+            <section class="Login">
+
+                <div class="BtnBox" v-if="LoginStep === 0">
+                    <button @click="handNextLogin" data-login="next" class="orgBtn">會員登入</button>
+                    <button class="orgBtn"><a target="_blank" href="https://oauth.taiwanmobile.com/MemberOAuth/twm/login/ed69ee19c30f51db57c4428f02bc78db
+                        ">會員註冊</a>
+                    </button>
+                </div>
+                <div class="BtnBox" v-if="LoginStep === 1">
+                    <button data-login="next" class="whiteBtn">下一步</button>
+
+            </section>
+            </div>
 
             </main>
             
