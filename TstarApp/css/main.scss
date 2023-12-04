@@ -3,7 +3,12 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
+    font-family: Microsoft JhengHei;
 }
+$mainOrg:  rgb(255, 94, 0);
+$darkBg: #09153f;
+$blockTxt: #d5d9fe;
+$listColor: #050b21;
 
 .version{
     position: absolute;
@@ -51,15 +56,24 @@
     width: 200px;
     padding: 0.5rem;
     border-radius: 20px;
-    border: navajowhite;
+    color: #FFF;
+    a{
+        text-decoration: none;
+        color: #FFF;
+    }
+
+}
+.orgBtn2{
+    padding: 0.2rem 0.4rem;
+    border-radius: 15px;
     color: #FFF;
     a{
         text-decoration: none;
         color: #FFF;
     }
 }
-.orgBtn{
-    background: rgb(255, 94, 0);
+.orgBtn,.orgBtn2{
+    background: $mainOrg
 }
 .whiteBtn{
     background: white;
@@ -86,7 +100,7 @@
     margin-top: 65px;
     // border: 1px solid #F00;
     // background: green;
-    overflow: hidden;
+    // overflow: hidden;
     overflow-y: scroll;
     position: relative;
     &::-webkit-scrollbar{
@@ -183,7 +197,7 @@
                 transform: translateY(-180px) scale(1.5);
                 margin-left: 45%;
                 text-align: center;
-                color: rgb(255, 94, 0);
+                color: $mainOrg;
                 font-weight: bold;
             }
         }
@@ -215,7 +229,7 @@
     }
     .ItemBox{
         .block{
-            background: #09153f;
+            background: $darkBg;
             margin-top: 1rem;
             border-radius: 10px;
             position: relative;
@@ -229,6 +243,66 @@
                     color: #FFF;
                     text-decoration: none;
                 }
+                .calldata{
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+                    padding-bottom: 1rem;
+                    li{
+                        width: 45%;
+                        margin-top: 1rem;
+                        height: 120px;
+                        background: #000;
+                        position: relative;
+                        a{
+                                width: 60px;
+                                text-align: center;
+                                position: absolute;
+                                right: 1rem;
+                                top: 1rem;
+                                background: $mainOrg;
+                                border-radius: 30px;
+                        }
+                        span{
+                            display: block;
+                            padding-left: 1rem;
+                            &:nth-child(1){
+                                padding-top: 1rem;
+                                padding-bottom: 0.5rem;
+                            }
+                            &:nth-child(2){
+                                font-size: 23px;
+                                font-weight: bold;
+                                color: $mainOrg;
+                            }
+                            &:nth-child(3){
+                                color: #a4a8c4;
+                            }
+                        }
+                    }
+                    .btn{
+                        cursor: pointer;
+                        margin-top: 1rem;
+                        
+                    }
+
+                }    
+                         
+                .plan{
+                    padding-left: 1rem;
+                }  
+                .bill{
+                    padding-left: 2rem;
+                    font-size: 22px;
+                    font-weight: bold;
+                    position: relative;
+                    span{
+                        &:nth-child(2){
+                            position: absolute;
+                            right: 2rem;
+                        }
+                    }
+                }                              
             }
             .itemTitle{
                 padding-top: 1rem;
@@ -237,7 +311,27 @@
                 color: #c1c2e9;
                 font-size: 20px;
                 font-weight: bold;
+                position: relative;
+                .callPayDate{
+                    position: absolute;
+                    right: 1rem;
+                    color: #FFF;
+                }      
+                &.topBorder{
+                    &::before{
+                        content: '';
+                        display: inline-block;
+                        position: absolute;
+                        top: 0;
+                        width: 90%;
+                        height: 2px;
+                        left: 50%;
+                        transform: translate(-50%,0);
+                        background: #3d4971;
+                    }
+                }                             
             }
+
             .see{
                 position: absolute;
                 right: 2rem;
@@ -257,13 +351,13 @@
                         li{
                             position: relative;
                             width: 48%;
-                            background: #09153f;
+                            background: $darkBg;
                             margin-left: 5px;
                             margin-top: 1rem;
                             padding: 0.5rem 0;
                             &::before{
                                 position: absolute;
-                                left: 2rem;
+                                left: 1.8rem;
                             }
                             a{
                                 display: block;
@@ -330,65 +424,9 @@
                 }
             }
             .itemMsg{
-                .calldata{
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-around;
-                    padding-bottom: 1rem;
-                    li{
-                        width: 45%;
-                        margin-top: 1rem;
-                        height: 120px;
-                        background: #000;
-                        position: relative;
-                        a{
-                                width: 60px;
-                                text-align: center;
-                                position: absolute;
-                                right: 1rem;
-                                top: 1rem;
-                                background: rgb(255, 94, 0);
-                                border-radius: 30px;
-                        }
-                        span{
-                            display: block;
-                            padding-left: 1rem;
-                            &:nth-child(1){
-                                padding-top: 1rem;
-                                padding-bottom: 0.5rem;
-                            }
-                            &:nth-child(2){
-                                font-size: 23px;
-                                font-weight: bold;
-                                color: rgb(255, 94, 0);
-                            }
-                            &:nth-child(3){
-                                color: #a4a8c4;
-                            }
-                        }
-                    }
-                    .btn{
-                        cursor: pointer;
-                        margin-top: 1rem;
-                        
-                    }
 
-                }
-                .bill{
-                    padding-left: 2rem;
-                    font-size: 22px;
-                    font-weight: bold;
-                    position: relative;
-                    span{
-                        &:nth-child(2){
-                            position: absolute;
-                            right: 2rem;
-                        }
-                    }
-                }
-                .plan{
-                    padding-left: 2rem;
-                }
+
+
                 .device{
                     img{
                         margin-left: 1rem;
@@ -404,11 +442,7 @@
             .banner{
                 margin-top: 1rem;
             }
-            .callPayDate{
-                position: absolute;
-                right: 1rem;
-                color: #FFF;
-            }
+
             #home_dicount{
                 display: inline-block;
                 width: 100%;
@@ -449,7 +483,7 @@
                     position: relative;
 
                     &.active{
-                        color: rgb(255, 94, 0);
+                        color: $mainOrg;
                         span{
                             // border: 1px solid #F00;
                             position: relative;
@@ -462,7 +496,7 @@
                                 width: 90%;
                                 height: 2px;
                                 left: 5%;
-                                background: rgb(255, 94, 0);
+                                background: $mainOrg;
                             }                        
 
                         }
@@ -490,7 +524,7 @@
                 position: absolute;
                 top: 1rem;
                 right: 1rem;
-                color: rgb(255, 94, 0);
+                color: $mainOrg;
                 font-weight: bold;
             }
             .serviceBanner{
@@ -499,6 +533,254 @@
                 // border: 1px solid #F00;
                 width: 100%;
             }
+
+        }
+        &.discount{
+            .itemMsg{
+                span{
+                    font-size: 1.1rem;
+                    display: block;
+                    padding: 0 1rem;
+                }
+                .banner{
+                    position: relative;
+                    // border: 1px solid #F00;
+                    img{
+                        text-align: center;
+                        margin-left: 1rem;
+                        // position: absolute;
+                        // left: 50%;
+                        // transform: translate(-50%);
+                    }
+                }
+            }
+        }
+        &.setting{
+            .userSetting{
+                border: 1px solid #CCC;
+                background: #ffffff10;
+                border-radius: 7px;
+                position: relative;
+                min-height: 120px;
+                color: #FFF;
+                .userName{
+                    display: block;
+                    padding-top: 0.5rem;
+                    margin-left: 1rem;
+                }
+                .userPhone{
+                    padding-left: 1rem;
+                    padding-top: 0.5rem;
+                    display: block;
+                }
+                .userType{
+                    position: absolute;
+                    bottom: 1rem;
+                    padding-left: 1rem;
+                }
+
+            }
+            .settingIcon{
+                cursor: pointer;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+            .settingNav{
+                margin-top: 1rem;
+                background: #19254d;
+                display: flex;
+                justify-content: space-around;
+                li{
+                    width: 50%;
+                    color: #d5d9fe;
+                    padding: 1rem 0;
+                    text-align: center;
+                    cursor: pointer;
+                    position: relative;
+
+                    &.active{
+                        color: $mainOrg;
+                        span{
+                            // border: 1px solid #F00;
+                            position: relative;
+                            &::after{
+                                content: '';
+                                position: absolute;
+                                top: 125%;
+    
+                                display: inline-block;
+                                width: 90%;
+                                height: 2px;
+                                left: 5%;
+                                background: $mainOrg;
+                            }                        
+
+                        }
+                    }
+                }
+            }   
+            .itemMsg{
+                a{
+                    display: block;
+                }
+            }
+            .settingList{
+                padding-bottom: 1rem;
+                li{
+                    cursor: pointer;
+                    background: $listColor;
+                    width: 90%;
+                    margin-left: 1rem;
+                    position: relative;
+                    padding: 0.5rem 0;
+                    border-radius: 3px;
+                    // border: 1px solid #F00;
+                    overflow: hidden;
+                    span{
+                        &:nth-child(1){
+                            padding-left: 3rem;
+                            display: block;
+                            position: relative;
+                            font-weight: bold;
+                            color: $blockTxt;
+                            width: 100%;
+                            &::after{
+                                content: url(../img/setting/list/arrow.png);
+                                position: absolute;
+                                right: 0.5rem;
+                                top: 50%;
+                                transform: translateY(-45%);
+    
+                            }
+                        }
+                        &.orgBtn2{
+                            position: absolute;
+                            top: 50%;
+                            right: 1rem;
+                            transform: translateY(-50%);
+                            font-size: 0.8rem;
+                        }
+                    }
+                    img{
+                        left: 1rem;
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);                        
+                    }
+                    &::after{
+                        background: #252b41;
+                        // background: #FFF;
+                        display: inline-block;
+                        content: '';
+                        width: 90%;
+                        height: 10px;
+                        position: absolute;
+                        left: 50%;
+                        top: 95%;
+                        transform: translateX(-50%);
+                    }
+                    &:last-child{
+                        &::after{
+                            display: none;
+                        }
+                    }
+                    &.Collectionlimit{
+                        span{
+                            &:nth-child(1){
+                                margin-top: 0.5rem;
+                                transform: translate(0,-25%);
+                                padding: 0.3rem 0 0rem 3rem;
+                            }
+                        }
+                        img{
+                            top: 25%;
+                            transform: translate(0,-25%);
+                        }
+                        .limitVal{
+                            // border: 1px solid #F00;
+                            color: $mainOrg;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: 100px;
+                            height: 2rem;
+                            padding: 1rem;
+                            background: $listColor;
+                            &::after{
+                                content: url(../img/setting/list/arrow2.png);
+                                display: inline-block;
+                                position: absolute;
+                                right: 0.5rem;
+                                transform: translateY(-25%);
+                            }
+                        }
+                        .limitmsg{
+                            color: #FFF;
+                            padding-left: 1rem;
+                        }
+                    }                    
+                }
+                .boolBox{
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    height: 2rem;
+
+                    .bool,.txt{
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-weight: bold;
+                        right: 0;
+                        width: 80px;
+                    }
+                    .txt{
+                        color: #FFF;
+                    }
+
+                }
+            }
+            .TelecomBilling{
+                background: $listColor;
+                display: flex;
+                width: 90%;
+                margin: auto;
+                .circle{
+                    width: 25%;
+                    width: 80px;
+                    height: 80px;
+                    border: 6px solid $mainOrg;
+                    margin-left: 1rem;
+                    border-radius: 50%;
+                }
+                .cont{
+                    width: 75%;
+                    margin-left: 1rem;
+                    position: relative;
+                    span{
+                        display: block;
+                        &:nth-child(1){
+                            margin-top: 0.5rem;
+                            color: #FFF;
+                            font-weight: bold;
+                        }
+                        &:nth-child(2){
+                            color: $mainOrg;
+                        }
+                        &:nth-child(3){
+                            color: $blockTxt;
+                        }
+                    }
+                    .orgBtn2{
+                        position: absolute;
+                        top: 0.5rem;
+                        right: 1rem;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+
 
         }
     }

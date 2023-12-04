@@ -6,16 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>  
     <title>台灣大哥大TS_Demo</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
     <div id="app">
         <div class="version">
             <ul class="quickLink">
                 <span>快速連結</span>
-                <li @click="handLink" data-link="index">跳過登入會員</li>
+                <li @click="handLink" data-link="index">跳過登入帳密</li>
             </ul>
             <img class="AppIcon" src="./img/AppUI.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/01</span> </span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/04</span> </span>
         </div>
 
         <div class="navbar" v-if="NavIconBool">
@@ -33,7 +34,7 @@
         </div>
        
         <div class="container">
-            <main class="content"
+            <main class="content"  ref="scrollEl"
             :style="`background: url(${contentBg});`"
             >
             <section class="Login" v-if="NowRenderSection === 'login'">
@@ -91,7 +92,9 @@
                                     <span>剩餘上網</span>
                                     <span>119.3MB</span>
                                     <span>可用 200.0 MB</span>
-                                    <a target="_blank" href="https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php">加購</a>
+                                    <a target="_blank" href="https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php">
+                                        加購
+                                    </a>
                                 </li>
                                 <li v-show="calldataStatus === 'open'">
                                     <span>已撥通話</span>
@@ -187,28 +190,16 @@
                         >
                         <span>{{list.msg}}</span>
                         </li>
-                        <!-- <li class="active" data-service="et">
-                            <span>影音娛樂</span>
-                        </li>
-                        <li data-service="rt">
-                            <span>續約/升5G</span>
-                        </li>
-                        <li data-service="aq">
-                            <span>辦新門號</span>
-                        </li> -->
                     </div>
-                    <div class="block" v-for="list in serviceItemRender">
-                        <img class="iconImg" :src="`./img/service/${list.key}${list.num}.png`" alt="">
+                    <div class="block" 
+                    v-for="list in serviceItemRender"
+                    :key="list.key"
+                    >
+                        <img class="iconImg" :src="`./img/service/${list.key}.png`" alt="">
                         <div class="itemTitle appIcon">{{list.title}}</div>
                         <div class="itemMsg">{{list.msg}}</div>
                         <div class="itemPrice">{{list.price}}</div>
-                        <img class="serviceBanner" :src="`./img/service/banner_${list.key}${list.num}.png`" alt="">
-                        <!-- <img class="iconImg" src="./img/service/et1.png" alt="">
-                        <div class="itemTitle appIcon">Disney+</div>
-                        <div class="itemMsg">標準方案(原價270/月)</div>
-                        <div class="itemPrice">$270/月</div>
-                        <img class="serviceBanner" src="./img/service/banner_et1.png" alt=""> -->
-                        
+                        <img class="serviceBanner" :src="`./img/service/banner_${list.key}.png`" alt="">
                     </div>  
                     <div class="block nodata" v-if="serviceItemNodata">
                         <div class="msg">
@@ -223,10 +214,237 @@
 
                 </div>
                 <div class="ItemBox discount" v-show="NavIcon.data[2].act">
+                    <div class="block">
+                        <div class="itemTitle">手機裝置</div>
+                        <div class="itemMsg">
+                            <span>我變我們myfone online 開啟無限，迎星送現金，加入會員送200，還可享更多手機/家電及3C商品優惠。</span>
+                            <div class="banner">
+                                <img src="./img/discount/a1.png" alt="">
+                                <img src="./img/discount/a2.png" alt="">
+                            </div>
+                        </div>
+                        <div class="itemTitle">momo購物 優惠專區</div>
+                        <div class="itemMsg">
+                            <span>特談商品天天下殺，速食票券即買即用，年菜搶先購，你想要的都在momo購物網</span>
+                            <div class="banner"
+                                               
+                            >
+                                <img src="./img/discount/b1.png" alt="">
+                            </div>
+                        </div>                        
+                    </div>
                     <div class="block null"></div>
                 </div>
                 <div class="ItemBox setting" v-show="NavIcon.data[3].act">
-                    <div class="block null"></div>
+                    <div class="userSetting">
+                        <span class="userName">宋*雯</span>
+                        <span class="userPhone">09088***55</span>
+                        <span class="userType">月租型用戶</span>
+                        <span class="settingIcon" data-detail="會員資料設定">
+                            <img src="./img/setting/settingIcon.png" alt="">
+                        </span>
+                    </div>
+                    <div class="settingNav">
+                        <li :class="[{'active' : settingNavIs === '基本管理'}]" data-key="基本管理" @click="handsettingNav">
+                            <span>基本管理</span>
+                        </li>
+                        <li :class="[{'active' : settingNavIs === '消費服務'}]" data-key="消費服務" @click="handsettingNav">
+                            <span>消費服務</span>
+                        </li>
+                    </div>
+                    <div class="settingBox" v-if="settingNavIs === '基本管理'">
+                        <div class="block">
+                            <div class="itemTitle">合約方案</div>
+                            <div class="itemMsg">
+                                <a href="#">
+                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                <div class="plan">
+                                    <span>4G_無約單門號專案</span>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="block">
+                            <div class="itemTitle">
+                                <span class="infoIcon">門號用量</span>
+                                <span class="callPayDate">本期計算至 12/10</span>
+                            </div>
+                            <div class="itemMsg">
+                                <div class="calldata">
+                                    <li>
+                                        <span>剩餘上網</span>
+                                        <span>119.3MB</span>
+                                        <span>可用 200.0 MB</span>
+                                        <a target="_blank" href="https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php">加購</a>
+                                    </li>
+                                    <li v-show="calldataStatus === 'open'">
+                                        <span>已撥通話</span>
+                                        <span>5分</span>
+                                        <span>網內+網外+市話</span>
+                                    </li>
+                                    <li v-show="calldataStatus === 'close'">
+                                        <span>已撥網內</span>
+                                        <span>3分</span>
+                                        <span>前3分鐘免費/通</span>
+                                    </li>
+                                    <li v-show="calldataStatus === 'close'">
+                                        <span>已撥網外</span>
+                                        <span>0分</span>
+                                        <span>送10分鐘/月</span>
+                                    </li>
+                                    <li v-show="calldataStatus === 'close'">
+                                        <span>已撥市話</span>
+                                        <span>2分</span>
+                                        <span>無優惠</span>
+                                    </li>
+                                    <div class="btn" data-status="open" v-show="calldataStatus === 'open'"
+                                    @click="handCalldataStatus">
+                                        <img src="./img/home/baropen.png"  style="transform: rotate(0deg);">
+                                    </div>
+                                    <div class="btn" data-status="close" v-show="calldataStatus === 'close'"
+                                    @click="handCalldataStatus">
+                                        <img src="./img/home/baropen.png"  style="transform: rotate(180deg);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>         
+                        <div class="block">
+                            <div class="itemTitle">服務申請與設定</div>
+                            <ul class="settingList">
+                                <li 
+                                v-for="list in serviceApplyRender"
+                                :key="list.key"
+                                :data-detail="list.msg"
+                                >
+                                <span>{{list.msg}}</span>
+                                <img :src="list.url" alt="">
+                            </li>
+                            </ul>
+                        </div> 
+                        <div class="block">
+                            <div class="itemTitle">帳單</div>
+                            <div class="itemMsg">
+                                <a href="#">
+                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                <div class="bill">
+                                    <span>應繳 $0</span>
+                                    <span>你已完成繳款</span>
+                                </div>
+                                </a>
+                            </div>
+                            <div class="itemTitle topBorder">基本設定</div>
+                            <ul class="settingList">
+                                <li 
+                                v-for="list in generalSettingRender"
+                                :key="list.key"
+                                :data-detail="list.msg"
+                                >
+                                <span>{{list.msg}}</span>
+                                <img :src="list.url" alt="">
+                            </li>
+                            </ul>                      
+                        </div>    
+                        <div class="block">
+                            <div class="itemTitle">客戶服務</div>
+                            <ul class="settingList">
+                                <li 
+                                v-for="list in customServiceRender"
+                                :key="list.key"
+                                :data-detail="list.msg"
+                                >
+                                <span>{{list.msg}}</span>
+                                <img :src="list.url" alt="">
+                            </li>
+                            </ul>
+                        </div> 
+                        <div class="block null"></div>
+                    </div>
+                    <div class="settingBox" v-if="settingNavIs === '消費服務'">
+                        <div class="block">
+                            <div class="itemTitle">你的優惠</div>
+                            <ul class="settingList">
+                                <li class="coupon">
+                                    <a href="#">
+                                        <span>優惠券</span>
+                                        <img src="./img/setting/list/yourdiscount.png" alt="">
+                                        <span class="orgBtn2">去使用</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="block">
+                            <div class="itemTitle">電信帳單代收</div>
+                            
+                            <div class="itemMsg">
+                                <a href="#">
+                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                </a>
+                                <div class="TelecomBilling">
+                                    <div class="circle"></div>
+                                    <div class="cont">
+                                        <span>可用餘額</span>
+                                        <span>$500</span>
+                                        <span>代收與溢繳總額$500</span>
+                                        <a href="#">
+                                            <span class="orgBtn2">線上溢繳</span>
+                                        </a>
+                                    </div>
+                                </div>                                
+                            </div>    
+                            <div class="itemTitle topBorder">代收額度管理</div>                        
+                            <ul class="settingList">
+                                <li class="Collectionlimit">
+                                    <span>目前額度</span>
+                                    <img src="./img/setting/list/Collectionlimit.png" alt="123">
+                                    <span class="limitVal">$500</span>
+                                    <span class="limitmsg">你最高可設定至$500</span>
+                                </li>
+                            </ul>
+                            <div class="itemTitle">服務管理</div>                        
+                            <ul class="settingList">
+                                <li 
+                                v-for="list in serviceManagementRender"
+                                :key="list.key"
+                                :data-detail="list.msg"
+                                >
+                                <span>{{list.msg}}</span>
+                                <img :src="list.url" alt="">
+
+                                <ul class="boolBox"  v-show="list.msg === 'Google Play'">
+                                    <bool class="txt" v-show="list.bool">已開啟</bool>
+                                    <bool class="txt" v-show="!list.bool">已關閉</bool>
+                                </ul>
+                                <ul class="boolBox"  v-show="list.msg === '小額付款'">
+                                    <bool class="bool" v-show="list.bool">
+                                        <img src="./img/setting/bool.png" alt="">
+                                    </bool>
+                                    <bool class="bool" v-show="!list.bool">
+                                        <img src="./img/setting/bool.png" alt="">
+                                    </bool>
+                                </ul>
+                                
+                            </li>
+                            </ul>
+                        </div>
+                        <div class="block">
+                            <div class="itemTitle" style="cursor: pointer;" data-nav="service"   @click="handNavIcon">加值服務</div>
+                            <a href="#">
+                                <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                            </a>                            
+                        </div>
+                        <div class="block">
+                            <div class="itemTitle">訂單</div>
+                            <ul class="settingList">
+                                <li>
+                                    <span>紀錄查詢</span>
+                                    <img src="./img/setting/list/billRecord.png" alt="123">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="block null"></div>
+                    </div>
+                                              
+                    
                 </div>
             </section>
 
@@ -249,5 +467,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="./js/vue.js"></script>
     <script src="./js/main.js"></script>
+ 
 </body>
 </html>

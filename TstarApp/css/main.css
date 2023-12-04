@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
+  font-family: Microsoft JhengHei;
 }
 
 .version {
@@ -50,7 +51,6 @@
   width: 200px;
   padding: 0.5rem;
   border-radius: 20px;
-  border: navajowhite;
   color: #FFF;
 }
 .orgBtn a, .whiteBtn a {
@@ -58,7 +58,17 @@
   color: #FFF;
 }
 
-.orgBtn {
+.orgBtn2 {
+  padding: 0.2rem 0.4rem;
+  border-radius: 15px;
+  color: #FFF;
+}
+.orgBtn2 a {
+  text-decoration: none;
+  color: #FFF;
+}
+
+.orgBtn, .orgBtn2 {
   background: rgb(255, 94, 0);
 }
 
@@ -83,7 +93,6 @@
   margin: auto;
   height: 790px;
   margin-top: 65px;
-  overflow: hidden;
   overflow-y: scroll;
   position: relative;
   padding-top: 4rem;
@@ -209,6 +218,61 @@
   color: #FFF;
   text-decoration: none;
 }
+.home .ItemBox .block .itemMsg .calldata {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-bottom: 1rem;
+}
+.home .ItemBox .block .itemMsg .calldata li {
+  width: 45%;
+  margin-top: 1rem;
+  height: 120px;
+  background: #000;
+  position: relative;
+}
+.home .ItemBox .block .itemMsg .calldata li a {
+  width: 60px;
+  text-align: center;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: rgb(255, 94, 0);
+  border-radius: 30px;
+}
+.home .ItemBox .block .itemMsg .calldata li span {
+  display: block;
+  padding-left: 1rem;
+}
+.home .ItemBox .block .itemMsg .calldata li span:nth-child(1) {
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+.home .ItemBox .block .itemMsg .calldata li span:nth-child(2) {
+  font-size: 23px;
+  font-weight: bold;
+  color: rgb(255, 94, 0);
+}
+.home .ItemBox .block .itemMsg .calldata li span:nth-child(3) {
+  color: #a4a8c4;
+}
+.home .ItemBox .block .itemMsg .calldata .btn {
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.home .ItemBox .block .itemMsg .plan {
+  padding-left: 1rem;
+}
+.home .ItemBox .block .itemMsg .bill {
+  padding-left: 2rem;
+  font-size: 22px;
+  font-weight: bold;
+  position: relative;
+}
+.home .ItemBox .block .itemMsg .bill span:nth-child(2) {
+  position: absolute;
+  right: 2rem;
+}
 .home .ItemBox .block .itemTitle {
   padding-top: 1rem;
   padding-left: 1rem;
@@ -216,6 +280,23 @@
   color: #c1c2e9;
   font-size: 20px;
   font-weight: bold;
+  position: relative;
+}
+.home .ItemBox .block .itemTitle .callPayDate {
+  position: absolute;
+  right: 1rem;
+  color: #FFF;
+}
+.home .ItemBox .block .itemTitle.topBorder::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 90%;
+  height: 2px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: #3d4971;
 }
 .home .ItemBox .block .see {
   position: absolute;
@@ -240,7 +321,7 @@
 }
 .home .ItemBox.home .block.otherLink ul li::before {
   position: absolute;
-  left: 2rem;
+  left: 1.8rem;
 }
 .home .ItemBox.home .block.otherLink ul li a {
   display: block;
@@ -284,61 +365,6 @@
   left: 5px;
   content: url("../img/home/infoIcon.png");
 }
-.home .ItemBox.home .itemMsg .calldata {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding-bottom: 1rem;
-}
-.home .ItemBox.home .itemMsg .calldata li {
-  width: 45%;
-  margin-top: 1rem;
-  height: 120px;
-  background: #000;
-  position: relative;
-}
-.home .ItemBox.home .itemMsg .calldata li a {
-  width: 60px;
-  text-align: center;
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  background: rgb(255, 94, 0);
-  border-radius: 30px;
-}
-.home .ItemBox.home .itemMsg .calldata li span {
-  display: block;
-  padding-left: 1rem;
-}
-.home .ItemBox.home .itemMsg .calldata li span:nth-child(1) {
-  padding-top: 1rem;
-  padding-bottom: 0.5rem;
-}
-.home .ItemBox.home .itemMsg .calldata li span:nth-child(2) {
-  font-size: 23px;
-  font-weight: bold;
-  color: rgb(255, 94, 0);
-}
-.home .ItemBox.home .itemMsg .calldata li span:nth-child(3) {
-  color: #a4a8c4;
-}
-.home .ItemBox.home .itemMsg .calldata .btn {
-  cursor: pointer;
-  margin-top: 1rem;
-}
-.home .ItemBox.home .itemMsg .bill {
-  padding-left: 2rem;
-  font-size: 22px;
-  font-weight: bold;
-  position: relative;
-}
-.home .ItemBox.home .itemMsg .bill span:nth-child(2) {
-  position: absolute;
-  right: 2rem;
-}
-.home .ItemBox.home .itemMsg .plan {
-  padding-left: 2rem;
-}
 .home .ItemBox.home .itemMsg .device img {
   margin-left: 1rem;
 }
@@ -349,11 +375,6 @@
 }
 .home .ItemBox.home .banner {
   margin-top: 1rem;
-}
-.home .ItemBox.home .callPayDate {
-  position: absolute;
-  right: 1rem;
-  color: #FFF;
 }
 .home .ItemBox.home #home_dicount {
   display: inline-block;
@@ -430,4 +451,219 @@
   position: relative;
   top: -1px;
   width: 100%;
+}
+.home .ItemBox.discount .itemMsg span {
+  font-size: 1.1rem;
+  display: block;
+  padding: 0 1rem;
+}
+.home .ItemBox.discount .itemMsg .banner {
+  position: relative;
+}
+.home .ItemBox.discount .itemMsg .banner img {
+  text-align: center;
+  margin-left: 1rem;
+}
+.home .ItemBox.setting .userSetting {
+  border: 1px solid #CCC;
+  background: rgba(255, 255, 255, 0.062745098);
+  border-radius: 7px;
+  position: relative;
+  min-height: 120px;
+  color: #FFF;
+}
+.home .ItemBox.setting .userSetting .userName {
+  display: block;
+  padding-top: 0.5rem;
+  margin-left: 1rem;
+}
+.home .ItemBox.setting .userSetting .userPhone {
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  display: block;
+}
+.home .ItemBox.setting .userSetting .userType {
+  position: absolute;
+  bottom: 1rem;
+  padding-left: 1rem;
+}
+.home .ItemBox.setting .settingIcon {
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+.home .ItemBox.setting .settingNav {
+  margin-top: 1rem;
+  background: #19254d;
+  display: flex;
+  justify-content: space-around;
+}
+.home .ItemBox.setting .settingNav li {
+  width: 50%;
+  color: #d5d9fe;
+  padding: 1rem 0;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+.home .ItemBox.setting .settingNav li.active {
+  color: rgb(255, 94, 0);
+}
+.home .ItemBox.setting .settingNav li.active span {
+  position: relative;
+}
+.home .ItemBox.setting .settingNav li.active span::after {
+  content: "";
+  position: absolute;
+  top: 125%;
+  display: inline-block;
+  width: 90%;
+  height: 2px;
+  left: 5%;
+  background: rgb(255, 94, 0);
+}
+.home .ItemBox.setting .itemMsg a {
+  display: block;
+}
+.home .ItemBox.setting .settingList {
+  padding-bottom: 1rem;
+}
+.home .ItemBox.setting .settingList li {
+  cursor: pointer;
+  background: #050b21;
+  width: 90%;
+  margin-left: 1rem;
+  position: relative;
+  padding: 0.5rem 0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.home .ItemBox.setting .settingList li span:nth-child(1) {
+  padding-left: 3rem;
+  display: block;
+  position: relative;
+  font-weight: bold;
+  color: #d5d9fe;
+  width: 100%;
+}
+.home .ItemBox.setting .settingList li span:nth-child(1)::after {
+  content: url(../img/setting/list/arrow.png);
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-45%);
+}
+.home .ItemBox.setting .settingList li span.orgBtn2 {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+}
+.home .ItemBox.setting .settingList li img {
+  left: 1rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.home .ItemBox.setting .settingList li::after {
+  background: #252b41;
+  display: inline-block;
+  content: "";
+  width: 90%;
+  height: 10px;
+  position: absolute;
+  left: 50%;
+  top: 95%;
+  transform: translateX(-50%);
+}
+.home .ItemBox.setting .settingList li:last-child::after {
+  display: none;
+}
+.home .ItemBox.setting .settingList li.Collectionlimit span:nth-child(1) {
+  margin-top: 0.5rem;
+  transform: translate(0, -25%);
+  padding: 0.3rem 0 0rem 3rem;
+}
+.home .ItemBox.setting .settingList li.Collectionlimit img {
+  top: 25%;
+  transform: translate(0, -25%);
+}
+.home .ItemBox.setting .settingList li.Collectionlimit .limitVal {
+  color: rgb(255, 94, 0);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 2rem;
+  padding: 1rem;
+  background: #050b21;
+}
+.home .ItemBox.setting .settingList li.Collectionlimit .limitVal::after {
+  content: url(../img/setting/list/arrow2.png);
+  display: inline-block;
+  position: absolute;
+  right: 0.5rem;
+  transform: translateY(-25%);
+}
+.home .ItemBox.setting .settingList li.Collectionlimit .limitmsg {
+  color: #FFF;
+  padding-left: 1rem;
+}
+.home .ItemBox.setting .settingList .boolBox {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 2rem;
+}
+.home .ItemBox.setting .settingList .boolBox .bool, .home .ItemBox.setting .settingList .boolBox .txt {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  right: 0;
+  width: 80px;
+}
+.home .ItemBox.setting .settingList .boolBox .txt {
+  color: #FFF;
+}
+.home .ItemBox.setting .TelecomBilling {
+  background: #050b21;
+  display: flex;
+  width: 90%;
+  margin: auto;
+}
+.home .ItemBox.setting .TelecomBilling .circle {
+  width: 25%;
+  width: 80px;
+  height: 80px;
+  border: 6px solid rgb(255, 94, 0);
+  margin-left: 1rem;
+  border-radius: 50%;
+}
+.home .ItemBox.setting .TelecomBilling .cont {
+  width: 75%;
+  margin-left: 1rem;
+  position: relative;
+}
+.home .ItemBox.setting .TelecomBilling .cont span {
+  display: block;
+}
+.home .ItemBox.setting .TelecomBilling .cont span:nth-child(1) {
+  margin-top: 0.5rem;
+  color: #FFF;
+  font-weight: bold;
+}
+.home .ItemBox.setting .TelecomBilling .cont span:nth-child(2) {
+  color: rgb(255, 94, 0);
+}
+.home .ItemBox.setting .TelecomBilling .cont span:nth-child(3) {
+  color: #d5d9fe;
+}
+.home .ItemBox.setting .TelecomBilling .cont .orgBtn2 {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 0.8rem;
 }/*# sourceMappingURL=main.css.map */
