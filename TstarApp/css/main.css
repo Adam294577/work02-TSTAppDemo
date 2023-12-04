@@ -365,6 +365,12 @@
   left: 5px;
   content: url("../img/home/infoIcon.png");
 }
+.home .ItemBox.home .itemMsg .oldcustom {
+  display: inline-block;
+  width: 100%;
+  padding: 0 1rem;
+  padding-bottom: 0.5rem;
+}
 .home .ItemBox.home .itemMsg .device img {
   margin-left: 1rem;
 }
@@ -375,12 +381,6 @@
 }
 .home .ItemBox.home .banner {
   margin-top: 1rem;
-}
-.home .ItemBox.home #home_dicount {
-  display: inline-block;
-  width: 100%;
-  padding: 0 1rem;
-  padding-bottom: 1rem;
 }
 .home .ItemBox.service .block.nodata {
   background: transparent;

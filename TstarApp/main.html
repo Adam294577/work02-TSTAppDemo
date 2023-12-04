@@ -13,13 +13,13 @@
         <div class="version">
             <ul class="quickLink">
                 <span>快速連結</span>
-                <li @click="handLink" data-link="index">跳過登入帳密</li>
+                <li @click="SkiploginSection" data-link="index">跳過登入帳密</li>
             </ul>
             <img class="AppIcon" src="./img/AppUI.png" alt="">
             <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/04</span> </span>
         </div>
 
-        <div class="navbar" v-if="NavIconBool">
+        <div class="navbar" v-if="NowRenderSection === 'home'">
             <ul 
             :style="`background: url(${navIconImg});`">
 
@@ -46,7 +46,7 @@
                     </button>
                 </div>
                 <div class="BtnBox" v-if="LoginStep === 1">
-                    <button @click="handLink" data-link="index" class="whiteBtn">下一步</button>
+                    <button @click="SkiploginSection" data-link="index" class="whiteBtn">下一步</button>
                 </div>
             </section>
             <section class="home" v-if="NowRenderSection === 'home'">
@@ -69,16 +69,12 @@
                     <div class="banner">
                         <img src="./img/home/banner.png" alt="banner">
                     </div>
-                    <div class="block">
+                    <div class="block" data-detail="老客戶專屬優惠" @click="handdetailSection" style="cursor: pointer;">
                         <div class="itemTitle">
                             <span class="ringIcon">老客戶專屬優惠</span>
                         </div>
                         <div class="itemMsg">
-                            <a href="
-                            https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst5457E361347647AA981D1B38621F2DB5SF4Kk&ru=https%3A%2F%2Fshop.tstartel.com%2Fpromo_market%2F188sptd_23%2Findex.html
-                            " target="_blank" id="home_dicount">
-                                <span>超低價 ! 4G吃到飽月租只要188(網速21Mbps)，每月現省$311(別家499起)!</span>
-                            </a>
+                                <span class="oldcustom">超低價 ! 4G吃到飽月租只要188(網速21Mbps)，每月現省$311(別家499起)!</span>
                         </div>
                     </div>
                     <div class="block">
@@ -92,9 +88,7 @@
                                     <span>剩餘上網</span>
                                     <span>119.3MB</span>
                                     <span>可用 200.0 MB</span>
-                                    <a target="_blank" href="https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php">
-                                        加購
-                                    </a>
+                                    <a data-detail="門號用量加購" @click="handdetailSection" href="#">加購</a>
                                 </li>
                                 <li v-show="calldataStatus === 'open'">
                                     <span>已撥通話</span>
@@ -140,7 +134,7 @@
                         </div>
                     </div>
                     <div class="block">
-                        <div class="itemTitle">合約方案</div>
+                        <div class="itemTitle" style="cursor: pointer;" data-detail="合約方案" @click="handdetailSection">合約方案</div>
                         <div class="itemMsg">
                             <a href="#">
                                 <div class="see"><img src="./img/home/block_see.png" alt=""></div>
@@ -194,6 +188,8 @@
                     <div class="block" 
                     v-for="list in serviceItemRender"
                     :key="list.key"
+                    :data-detail="list.key"
+                    @click="handdetailSection"
                     >
                         <img class="iconImg" :src="`./img/service/${list.key}.png`" alt="">
                         <div class="itemTitle appIcon">{{list.title}}</div>
@@ -215,21 +211,19 @@
                 </div>
                 <div class="ItemBox discount" v-show="NavIcon.data[2].act">
                     <div class="block">
-                        <div class="itemTitle">手機裝置</div>
+                        <div class="itemTitle">APP用戶獨享領現金</div>
                         <div class="itemMsg">
                             <span>我變我們myfone online 開啟無限，迎星送現金，加入會員送200，還可享更多手機/家電及3C商品優惠。</span>
                             <div class="banner">
-                                <img src="./img/discount/a1.png" alt="">
-                                <img src="./img/discount/a2.png" alt="">
+                                <img @click="handdetailSection" data-detail="5G台灣隊迎星" src="./img/discount/a1.png" alt="">
+                                <img @click="handdetailSection" data-detail="myfone萬元禮券" src="./img/discount/a2.png" alt="">
                             </div>
                         </div>
                         <div class="itemTitle">momo購物 優惠專區</div>
                         <div class="itemMsg">
                             <span>特談商品天天下殺，速食票券即買即用，年菜搶先購，你想要的都在momo購物網</span>
-                            <div class="banner"
-                                               
-                            >
-                                <img src="./img/discount/b1.png" alt="">
+                            <div class="banner">
+                                <img @click="handdetailSection" data-detail="MOMO_麥當勞55折起" src="./img/discount/b1.png" alt="">
                             </div>
                         </div>                        
                     </div>
@@ -254,7 +248,7 @@
                     </div>
                     <div class="settingBox" v-if="settingNavIs === '基本管理'">
                         <div class="block">
-                            <div class="itemTitle">合約方案</div>
+                            <div class="itemTitle" style="cursor: pointer;">合約方案</div>
                             <div class="itemMsg">
                                 <a href="#">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
@@ -275,7 +269,7 @@
                                         <span>剩餘上網</span>
                                         <span>119.3MB</span>
                                         <span>可用 200.0 MB</span>
-                                        <a target="_blank" href="https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php">加購</a>
+                                        <a data-detail="門號用量加購" @click="handdetailSection" href="#">加購</a>
                                     </li>
                                     <li v-show="calldataStatus === 'open'">
                                         <span>已撥通話</span>
@@ -315,6 +309,7 @@
                                 v-for="list in serviceApplyRender"
                                 :key="list.key"
                                 :data-detail="list.msg"
+                                @click="handdetailSection"
                                 >
                                 <span>{{list.msg}}</span>
                                 <img :src="list.url" alt="">
@@ -338,6 +333,7 @@
                                 v-for="list in generalSettingRender"
                                 :key="list.key"
                                 :data-detail="list.msg"
+                                @click="handdetailSection"
                                 >
                                 <span>{{list.msg}}</span>
                                 <img :src="list.url" alt="">
@@ -351,6 +347,7 @@
                                 v-for="list in customServiceRender"
                                 :key="list.key"
                                 :data-detail="list.msg"
+                                @click="handdetailSection"
                                 >
                                 <span>{{list.msg}}</span>
                                 <img :src="list.url" alt="">
@@ -360,7 +357,7 @@
                         <div class="block null"></div>
                     </div>
                     <div class="settingBox" v-if="settingNavIs === '消費服務'">
-                        <div class="block">
+                        <div class="block" data-detail="優惠券" @click="handdetailSection">
                             <div class="itemTitle">你的優惠</div>
                             <ul class="settingList">
                                 <li class="coupon">
@@ -385,7 +382,7 @@
                                         <span>可用餘額</span>
                                         <span>$500</span>
                                         <span>代收與溢繳總額$500</span>
-                                        <a href="#">
+                                        <a href="#" data-detail="線上溢繳" @click="handdetailSection">
                                             <span class="orgBtn2">線上溢繳</span>
                                         </a>
                                     </div>
@@ -406,6 +403,7 @@
                                 v-for="list in serviceManagementRender"
                                 :key="list.key"
                                 :data-detail="list.msg"
+                                @click="handdetailSection"
                                 >
                                 <span>{{list.msg}}</span>
                                 <img :src="list.url" alt="">
@@ -435,8 +433,8 @@
                         <div class="block">
                             <div class="itemTitle">訂單</div>
                             <ul class="settingList">
-                                <li>
-                                    <span>紀錄查詢</span>
+                                <li @click="handdetailSection" data-detail="記錄查詢">
+                                    <span>記錄查詢</span>
                                     <img src="./img/setting/list/billRecord.png" alt="123">
                                 </li>
                             </ul>
@@ -448,7 +446,7 @@
                 </div>
             </section>
 
-            <section class="detail">
+            <section class="detail" v-if="NowRenderSection === 'detail'">
 
             </section>
 

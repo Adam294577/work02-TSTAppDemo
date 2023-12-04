@@ -5,16 +5,16 @@ window.onload = () =>{
     const App = {
 
         setup(){
-            // link
+        // loginSection
             const NowRenderSection = ref('login')
-            const handLink = (el)=>{
+            const SkiploginSection = (el)=>{
                 let key = el.currentTarget.dataset.link
                 if(key === 'index'){
                     contentBg.value = "./img/ContBg/index.png"
                     NowRenderSection.value ='home'
-                    NavIconBool.value = true
                 }
             }
+        // homeSection
             // scrollEl
             const scrollEl = ref(null)
             
@@ -40,7 +40,6 @@ window.onload = () =>{
             ]})
 
 
-            const NavIconBool = ref(false)
             const navIconImg = ref('./img/navIcon/01.png')
             const handNavIcon = (el) =>{
                 let key = el.currentTarget.dataset.nav
@@ -139,7 +138,6 @@ window.onload = () =>{
                 {idx:1 ,type: 'generalSetting',msg:'信用卡自動轉帳代繳設定'},
                 {idx:2 ,type: 'generalSetting',msg:'電子帳單設定'},
                 {idx:3 ,type: 'generalSetting',msg:'電子發票與載具設定'},
-                {idx:3 ,type: 'generalSetting',msg:'電子發票與載具設定'},
                 {idx:1 ,type: 'customService',msg:'聯絡客服'},
                 {idx:2 ,type: 'customService',msg:'案件查詢'},
                 {idx:3 ,type: 'customService',msg:'手機維護保固'},
@@ -200,11 +198,59 @@ window.onload = () =>{
                 return data
 
             })
+        // detailSection
+            const detailHeader = ref('')
+            const detailIsOuterLink = reactive({data:[
+                {txt:'',key:'',         url:''},
+                {txt:'',key:'記錄查詢',         url:'https://emall.tstarcs.taiwanmobile.com/eMall/order/search?t=1701619200045'},
+                {txt:'',key:'線上溢繳',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/over-pay-auth_s.php?t=1701619200045'},
+                {txt:'',key:'優惠券',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/Dashboard_coupon.php'},
+                {txt:'',key:'網內外門號查詢',         url:'https://www.taiwanmobile.com/cs/queryTWMPhoneNbr/enterPage.htm?t=1701619200045'},
+                {txt:'',key:'手機維護保固',         url:'https://www.taiwanmobile.com/cs/public/trusIndex.action?t=1701619200045'},
+                {txt:'',key:'案件查詢',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/caseSearch_s.php?t=1701619200045'},
+                {txt:'',key:'聯絡客服',         url:'https://littlemy.taiwanmobile.com/?eservice=TSTAPP&TA=null&M=null'},
+                {txt:'',key:'電子發票與載具設定',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/electronicInvoice.php'},
+                {txt:'',key:'信用卡自動轉帳代繳設定',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=tUnX%7EpxcjWbXH.--TyPArmQ.qSyMjnGwcGn%3D&landing_uri=https://ow.tstarcs.taiwanmobile.com/TWM/credit-card-direct-debit.php?t=1701619200045'},
+                {txt:'',key:'國際漫遊',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/roaming_apply.php?t=1701619200045'},
+                {txt:'',key:'門號用量加購',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php'},
+                {txt:'',key:'MOMO_麥當勞55折起',         url:'https://momo.dm/mmjNvj'},
+                {txt:'',       key:'老客戶專屬優惠',url:'https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst5457E361347647AA981D1B38621F2DB5SF4Kk&ru=https%3A%2F%2Fshop.tstartel.com%2Fpromo_market%2F188sptd_23%2Findex.html'},
+                {txt:'disney+',key:'et1',         url:'https://disneyplus.taiwanmobile.com/'},
+                {txt:'來電答鈴',key:'et4',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=%2BPu-MXCvyBsqsZ-bmeWYiFzabH_N%7EnBT.BF%3D&landing_uri=http://rbt.tstartel.com/web/web/index.jsp'},
+                {txt:'',key:'5G台灣隊迎星',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
+                {txt:'',key:'myfone萬元禮券',         url:'https://www.myfone.com.tw/mbuy/index.php?action=myfone-sale&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_myfone_sale2312&utm_term=tstarfriends'},
+            ]})
+            const handdetailSection = (el) =>{
+                let key = el.currentTarget.dataset.detail
+                console.log('detail:',key);
+                detailIsOuterLink.data.forEach(item=>{
+                    if(item.key === key){
+                        window.open(item.url, '_blank', 'height=1200, width=500');
+                    }
+                })
+                if( key === 'login'){
+                    NowRenderSection.value = 'login'
+                    contentBg.value = './img/ContBg/UserlogIn.png'
+                    return
+                }
+                if(key === 'home'){
+                    NowRenderSection.value = 'home'
+                    contentBg.value = './img/ContBg/index.png'
+                    return
+                }
+                if(key ==='合約方案'){
+                    NowRenderSection.value = 'detail'
+                    contentBg.value = './img/ContBg/black.png'
+                }
+                
+            }
+
+            
             
             return{
                 // link
                 NowRenderSection,
-                handLink,
+                SkiploginSection,
                 contentBg,
                 // scrollEl
                 scrollEl,
@@ -214,7 +260,6 @@ window.onload = () =>{
                 // 導覽列   
                 navIconImg,                 
                 NavIcon,
-                NavIconBool,
                 handNavIcon, 
                 // 首頁- calldata  
                 handCalldataStatus,
@@ -231,6 +276,8 @@ window.onload = () =>{
                 generalSettingRender,
                 customServiceRender,
                 serviceManagementRender,
+                // detail
+                handdetailSection,
 
             }   
             

@@ -424,9 +424,12 @@ $listColor: #050b21;
                 }
             }
             .itemMsg{
-
-
-
+                .oldcustom{
+                    display: inline-block;
+                    width: 100%;
+                    padding: 0 1rem;
+                    padding-bottom: 0.5rem;
+                }
                 .device{
                     img{
                         margin-left: 1rem;
@@ -441,13 +444,6 @@ $listColor: #050b21;
             }
             .banner{
                 margin-top: 1rem;
-            }
-
-            #home_dicount{
-                display: inline-block;
-                width: 100%;
-                padding: 0 1rem;
-                padding-bottom: 1rem;
             }
         }
         &.service{
