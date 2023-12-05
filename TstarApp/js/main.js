@@ -5,13 +5,61 @@ window.onload = () =>{
     const App = {
 
         setup(){
+        //  UserData
+        const DemoUserData = reactive({
+        InfoData:[{
+            name:'宋卉雯',phoneNum:'0908868755',password:'amanda123'},
+        ],
+        contractData:[{
+            key:'4G_無約單門號專案',
+            summaryMsg:['同4G牌告資費(降速之行動上網不計費)','*此專案優惠內容為終身優惠，惟終'],
+            detailMsg:['同4G牌告資費(降速之行動上網不計費)','*此專案優惠內容為終身優惠，惟終止契約、降轉資費或異動專案時，專案優惠內容即終止'],
+            deadline:{msg:'2015/02/25 ~ 2015/02/25'}
+        }],
+        PhoneStatusData:[
+
+        ]})
+        // quickLink
+        const quickLinkData = reactive({data:[
+            {key:'login',link:['登入狀態',]},
+            {key:'index_home',link:['帳單',"手機裝置"]},
+            {key:'index_service',link:['',]},
+            {key:'index_discount',link:['',]},
+            {key:'index_setting',link:['帳單',]},
+            {key:'none',link:['']}
+        ]})
+        const quickLinkRender = computed(()=>{
+            let key = NowRenderSection.value
+            if(key === 'index'){
+                NavIcon.data.forEach(item=>{
+                    if(item.act){
+                        key = `index_${item.key}`
+                    }
+                })
+            }
+            if(key === 'detail'){
+                key ='none'
+            }            
+            let result = []
+            result = quickLinkData.data.filter(item=>{
+                if(item.key === key) return item
+            })
+
+            
+            
+            console.log('最後的key:',key);
+            console.log('要顯示的Link資料:',result[0].link);
+            return result[0].link
+
+            
+        })
         // loginSection
             const NowRenderSection = ref('login')
             const SkiploginSection = (el)=>{
                 let key = el.currentTarget.dataset.link
                 if(key === 'index'){
                     contentBg.value = "./img/ContBg/index.png"
-                    NowRenderSection.value ='home'
+                    NowRenderSection.value ='index'
                 }
             }
         // homeSection
@@ -83,6 +131,18 @@ window.onload = () =>{
                     calldataStatus.value = 'open'
                 }
             }
+            // 首頁or設定 - 帳單
+            const BillStatus = ref("有餘額")
+            const handBillStatus = (el) =>{
+                const key = el.currentTarget.dataset.key 
+                if(key === '有餘額'){
+                    BillStatus.value = '有餘額'
+                }
+                if(key === '無餘額'){
+                    BillStatus.value = '無餘額'
+                }
+            }
+            
             // service - Nav
             const serviceNav = reactive({data:[
                 {key:"et" ,msg:"影音娛樂" , act: true},
@@ -198,57 +258,101 @@ window.onload = () =>{
                 return data
 
             })
-        // detailSection
-            const detailHeader = ref('')
-            const detailIsOuterLink = reactive({data:[
-                {txt:'',key:'',         url:''},
-                {txt:'',key:'記錄查詢',         url:'https://emall.tstarcs.taiwanmobile.com/eMall/order/search?t=1701619200045'},
-                {txt:'',key:'線上溢繳',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/over-pay-auth_s.php?t=1701619200045'},
-                {txt:'',key:'優惠券',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/Dashboard_coupon.php'},
-                {txt:'',key:'網內外門號查詢',         url:'https://www.taiwanmobile.com/cs/queryTWMPhoneNbr/enterPage.htm?t=1701619200045'},
-                {txt:'',key:'手機維護保固',         url:'https://www.taiwanmobile.com/cs/public/trusIndex.action?t=1701619200045'},
-                {txt:'',key:'案件查詢',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/caseSearch_s.php?t=1701619200045'},
-                {txt:'',key:'聯絡客服',         url:'https://littlemy.taiwanmobile.com/?eservice=TSTAPP&TA=null&M=null'},
-                {txt:'',key:'電子發票與載具設定',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/electronicInvoice.php'},
-                {txt:'',key:'信用卡自動轉帳代繳設定',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=tUnX%7EpxcjWbXH.--TyPArmQ.qSyMjnGwcGn%3D&landing_uri=https://ow.tstarcs.taiwanmobile.com/TWM/credit-card-direct-debit.php?t=1701619200045'},
-                {txt:'',key:'國際漫遊',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/roaming_apply.php?t=1701619200045'},
-                {txt:'',key:'門號用量加購',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php'},
-                {txt:'',key:'MOMO_麥當勞55折起',         url:'https://momo.dm/mmjNvj'},
-                {txt:'',       key:'老客戶專屬優惠',url:'https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst5457E361347647AA981D1B38621F2DB5SF4Kk&ru=https%3A%2F%2Fshop.tstartel.com%2Fpromo_market%2F188sptd_23%2Findex.html'},
-                {txt:'disney+',key:'et1',         url:'https://disneyplus.taiwanmobile.com/'},
-                {txt:'來電答鈴',key:'et4',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=%2BPu-MXCvyBsqsZ-bmeWYiFzabH_N%7EnBT.BF%3D&landing_uri=http://rbt.tstartel.com/web/web/index.jsp'},
-                {txt:'',key:'5G台灣隊迎星',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
-                {txt:'',key:'myfone萬元禮券',         url:'https://www.myfone.com.tw/mbuy/index.php?action=myfone-sale&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_myfone_sale2312&utm_term=tstarfriends'},
+        // detail->index
+        const handtoIndexSection = (el) =>{
+            let key = el.currentTarget.dataset.detail
+            if(key === 'index'){
+                NowRenderSection.value = 'index'
+                contentBg.value = './img/ContBg/index.png'
+                return
+            }
+        }
+        // detailSection - href
+            const detailCont = ref(['key','headerName'])
+            const backBtnBool = ref(true)
+
+            const OuterLinkdata = reactive({data:[
+                {txt:'',        key:'',         url:''},
+                {txt:'',        key:'會員註冊',         url:'https://oauth.taiwanmobile.com/MemberOAuth/twm/login/ed69ee19c30f51db57c4428f02bc78db'},
+                {txt:'',        key:'serviceMail_QA',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/serviceMail_QA.php'},
+                {txt:'',        key:'記錄查詢',         url:'https://emall.tstarcs.taiwanmobile.com/eMall/order/search?t=1701619200045'},
+                {txt:'',        key:'線上溢繳',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/over-pay-auth_s.php?t=1701619200045'},
+                {txt:'',        key:'優惠券',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/Dashboard_coupon.php'},
+                {txt:'',        key:'網內外門號查詢',         url:'https://www.taiwanmobile.com/cs/queryTWMPhoneNbr/enterPage.htm?t=1701619200045'},
+                {txt:'',        key:'手機維護保固',         url:'https://www.taiwanmobile.com/cs/public/trusIndex.action?t=1701619200045'},
+                {txt:'',        key:'案件查詢',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/caseSearch_s.php?t=1701619200045'},
+                {txt:'',        key:'聯絡客服',         url:'https://littlemy.taiwanmobile.com/?eservice=TSTAPP&TA=null&M=null'},
+                {txt:'',        key:'電子發票與載具設定',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/electronicInvoice.php'},
+                {txt:'',        key:'信用卡自動轉帳代繳設定',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=tUnX%7EpxcjWbXH.--TyPArmQ.qSyMjnGwcGn%3D&landing_uri=https://ow.tstarcs.taiwanmobile.com/TWM/credit-card-direct-debit.php?t=1701619200045'},
+                {txt:'',        key:'國際漫遊',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/roaming_apply.php?t=1701619200045'},
+                {txt:'',        key:'門號用量加購',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php'},
+                {txt:'',        key:'MOMO_麥當勞55折起',         url:'https://momo.dm/mmjNvj'},
+                {txt:'',        key:'老客戶專屬優惠',url:'https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst5457E361347647AA981D1B38621F2DB5SF4Kk&ru=https%3A%2F%2Fshop.tstartel.com%2Fpromo_market%2F188sptd_23%2Findex.html'},
+                {txt:'disney+', key:'et1',         url:'https://disneyplus.taiwanmobile.com/'},
+                {txt:'來電答鈴', key:'et4',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=%2BPu-MXCvyBsqsZ-bmeWYiFzabH_N%7EnBT.BF%3D&landing_uri=http://rbt.tstartel.com/web/web/index.jsp'},
+                {txt:'',        key:'5G台灣隊迎星',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
+                {txt:'',        key:'myfone萬元禮券',         url:'https://www.myfone.com.tw/mbuy/index.php?action=myfone-sale&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_myfone_sale2312&utm_term=tstarfriends'},
             ]})
-            const handdetailSection = (el) =>{
+            const handOuterLink = (el) =>{
                 let key = el.currentTarget.dataset.detail
-                console.log('detail:',key);
-                detailIsOuterLink.data.forEach(item=>{
+                OuterLinkdata.data.forEach(item=>{
                     if(item.key === key){
                         window.open(item.url, '_blank', 'height=1200, width=500');
                     }
-                })
+                })                
+            }
+            const handdetailSection = (el) =>{
+                let key = el.currentTarget.dataset.detail
+                console.log('detail:',key);
+
                 if( key === 'login'){
                     NowRenderSection.value = 'login'
                     contentBg.value = './img/ContBg/UserlogIn.png'
                     return
                 }
-                if(key === 'home'){
-                    NowRenderSection.value = 'home'
+                if(key === 'index'){
+                    NowRenderSection.value = 'index'
                     contentBg.value = './img/ContBg/index.png'
                     return
                 }
                 if(key ==='合約方案'){
+                    detailCont.value[0] = '合約方案'
+                    detailCont.value[1] = '合約方案'
                     NowRenderSection.value = 'detail'
                     contentBg.value = './img/ContBg/black.png'
-                }
-                
+                    return
+                }          
+                if(key ==='billshop'){
+                    detailCont.value[0] = 'billshop'
+                    detailCont.value[1] = '超商繳費條碼'
+                    NowRenderSection.value = 'detail'
+                    contentBg.value = './img/ContBg/gray.png'
+                    return
+                }          
+                if(key ==='訊息中心'){
+                    detailCont.value[0] = '訊息中心'
+                    detailCont.value[1] = '訊息中心'
+                    NowRenderSection.value = 'detail'
+                    contentBg.value = './img/ContBg/gray.png'
+                    return
+                }          
+                if(key ==='帳單明細'){
+                    detailCont.value[0] = '帳單明細'
+                    detailCont.value[1] = '多門號切換繳款與帳單明細'
+                    NowRenderSection.value = 'detail'
+                    contentBg.value = './img/ContBg/gray.png'
+                    return
+                }          
+                handOuterLink(el)      
             }
+
+
 
             
             
             return{
                 // link
+                quickLinkRender,
                 NowRenderSection,
                 SkiploginSection,
                 contentBg,
@@ -264,6 +368,9 @@ window.onload = () =>{
                 // 首頁- calldata  
                 handCalldataStatus,
                 calldataStatus,   
+                // 首頁、設定 bill
+                BillStatus,
+                handBillStatus,
                  // service - Nav   
                 serviceNav,
                 handserviceNav,
@@ -277,7 +384,13 @@ window.onload = () =>{
                 customServiceRender,
                 serviceManagementRender,
                 // detail
+                backBtnBool,
+                detailCont,
+                handtoIndexSection,
                 handdetailSection,
+                // outerLink
+                handOuterLink,
+
 
             }   
             

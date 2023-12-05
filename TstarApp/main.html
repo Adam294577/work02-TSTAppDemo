@@ -10,16 +10,30 @@
 </head>
 <body>
     <div id="app">
-        <div class="version">
-            <ul class="quickLink">
-                <span>快速連結</span>
-                <li @click="SkiploginSection" data-link="index">跳過登入帳密</li>
+        <div class="leftNav">
+            <ul class="quickLink" :data-test="quickLinkRender">
+                <span class="firstTitle">快速連結</span>
+                <div class="LinkBox" v-show="quickLinkRender.indexOf('登入狀態') !== -1 ">
+                    <li class="quickLinkTitle">登入狀態</li>
+                    <li @click="SkiploginSection" data-link="index">跳過登入帳密</li>
+                </div>
+                <div class="LinkBox" v-show="quickLinkRender.indexOf('帳單') !== -1 ">
+                    <li class="quickLinkTitle">帳單</li>
+                    <li data-key="有餘額" @click="handBillStatus" :class="[{'active': BillStatus === '有餘額'}]">帳單有餘額</li>
+                    <li data-key="無餘額" @click="handBillStatus" :class="[{'active': BillStatus === '無餘額'}]">帳單無餘額</li>
+                </div>
+                <div class="LinkBox" v-show="quickLinkRender.indexOf('手機裝置') !== -1 ">
+                    <li class="quickLinkTitle">手機裝置</li>
+                    <p class="noupdata">(尚未更新)</p>
+                    <li class="active">Android</li>
+                    <li>Apple</li>
+                </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/04</span> </span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/05</span></span>
         </div>
 
-        <div class="navbar" v-if="NowRenderSection === 'home'">
+        <div class="navbar" v-if="NowRenderSection === 'index'">
             <ul 
             :style="`background: url(${navIconImg});`">
 
@@ -41,15 +55,14 @@
 
                 <div class="BtnBox" v-if="LoginStep === 0">
                     <button @click="handNextLogin" data-login="next" class="orgBtn">會員登入</button>
-                    <button class="orgBtn"><a target="_blank" href="https://oauth.taiwanmobile.com/MemberOAuth/twm/login/ed69ee19c30f51db57c4428f02bc78db
-                        ">會員註冊</a>
+                    <button class="orgBtn"><a data-detail="會員註冊" @click="handdetailSection" href="#">會員註冊</a>
                     </button>
                 </div>
                 <div class="BtnBox" v-if="LoginStep === 1">
                     <button @click="SkiploginSection" data-link="index" class="whiteBtn">下一步</button>
                 </div>
             </section>
-            <section class="home" v-if="NowRenderSection === 'home'">
+            <section class="home" v-if="NowRenderSection === 'index'">
                 <div class="header">
                     <h2 class="title">
                         <div class="titleMsg">
@@ -60,13 +73,13 @@
                             <p v-show="NavIcon.data[3].act">我的帳戶</p> 
                         </div>
                     </h2>
-                    <div class="mailIcon">
+                    <div class="mailIcon" data-detail="訊息中心" @click="handdetailSection">
                         <img src="./img/mail_icon.png" alt="">
                     </div>
                 </div>
 
                 <div class="ItemBox home" v-show="NavIcon.data[0].act">
-                    <div class="banner">
+                    <div class="banner" data-detail="老客戶專屬優惠" @click="handdetailSection" style="cursor: pointer;">
                         <img src="./img/home/banner.png" alt="banner">
                     </div>
                     <div class="block" data-detail="老客戶專屬優惠" @click="handdetailSection" style="cursor: pointer;">
@@ -122,15 +135,35 @@
                         </div>
                     </div>
                     <div class="block">
-                        <div class="itemTitle">帳單</div>
+                        <div class="itemTitle" data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">帳單</div>
                         <div class="itemMsg">
-                            <a href="#">
                                 <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                             <div class="bill">
-                                <span>應繳 $0</span>
-                                <span>你已完成繳款</span>
+                                <div class="noPay" data-detail="帳單明細" @click="handdetailSection" v-show="BillStatus === '無餘額'" style="cursor: pointer;">
+                                    <span>應繳 $0</span>
+                                    <span>你已完成繳款</span>
+                                </div>
+                                <div class="needPay" v-show="BillStatus === '有餘額'">
+                                    <div data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">
+                                        <span>應繳 $5207</span>
+                                        <span>繳費期限 5/27</span>
+                                    </div>
+                                    <div class="payBox">
+                                        <div class="payItem" data-detail="billcard" @click="handdetailSection">
+                                            <img src="./img/bill/1.png" alt="">
+                                            <span>信用卡</span>
+                                        </div>
+                                        <div class="payItem" data-detail="billatm" @click="handdetailSection">
+                                            <img src="./img/bill/2.png" alt="">
+                                            <span>銀行轉帳</span>
+                                        </div>
+                                        <div class="payItem" data-detail="billshop" @click="handdetailSection">
+                                            <img src="./img/bill/3.png" alt="">
+                                            <span>超商條碼</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            </a>
                         </div>
                     </div>
                     <div class="block">
@@ -248,7 +281,7 @@
                     </div>
                     <div class="settingBox" v-if="settingNavIs === '基本管理'">
                         <div class="block">
-                            <div class="itemTitle" style="cursor: pointer;">合約方案</div>
+                            <div class="itemTitle" style="cursor: pointer;" data-detail="合約方案" @click="handdetailSection">合約方案</div>
                             <div class="itemMsg">
                                 <a href="#">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
@@ -322,24 +355,32 @@
                                 <a href="#">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                                 <div class="bill">
-                                    <span>應繳 $0</span>
-                                    <span>你已完成繳款</span>
+                                    <div class="noPay" v-show="BillStatus === '無餘額'">
+                                        <span>應繳 $0</span>
+                                        <span>你已完成繳款</span>
+                                    </div>
+                                    <div class="needPay" v-show="BillStatus === '有餘額'">
+                                        <span>應繳 $5207</span>
+                                        <span>繳費期限 5/27</span>
+                                        <div class="payBox">
+                                            <div class="payItem" data-detail="billcard" @click="handdetailSection">
+                                                <img src="./img/bill/1.png" alt="">
+                                                <span>信用卡</span>
+                                            </div>
+                                            <div class="payItem" data-detail="billatm" @click="handdetailSection">
+                                                <img src="./img/bill/2.png" alt="">
+                                                <span>銀行轉帳</span>
+                                            </div>
+                                            <div class="payItem" data-detail="billshop" @click="handdetailSection">
+                                                <img src="./img/bill/3.png" alt="">
+                                                <span>超商條碼</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 </a>
                             </div>
-                            <div class="itemTitle topBorder">基本設定</div>
-                            <ul class="settingList">
-                                <li 
-                                v-for="list in generalSettingRender"
-                                :key="list.key"
-                                :data-detail="list.msg"
-                                @click="handdetailSection"
-                                >
-                                <span>{{list.msg}}</span>
-                                <img :src="list.url" alt="">
-                            </li>
-                            </ul>                      
-                        </div>    
+                        </div>   
                         <div class="block">
                             <div class="itemTitle">客戶服務</div>
                             <ul class="settingList">
@@ -446,8 +487,54 @@
                 </div>
             </section>
 
-            <section class="detail" v-if="NowRenderSection === 'detail'">
-
+            
+            <section class="detailContainer" v-if="NowRenderSection === 'detail'">
+                <div class="detailHeader">
+                    <div id="backBtn" data-detail="index" @click="handtoIndexSection" v-show="backBtnBool">
+                        <img src="./img/detail/detail_back.png" alt="">
+                    </div>
+                    <div class="LeftBtn">
+                        <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
+                            <!-- <span>取消</span>                -->
+                        </div>
+                    </div>                    
+                    <h2>{{detailCont[1]}}</h2>
+                    <div class="rigntBtn">
+                        <div class="ItemBox" v-if="detailCont[0] === 'billshop'">
+                            <span>貼心提醒</span>               
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
+                            <span>編輯</span>               
+                            <!-- <span>刪除</span>                -->
+                        </div>                        
+                    </div>
+                </div>
+                <div class="detailCont">
+                    <div class="ItemBox" v-if="detailCont[0] === '合約方案'">
+                        <!-- <div class="block">
+                            <div class="itemTitle">方案內容</div>
+                        </div> -->
+                        <div class="demobox">
+                            <img src="./img/detail/demo_合約方案.png" alt="">
+                        </div>                        
+                        <div class="block null"></div>
+                    </div>
+                    <div class="ItemBox" v-if="detailCont[0] === 'billshop'">
+                        <div class="demobox">
+                            <img src="./img/detail/demo_超商繳費.png" alt="">
+                        </div>                        
+                    </div>
+                    <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
+                        <div class="mailnav">
+                            <li class="active">最新消息</li>
+                            <li data-detail="serviceMail_QA" @click="handdetailSection">客服訊息</li>
+                        </div>
+                        <div class="demobox">
+                            <img src="./img/detail/demo_訊息中心.png" alt="訊息中心demo">
+                        </div>                              
+                    </div>                      
+                  
+                </div>
             </section>
 
             </main>

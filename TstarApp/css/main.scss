@@ -10,8 +10,9 @@ $darkBg: #09153f;
 $blockTxt: #d5d9fe;
 $listColor: #050b21;
 
-.version{
-    position: absolute;
+.leftNav{
+    position: fixed;
+    left: 0;
     top: 0;
     display: flex;
     flex-wrap: wrap;
@@ -20,19 +21,47 @@ $listColor: #050b21;
     height: 100vh;
     .quickLink{
         width: 100%;
-        padding-top: 2rem;
+        padding: 1rem 0;
         background: #CCC;
-        span{
+        .firstTitle{
             display: inline-block;
             padding-left: 1.5rem;
+            padding-bottom: 1rem;
             font-size: 24px;
             font-weight: bold;
+            position: relative;
+            &::after{
+                content: '';
+                position: absolute;
+                display: block;
+                width: 150px;
+                left: 0;
+                top: 100%;
+                height: 2px;
+                background: #FFF;
+            }
         }
-        li{
-            cursor: pointer;
-            margin-top: 0.5rem;
-            padding-left: 1rem;
-            // background: #000;
+        .LinkBox{
+            .noupdata{
+                padding-left: 1rem;
+            }
+            li{
+                cursor: pointer;
+                margin-top: 0.5rem;
+                padding-left: 1rem;                
+                &.quickLinkTitle{
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                &.active{
+                    color: #F00;
+                    font-weight: bold;
+                }
+                &:nth-child(1){
+                    cursor: default;
+                }
+            }
+
         }
     }
     .AppIcon{
@@ -300,6 +329,41 @@ $listColor: #050b21;
                         &:nth-child(2){
                             position: absolute;
                             right: 2rem;
+                        }
+                    }
+                    .needPay{
+                        span{
+                            &:nth-child(1){
+                                color: $mainOrg;
+                            }
+                        }
+                    }
+                    .payBox{
+                        display: flex;
+                        margin-top: 1rem;
+                        .payItem{
+                            width: 30%;
+                            margin-left: 1%;
+                            height: 120px;
+                            background: #030314;
+                            position: relative;
+                            img{
+                                position: absolute;
+                                left: 50%;
+                                top: 10%;
+                                transform: translateX(-50%);
+                            }
+                            span{
+                                &:nth-child(2){
+                                    position: absolute;
+                                    text-align: center;
+                                    width: 100%;
+                                    left: 50%;
+                                    bottom: 1rem;
+                                    transform: translateX(-50%);
+                                    font-size: 20px;
+                                }
+                            }
                         }
                     }
                 }                              
@@ -781,3 +845,191 @@ $listColor: #050b21;
         }
     }
 }
+// detailContainer
+.detailContainer{
+    position: relative;
+}
+.detailHeader{
+    position: fixed;
+    top: 95px;
+    width: 390px;
+    height: 50px;
+    // border: 1px solid #F00;
+    background: #000;
+    z-index: 999;
+    #backBtn{
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        left: 1rem;
+        transform: translateY(-50%);
+        img{
+
+        }
+    }
+    h2{
+        padding-top: 0.8rem;
+        font-size: 17px;
+        text-align: center;
+        color: #FFF;
+
+    }
+    .rigntBtn{
+        cursor: pointer;
+        position: absolute;
+        right: 1rem;
+        top: 0.7rem;
+        span{
+            color:#FFF;
+        }
+    }
+    .LeftBtn{
+        cursor: pointer;
+        position: absolute;
+        left: 1rem;
+        top: 0.7rem;
+        span{
+            color:#FFF;
+        }        
+    }
+}
+.detailCont{
+    .ItemBox{
+        .block{
+            background: $darkBg;
+            margin-top: 1rem;
+            border-radius: 10px;
+            position: relative;
+            &:last-child{
+                padding-bottom: 4rem;
+                background: transparent;
+            }
+            .itemMsg{
+                padding-bottom: 1rem;
+                a,span{
+                    color: #FFF;
+                    text-decoration: none;
+                }                            
+            }
+            .itemTitle{
+                padding-top: 1rem;
+                padding-left: 1rem;
+                padding-bottom: 0.5rem;
+                color: #c1c2e9;
+                font-size: 20px;
+                font-weight: bold;
+                position: relative;
+                .callPayDate{
+                    position: absolute;
+                    right: 1rem;
+                    color: #FFF;
+                }      
+                &.topBorder{
+                    &::before{
+                        content: '';
+                        display: inline-block;
+                        position: absolute;
+                        top: 0;
+                        width: 90%;
+                        height: 2px;
+                        left: 50%;
+                        transform: translate(-50%,0);
+                        background: #3d4971;
+                    }
+                }                             
+            }
+            .detailList{
+                padding-bottom: 1rem;
+                li{
+                    cursor: pointer;
+                    background: $listColor;
+                    width: 90%;
+                    margin-left: 1rem;
+                    position: relative;
+                    padding: 0.5rem 0;
+                    border-radius: 3px;
+                    // border: 1px solid #F00;
+                    overflow: hidden;
+                    .msg{
+                        padding-left: 3rem;
+                        display: block;
+                        position: relative;
+                        font-weight: bold;
+                        color: $blockTxt;
+                        width: 100%;
+                        &::after{
+                            content: url(../img/setting/list/arrow.png);
+                            position: absolute;
+                            right: 0.5rem;
+                            top: 50%;
+                            transform: translateY(-45%);
+
+                        }
+                    }
+                    .msgImg{
+                        left: 1rem;
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);                        
+                    }
+                    &::after{
+                        background: #252b41;
+                        // background: #FFF;
+                        display: inline-block;
+                        content: '';
+                        width: 90%;
+                        height: 10px;
+                        position: absolute;
+                        left: 50%;
+                        top: 95%;
+                        transform: translateX(-50%);
+                    }
+                    &:last-child{
+                        &::after{
+                            display: none;
+                        }
+                    }                  
+                }
+            }            
+        }
+    }  
+    // 訊息中心 - nav
+    .mailnav{
+        background: #FFF;
+        display: flex;
+        li{
+            text-align: center;
+            width: 50%;
+            padding: 0.5rem 0;
+            color: #c1c1c1;
+            font-size: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            &.active{
+                color: $mainOrg;
+                position: relative;
+                &::before{
+                    content: '';
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: $mainOrg;
+                    right: 1rem;
+                    top: 0.5rem;
+                }
+                &::after{
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 3px;
+                    position: absolute;
+                    top: 100%;
+                    background: $mainOrg;
+                }
+            }
+
+        }
+    }
+}
+

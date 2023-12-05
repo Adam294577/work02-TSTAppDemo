@@ -6,44 +6,71 @@
   font-family: Microsoft JhengHei;
 }
 
-.version {
-  position: absolute;
+.leftNav {
+  position: fixed;
+  left: 0;
   top: 0;
   display: flex;
   flex-wrap: wrap;
   width: 150px;
   height: 100vh;
 }
-.version .quickLink {
+.leftNav .quickLink {
   width: 100%;
-  padding-top: 2rem;
+  padding: 1rem 0;
   background: #CCC;
 }
-.version .quickLink span {
+.leftNav .quickLink .firstTitle {
   display: inline-block;
   padding-left: 1.5rem;
+  padding-bottom: 1rem;
   font-size: 24px;
   font-weight: bold;
+  position: relative;
 }
-.version .quickLink li {
+.leftNav .quickLink .firstTitle::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 150px;
+  left: 0;
+  top: 100%;
+  height: 2px;
+  background: #FFF;
+}
+.leftNav .quickLink .LinkBox .noupdata {
+  padding-left: 1rem;
+}
+.leftNav .quickLink .LinkBox li {
   cursor: pointer;
   margin-top: 0.5rem;
   padding-left: 1rem;
 }
-.version .AppIcon {
+.leftNav .quickLink .LinkBox li.quickLinkTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+.leftNav .quickLink .LinkBox li.active {
+  color: #F00;
+  font-weight: bold;
+}
+.leftNav .quickLink .LinkBox li:nth-child(1) {
+  cursor: default;
+}
+.leftNav .AppIcon {
   position: absolute;
   left: 50%;
   transform: translateX(-50%) scale(0.7);
   bottom: 3rem;
 }
-.version .updateTxt {
+.leftNav .updateTxt {
   position: absolute;
   bottom: 1rem;
   display: inline-block;
   width: 100%;
   text-align: center;
 }
-.version .updateTxt .updateMsg {
+.leftNav .updateTxt .updateMsg {
   text-align: center;
 }
 
@@ -272,6 +299,35 @@
 .home .ItemBox .block .itemMsg .bill span:nth-child(2) {
   position: absolute;
   right: 2rem;
+}
+.home .ItemBox .block .itemMsg .bill .needPay span:nth-child(1) {
+  color: rgb(255, 94, 0);
+}
+.home .ItemBox .block .itemMsg .bill .payBox {
+  display: flex;
+  margin-top: 1rem;
+}
+.home .ItemBox .block .itemMsg .bill .payBox .payItem {
+  width: 30%;
+  margin-left: 1%;
+  height: 120px;
+  background: #030314;
+  position: relative;
+}
+.home .ItemBox .block .itemMsg .bill .payBox .payItem img {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+}
+.home .ItemBox .block .itemMsg .bill .payBox .payItem span:nth-child(2) {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  font-size: 20px;
 }
 .home .ItemBox .block .itemTitle {
   padding-top: 1rem;
@@ -666,4 +722,175 @@
   top: 0.5rem;
   right: 1rem;
   font-size: 0.8rem;
+}
+
+.detailContainer {
+  position: relative;
+}
+
+.detailHeader {
+  position: fixed;
+  top: 95px;
+  width: 390px;
+  height: 50px;
+  background: #000;
+  z-index: 999;
+}
+.detailHeader #backBtn {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+}
+.detailHeader h2 {
+  padding-top: 0.8rem;
+  font-size: 17px;
+  text-align: center;
+  color: #FFF;
+}
+.detailHeader .rigntBtn {
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 0.7rem;
+}
+.detailHeader .rigntBtn span {
+  color: #FFF;
+}
+.detailHeader .LeftBtn {
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+  top: 0.7rem;
+}
+.detailHeader .LeftBtn span {
+  color: #FFF;
+}
+
+.detailCont .ItemBox .block {
+  background: #09153f;
+  margin-top: 1rem;
+  border-radius: 10px;
+  position: relative;
+}
+.detailCont .ItemBox .block:last-child {
+  padding-bottom: 4rem;
+  background: transparent;
+}
+.detailCont .ItemBox .block .itemMsg {
+  padding-bottom: 1rem;
+}
+.detailCont .ItemBox .block .itemMsg a, .detailCont .ItemBox .block .itemMsg span {
+  color: #FFF;
+  text-decoration: none;
+}
+.detailCont .ItemBox .block .itemTitle {
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-bottom: 0.5rem;
+  color: #c1c2e9;
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+}
+.detailCont .ItemBox .block .itemTitle .callPayDate {
+  position: absolute;
+  right: 1rem;
+  color: #FFF;
+}
+.detailCont .ItemBox .block .itemTitle.topBorder::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 90%;
+  height: 2px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: #3d4971;
+}
+.detailCont .ItemBox .block .detailList {
+  padding-bottom: 1rem;
+}
+.detailCont .ItemBox .block .detailList li {
+  cursor: pointer;
+  background: #050b21;
+  width: 90%;
+  margin-left: 1rem;
+  position: relative;
+  padding: 0.5rem 0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.detailCont .ItemBox .block .detailList li .msg {
+  padding-left: 3rem;
+  display: block;
+  position: relative;
+  font-weight: bold;
+  color: #d5d9fe;
+  width: 100%;
+}
+.detailCont .ItemBox .block .detailList li .msg::after {
+  content: url(../img/setting/list/arrow.png);
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-45%);
+}
+.detailCont .ItemBox .block .detailList li .msgImg {
+  left: 1rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.detailCont .ItemBox .block .detailList li::after {
+  background: #252b41;
+  display: inline-block;
+  content: "";
+  width: 90%;
+  height: 10px;
+  position: absolute;
+  left: 50%;
+  top: 95%;
+  transform: translateX(-50%);
+}
+.detailCont .ItemBox .block .detailList li:last-child::after {
+  display: none;
+}
+.detailCont .mailnav {
+  background: #FFF;
+  display: flex;
+}
+.detailCont .mailnav li {
+  text-align: center;
+  width: 50%;
+  padding: 0.5rem 0;
+  color: #c1c1c1;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.detailCont .mailnav li.active {
+  color: rgb(255, 94, 0);
+  position: relative;
+}
+.detailCont .mailnav li.active::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgb(255, 94, 0);
+  right: 1rem;
+  top: 0.5rem;
+}
+.detailCont .mailnav li.active::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  top: 100%;
+  background: rgb(255, 94, 0);
 }/*# sourceMappingURL=main.css.map */
