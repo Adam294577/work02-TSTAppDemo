@@ -6,6 +6,11 @@
   font-family: Microsoft JhengHei;
 }
 
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .leftNav {
   position: fixed;
   left: 0;
@@ -127,7 +132,7 @@
 .content::-webkit-scrollbar {
   display: none;
 }
-.content p {
+.content .titleMsg p {
   padding-left: 1rem;
   padding-top: 3rem;
   padding-bottom: 2rem;
@@ -768,24 +773,24 @@
   color: #FFF;
 }
 
-.detailCont .ItemBox .block {
+.detailCont .ItemBox .block, .detailCont .ItemBox .whiteblock {
   background: #09153f;
   margin-top: 1rem;
   border-radius: 10px;
   position: relative;
 }
-.detailCont .ItemBox .block:last-child {
+.detailCont .ItemBox .block:last-child, .detailCont .ItemBox .whiteblock:last-child {
   padding-bottom: 4rem;
   background: transparent;
 }
-.detailCont .ItemBox .block .itemMsg {
+.detailCont .ItemBox .block .itemMsg, .detailCont .ItemBox .whiteblock .itemMsg {
   padding-bottom: 1rem;
 }
-.detailCont .ItemBox .block .itemMsg a, .detailCont .ItemBox .block .itemMsg span {
+.detailCont .ItemBox .block .itemMsg a, .detailCont .ItemBox .block .itemMsg span, .detailCont .ItemBox .whiteblock .itemMsg a, .detailCont .ItemBox .whiteblock .itemMsg span {
   color: #FFF;
   text-decoration: none;
 }
-.detailCont .ItemBox .block .itemTitle {
+.detailCont .ItemBox .block .itemTitle, .detailCont .ItemBox .whiteblock .itemTitle {
   padding-top: 1rem;
   padding-left: 1rem;
   padding-bottom: 0.5rem;
@@ -794,12 +799,12 @@
   font-weight: bold;
   position: relative;
 }
-.detailCont .ItemBox .block .itemTitle .callPayDate {
+.detailCont .ItemBox .block .itemTitle .callPayDate, .detailCont .ItemBox .whiteblock .itemTitle .callPayDate {
   position: absolute;
   right: 1rem;
   color: #FFF;
 }
-.detailCont .ItemBox .block .itemTitle.topBorder::before {
+.detailCont .ItemBox .block .itemTitle.topBorder::before, .detailCont .ItemBox .whiteblock .itemTitle.topBorder::before {
   content: "";
   display: inline-block;
   position: absolute;
@@ -810,10 +815,10 @@
   transform: translate(-50%, 0);
   background: #3d4971;
 }
-.detailCont .ItemBox .block .detailList {
+.detailCont .ItemBox .block .detailList, .detailCont .ItemBox .whiteblock .detailList {
   padding-bottom: 1rem;
 }
-.detailCont .ItemBox .block .detailList li {
+.detailCont .ItemBox .block .detailList li, .detailCont .ItemBox .whiteblock .detailList li {
   cursor: pointer;
   background: #050b21;
   width: 90%;
@@ -823,7 +828,7 @@
   border-radius: 3px;
   overflow: hidden;
 }
-.detailCont .ItemBox .block .detailList li .msg {
+.detailCont .ItemBox .block .detailList li .msg, .detailCont .ItemBox .whiteblock .detailList li .msg {
   padding-left: 3rem;
   display: block;
   position: relative;
@@ -831,20 +836,20 @@
   color: #d5d9fe;
   width: 100%;
 }
-.detailCont .ItemBox .block .detailList li .msg::after {
+.detailCont .ItemBox .block .detailList li .msg::after, .detailCont .ItemBox .whiteblock .detailList li .msg::after {
   content: url(../img/setting/list/arrow.png);
   position: absolute;
   right: 0.5rem;
   top: 50%;
   transform: translateY(-45%);
 }
-.detailCont .ItemBox .block .detailList li .msgImg {
+.detailCont .ItemBox .block .detailList li .msgImg, .detailCont .ItemBox .whiteblock .detailList li .msgImg {
   left: 1rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
-.detailCont .ItemBox .block .detailList li::after {
+.detailCont .ItemBox .block .detailList li::after, .detailCont .ItemBox .whiteblock .detailList li::after {
   background: #252b41;
   display: inline-block;
   content: "";
@@ -855,8 +860,63 @@
   top: 95%;
   transform: translateX(-50%);
 }
-.detailCont .ItemBox .block .detailList li:last-child::after {
+.detailCont .ItemBox .block .detailList li:last-child::after, .detailCont .ItemBox .whiteblock .detailList li:last-child::after {
   display: none;
+}
+.detailCont .ItemBox .whiteblock {
+  background: #FFF;
+  margin: 0.5rem;
+}
+.detailCont .ItemBox .whiteblock .generalList li {
+  position: relative;
+  color: #000;
+  padding: 0.5rem 0;
+}
+.detailCont .ItemBox .whiteblock .generalList li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: inline-block;
+  width: 100%;
+  height: 2px;
+  background: #EEE;
+}
+.detailCont .ItemBox .whiteblock .generalList li span:nth-child(1) {
+  padding-left: 1rem;
+  font-weight: bold;
+}
+.detailCont .ItemBox .whiteblock .generalList li span:nth-child(2) {
+  position: absolute;
+  right: 1rem;
+}
+.detailCont .ItemBox .itemfooter.remindMsg {
+  display: block;
+  text-align: center;
+  padding: 1rem;
+  color: #AAA;
+}
+.detailCont .ItemBox .itemfooter.remindBtn {
+  color: #AAA;
+  cursor: pointer;
+  display: inline-block;
+  width: 120px;
+  text-align: center;
+  font-size: 0.8rem;
+  position: absolute;
+  left: 50%;
+  bottom: 3rem;
+  transform: translateX(-50%);
+}
+.detailCont .ItemBox .itemfooter.remindBtn::after {
+  content: url(../img/bill/info.png);
+  display: block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: -0.5rem;
+  transform: scale(0.9);
+  right: 0.5rem;
 }
 .detailCont .mailnav {
   background: #FFF;
@@ -893,4 +953,182 @@
   position: absolute;
   top: 100%;
   background: rgb(255, 94, 0);
+}
+.detailCont .billResult {
+  position: relative;
+}
+.detailCont .billResult.thisMonth .generalList li {
+  width: calc(100% - 2rem);
+  margin: auto;
+}
+.detailCont .billResult.thisMonth .generalList li::after {
+  content: "";
+  left: 1rem;
+  width: calc(100% - 1rem);
+  background: #f1f1f1;
+}
+.detailCont .billResult.thisMonth .generalList li span:nth-child(2) {
+  right: 0;
+}
+.detailCont .billResult.nearly .navBar {
+  display: flex;
+}
+.detailCont .billResult.nearly .navBar li {
+  cursor: pointer;
+  width: 50%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  color: #DDD;
+  position: relative;
+}
+.detailCont .billResult.nearly .navBar li::after {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  content: "";
+  background: #DDD;
+}
+.detailCont .billResult.nearly .navBar li.active {
+  color: rgb(255, 94, 0);
+}
+.detailCont .billResult.nearly .navBar li.active::after {
+  background: rgb(255, 94, 0);
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem, .detailCont .billResult.nearly .payRecordData .dataItem {
+  position: relative;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .itemDate, .detailCont .billResult.nearly .payRecordData .dataItem .itemDate {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .itemDate:nth-child(1), .detailCont .billResult.nearly .payRecordData .dataItem .itemDate:nth-child(1) {
+  font-weight: bold;
+  padding: 0.7rem 0;
+  padding-left: 1rem;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .itemDate i.icon, .detailCont .billResult.nearly .payRecordData .dataItem .itemDate i.icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .itemDate i.icon::after, .detailCont .billResult.nearly .payRecordData .dataItem .itemDate i.icon::after {
+  display: inline-block;
+  content: url(../img/bill/arrow.png);
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .itemDate i.icon.open::after, .detailCont .billResult.nearly .payRecordData .dataItem .itemDate i.icon.open::after {
+  transform: rotate(180deg);
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem::after, .detailCont .billResult.nearly .payRecordData .dataItem::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #DDD;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem:last-child::after, .detailCont .billResult.nearly .payRecordData .dataItem:last-child::after {
+  display: none;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .orgmark, .detailCont .billResult.nearly .payRecordData .dataItem .orgmark {
+  color: rgb(255, 94, 0);
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .orgmark p, .detailCont .billResult.nearly .payRecordData .dataItem .orgmark p {
+  padding: 0 1rem;
+  margin-top: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 0 rgb(255, 94, 0);
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .payDetails .row, .detailCont .billResult.nearly .payRecordData .dataItem .payDetails .row {
+  padding: 1rem 1rem 0;
+  position: relative;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .payDetails .row span:nth-child(2), .detailCont .billResult.nearly .payRecordData .dataItem .payDetails .row span:nth-child(2) {
+  position: absolute;
+  right: 1rem;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .payDetails .payItem .payTitle, .detailCont .billResult.nearly .payRecordData .dataItem .payDetails .payItem .payTitle {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .payDetails .payItem .payMsg, .detailCont .billResult.nearly .payRecordData .dataItem .payDetails .payItem .payMsg {
+  position: relative;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .payDetails .payItem .payMsg span, .detailCont .billResult.nearly .payRecordData .dataItem .payDetails .payItem .payMsg span {
+  font-size: 0.8rem;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .payDetails .payItem .payMsg span:nth-child(1), .detailCont .billResult.nearly .payRecordData .dataItem .payDetails .payItem .payMsg span:nth-child(1) {
+  padding-left: 1.5rem;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .payDetails .payItem .payMsg span:nth-child(2), .detailCont .billResult.nearly .payRecordData .dataItem .payDetails .payItem .payMsg span:nth-child(2) {
+  position: absolute;
+  right: 1rem;
+  padding-bottom: 0.5rem;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .phoneDetail, .detailCont .billResult.nearly .nearlyBillData .dataItem .micropayDetail, .detailCont .billResult.nearly .payRecordData .dataItem .phoneDetail, .detailCont .billResult.nearly .payRecordData .dataItem .micropayDetail {
+  padding-top: 0.5rem;
+  border-top: 2px solid #DDD;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .phoneDetail span, .detailCont .billResult.nearly .nearlyBillData .dataItem .micropayDetail span, .detailCont .billResult.nearly .payRecordData .dataItem .phoneDetail span, .detailCont .billResult.nearly .payRecordData .dataItem .micropayDetail span {
+  font-weight: bold;
+  display: block;
+  color: rgb(255, 94, 0);
+  text-shadow: 0 0 0 rgb(255, 94, 0);
+  text-align: center;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .phoneDetail span:last-child, .detailCont .billResult.nearly .nearlyBillData .dataItem .micropayDetail span:last-child, .detailCont .billResult.nearly .payRecordData .dataItem .phoneDetail span:last-child, .detailCont .billResult.nearly .payRecordData .dataItem .micropayDetail span:last-child {
+  padding-bottom: 0.3rem;
+}
+.detailCont .billResult.nearly .nearlyBillData .dataItem .phoneDetail .download, .detailCont .billResult.nearly .nearlyBillData .dataItem .micropayDetail .download, .detailCont .billResult.nearly .payRecordData .dataItem .phoneDetail .download, .detailCont .billResult.nearly .payRecordData .dataItem .micropayDetail .download {
+  cursor: pointer;
+}
+.detailCont .billResult .payIcon {
+  display: flex;
+  border-top: 2px solid #EEE;
+  justify-content: center;
+  position: relative;
+  height: 100px;
+}
+.detailCont .billResult .payIcon .item {
+  width: 33%;
+  position: relative;
+}
+.detailCont .billResult .payIcon .item img {
+  position: absolute;
+  margin-top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.detailCont .billResult .payIcon .item span {
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 0.3rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #AAA;
+}
+.detailCont .billResult .payIcon .item::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 70px;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #EEE;
+}
+.detailCont .billResult .payIcon .item:last-child::after {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

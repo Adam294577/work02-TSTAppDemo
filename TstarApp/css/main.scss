@@ -9,7 +9,10 @@ $mainOrg:  rgb(255, 94, 0);
 $darkBg: #09153f;
 $blockTxt: #d5d9fe;
 $listColor: #050b21;
-
+body{
+    height: 100vh;
+    overflow: hidden;
+}
 .leftNav{
     position: fixed;
     left: 0;
@@ -137,14 +140,17 @@ $listColor: #050b21;
     }
     padding-top: 4rem;
     // background: #DDD;
-    p{
-        padding-left: 1rem;
-        padding-top: 3rem;
-        padding-bottom: 2rem;
-        margin-top: 2rem;
-        color: #000;
-
+    .titleMsg{
+        p{
+            padding-left: 1rem;
+            padding-top: 3rem;
+            padding-bottom: 2rem;
+            margin-top: 2rem;
+            color: #000;
+    
+        }
     }
+
 
 }
 
@@ -895,7 +901,7 @@ $listColor: #050b21;
 }
 .detailCont{
     .ItemBox{
-        .block{
+        .block,.whiteblock{
             background: $darkBg;
             margin-top: 1rem;
             border-radius: 10px;
@@ -992,6 +998,69 @@ $listColor: #050b21;
                 }
             }            
         }
+        .whiteblock{
+            background: #FFF;
+            margin: 0.5rem;
+            .generalList{
+                li{
+                    position: relative;
+                    color: #000;
+                    padding: 0.5rem 0;
+                    &::after{
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        top: 100%;
+                        display: inline-block;
+                        width: 100%;
+                        height: 2px;
+                        background: #EEE;
+                    }
+                    span{
+                        &:nth-child(1){
+                            padding-left: 1rem;
+                            font-weight: bold;
+                        }
+                        &:nth-child(2){
+                            position: absolute;
+                            right: 1rem;
+                        }
+                    }
+                }
+            }
+          
+        }
+        .itemfooter{
+            &.remindMsg{
+                display: block;
+                text-align: center;
+                padding: 1rem;
+                color: #AAA;
+            }
+            &.remindBtn{
+                color: #AAA;
+                cursor: pointer;
+                display: inline-block;
+                width: 120px;
+                text-align: center;
+                font-size: 0.8rem;
+                position: absolute;
+                left: 50%;
+                bottom: 3rem;
+                transform: translateX(-50%);
+                &::after{
+                    content: url(../img/bill/info.png);
+                    display: block;
+                    width: 25px;
+                    height: 25px;
+                    position: absolute;
+                    top: -0.5rem;
+                    transform: scale(0.9);
+                    right: 0.5rem;
+
+                }
+            }
+        }
     }  
     // 訊息中心 - nav
     .mailnav{
@@ -1031,5 +1100,213 @@ $listColor: #050b21;
 
         }
     }
+    // 多門號切換繳款與帳單明細
+    .billResult{
+        position: relative;
+        // display: none;
+        &.thisMonth{
+            .generalList{
+                li{
+                    width: calc(100% - 2rem);
+                    margin: auto;
+                    &::after{
+                        content: '';
+                        left: 1rem;
+                        width: calc(100% - 1rem);
+                        background: #f1f1f1;
+                    }                            
+                    span{
+                        &:nth-child(2){
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+        &.nearly{
+            .navBar{
+                display: flex;
+                li{
+                    cursor: pointer;
+                    width: 50%;
+                    text-align: center;
+                    font-size: 20px;
+                    font-weight: bold;
+                    padding: 0.5rem 0;
+                    color: #DDD;
+                    position: relative;
+                    &::after{
+                        position: absolute;
+                        top: calc(100% - 2px);
+                        left: 0;
+                        width: 100%;
+                        height: 2px;
+                        content: '';
+                        background: #DDD;
+                    }
+                    &.active{
+                        color: $mainOrg;
+                        &::after{
+                            background: $mainOrg;
+                        }                        
+                    }
+                }
+            }
+            .nearlyBillData,.payRecordData{
+                .dataItem{
+                    position: relative;
+                    .itemDate{
+                        position: relative;
+                        display: block;
+                        cursor: pointer;
+                        &:nth-child(1){
+                            font-weight: bold;
+                            padding: 0.7rem 0;
+                            padding-left: 1rem;
+                        }
+                        i{
+                            &.icon{
+                                display: inline-block;
+                                width: 25px;
+                                height: 25px;
+                                position: absolute;
+                                right: 1rem;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                &::after{
+                                    display: inline-block;
+                                    content: url(../img/bill/arrow.png);
+        
+                                }
+                                &.open{
+                                    &::after{
+                                        transform: rotate(180deg);
+                                    }
+                                }
+                            }
+                        }                        
+                    }
+                    &::after{
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 1px;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        background: #DDD;
+                    }
+                    &:last-child{
+                        &::after{
+                            display: none;
+                        }
+                    }
+                    .orgmark{
+                        color: $mainOrg;
+                        p{
+                            padding: 0 1rem;
+                            margin-top: 2rem;
+                            font-weight: bold;
+                            text-shadow: 0 0 0 $mainOrg;
+                        }
+                    }
+                    .payDetails{
+                        .row{
+                            padding: 1rem 1rem 0;
+                            position: relative;
+                            span{
+                                &:nth-child(2){
+                                    position: absolute;
+                                    right: 1rem;
+                                }
+                            }
+                        }
+                        .payItem{
+                            .payTitle{
+                                padding-left: 1rem;
+                                margin-top: 0.5rem;
+                            }
+                            .payMsg{
+                                position: relative;
+                                span{
+                                    font-size: 0.8rem;
+                                    &:nth-child(1){
+                                        padding-left: 1.5rem;
+                                    }
+                                    &:nth-child(2){
+                                        position: absolute;
+                                        right: 1rem;
+                                        padding-bottom: 0.5rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .phoneDetail,.micropayDetail{
+                        padding-top: 0.5rem;
+                        border-top: 2px solid #DDD;
+                        span{
+                            font-weight: bold;
+                            display: block;
+                            color: $mainOrg;
+                            text-shadow: 0 0 0 $mainOrg;
+                            text-align: center;
+                            &:last-child{
+                                padding-bottom: 0.3rem;
+                            }
+                        }
+                        .download{
+                            cursor: pointer;
+                        }
+
+                    }
+                }
+            }
+        }
+        .payIcon{
+            display: flex;
+            border-top: 2px solid #EEE;
+            justify-content: center;
+            position: relative;
+            height: 100px;
+            .item{
+                width: 33%;
+                position: relative;
+                img{
+                    position: absolute;
+                    margin-top: 0.5rem;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+                span{
+                    display: block;
+                    width: 100%;
+                    position: absolute;
+                    bottom: 0.3rem;
+                    text-align: center;
+                    font-size: 0.9rem;
+                    color: #AAA;
+                }
+                &::after{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    width: 1px;
+                    height: 70px;
+                    right: 1%;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: #EEE;
+                }
+                &:last-child{
+                    &::after{
+                        display: none;
+                    }   
+                }
+            }
+        }
+    }  
+
+
 }
 

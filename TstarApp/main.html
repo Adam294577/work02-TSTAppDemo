@@ -12,7 +12,7 @@
     <div id="app">
         <div class="leftNav">
             <ul class="quickLink" :data-test="quickLinkRender">
-                <span class="firstTitle">快速連結</span>
+                <span class="firstTitle">情境調整</span>
                 <div class="LinkBox" v-show="quickLinkRender.indexOf('登入狀態') !== -1 ">
                     <li class="quickLinkTitle">登入狀態</li>
                     <li @click="SkiploginSection" data-link="index">跳過登入帳密</li>
@@ -30,7 +30,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/05</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/06</span></span>
         </div>
 
         <div class="navbar" v-if="NowRenderSection === 'index'">
@@ -166,15 +166,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="block">
-                        <div class="itemTitle" style="cursor: pointer;" data-detail="合約方案" @click="handdetailSection">合約方案</div>
+                    <div class="block" style="cursor: pointer;" data-detail="合約方案" @click="handdetailSection">
+                        <div class="itemTitle" >合約方案</div>
                         <div class="itemMsg">
-                            <a href="#">
                                 <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                             <div class="plan">
                                 <span>4G_無約單門號專案</span>
                             </div>
-                            </a>
                         </div>
                     </div>
                     <div class="block">
@@ -280,15 +278,13 @@
                         </li>
                     </div>
                     <div class="settingBox" v-if="settingNavIs === '基本管理'">
-                        <div class="block">
-                            <div class="itemTitle" style="cursor: pointer;" data-detail="合約方案" @click="handdetailSection">合約方案</div>
+                        <div class="block" style="cursor: pointer;" data-detail="合約方案" @click="handdetailSection">
+                            <div class="itemTitle" >合約方案</div>
                             <div class="itemMsg">
-                                <a href="#">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                                 <div class="plan">
                                     <span>4G_無約單門號專案</span>
                                 </div>
-                                </a>
                             </div>
                         </div>
                         <div class="block">
@@ -532,6 +528,175 @@
                         <div class="demobox">
                             <img src="./img/detail/demo_訊息中心.png" alt="訊息中心demo">
                         </div>                              
+                    </div>                      
+                    <div class="ItemBox" v-if="detailCont[0] === '帳單明細'">
+                        <div class="whiteblock ">
+                            <div class="billResult thisMonth">
+                                <div class="noPay">
+                                    <ul class="generalList thisMonthList">
+                                        <li>
+                                            <span>每月出帳日</span>
+                                            <span>11日</span>
+                                        </li>
+                                        <li>
+                                            <span>累積應繳金額</span>
+                                            <span>$0</span>
+                                        </li>
+                                        <li>
+                                            <span>繳款截止日</span>
+                                            <span>你已完成繳款</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="needPay">
+
+                                </div>
+                                <div class="payIcon">
+                                    <div class="item">
+                                        <img src="./img/bill/n1.png" alt="">
+                                        <span>信用卡繳款</span>
+                                    </div>
+                                    <div class="item">
+                                        <img src="./img/bill/n2.png" alt="">
+                                        <span>銀行轉帳繳款</span>
+                                    </div>
+                                    <div class="item">
+                                        <img src="./img/bill/n3.png" alt="">
+                                        <span>超商條碼繳款</span>
+                                    </div>
+                                </div>                                
+
+                                
+                            </div>
+
+                        </div>
+                        <div class="whiteblock ">
+                            <ul class="generalList">
+                                <li>
+                                    <span>專案名稱</span>
+                                    <span>4G_無約單門號專案</span>
+                                </li>
+                            </ul>
+                        </div>     
+
+                        <div class="whiteblock ">
+                            <div class="billResult nearly" >
+                                <div class="navBar">
+                                    <li class="active">近12期帳單</li>
+                                    <li>繳款紀錄</li>
+                                </div>
+                                <ul class="nearlyBillData" v-if="true" >
+                                    <li class="dataItem">
+                                        <span class="itemDate">2023年11月
+                                            <i class="icon open"></i>
+                                        </span>
+                                        <div class="itemCont">
+                                            <div class="paySummary">
+                                                <ul class="generalList">
+                                                    <li>
+                                                        <span>門號</span>
+                                                        <span>09088***55</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>出帳日</span>
+                                                        <span>20231111</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>繳費截止日</span>
+                                                        <span>20231129</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>前期應繳</span>
+                                                        <span>$199</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>前期已繳</span>
+                                                        <span>$0</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>本期新增</span>
+                                                        <span>$200</span>
+                                                    </li>
+                                                    <li class="orgmark">
+                                                        <span>本期應繳</span>
+                                                        <span>$399</span>
+                                                        <p class="msg">上方顯示為當期應繳總金額，如為合併帳單，即為合併帳之當期應繳總金額。</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="payDetails">
+                                                <div class="row">
+                                                    <span>09088***55</span>
+                                                    <span>金額(元)</span>
+                                                </div>
+                                                <div class="payItem">
+                                                    <div class="payTitle">月租費</div>
+                                                    <div class="payMsg">
+                                                        <span>數據199型月租費1011-1110</span>
+                                                        <span>$199</span>
+                                                    </div>
+                                                </div>
+                                                <div class="payItem">
+                                                    <div class="payTitle">國內通信費</div>
+                                                    <div class="payMsg">
+                                                        <span>網外簡訊費</span>
+                                                        <span>$1</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="phoneDetail">
+                                                <div class="download">
+                                                    <span>請點此查看通話明細</span>
+                                                    <span>(開啟密碼:身分證號後六碼)</span>
+                                                </div>
+                                                <span v-if="false">本月無通話明細</span>
+                                            </div>
+                                            <div class="micropayDetail">
+                                                <div class="download" v-if="false">
+                                                    <span>請點此查看小額付款代收明細</span>
+                                                    <span>(開啟密碼:身分證號後六碼)</span>
+                                                </div>
+                                                <span>本月無小額付款代收明細</span>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <li class="dataItem">
+                                        <span class="itemDate">2023年10月<i class="icon"></i></span>
+                                        
+                                    </li>
+                                </ul>
+                                <ul class="payRecordData"  v-if="true">
+                                    <li class="dataItem">
+                                        <span class="itemDate">繳費日期 : 2023/11/29<i class="icon"></i></span>
+                                        <div class="itemCont">
+                                            <ul class="generalList">
+                                                <li>
+                                                    <span>繳費管道</span>
+                                                    <span>線上繳款-APP</span>
+                                                </li>
+                                                <li>
+                                                    <span>繳費方式</span>
+                                                    <span>信用卡</span>
+                                                </li>
+                                                <li>
+                                                    <span>繳費金額</span>
+                                                    <span>$399</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>            
+                        <footer class="itemfooter remindMsg">僅保留最近12個月已入帳繳款紀錄</footer>
+                        <footer class="itemfooter remindBtn">注意事項</footer>
+  
+                        <div class="block null"></div>                        
+
+                           
                     </div>                      
                   
                 </div>
