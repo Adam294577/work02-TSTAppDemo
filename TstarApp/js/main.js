@@ -26,6 +26,7 @@ window.onload = () =>{
             {key:'index_service',link:['',]},
             {key:'index_discount',link:['',]},
             {key:'index_setting',link:['帳單',]},
+            {key:'detail_帳單明細',link:['小額代收明細','通話帳單明細']},
             {key:'none',link:['']}
         ]})
         const quickLinkRender = computed(()=>{
@@ -38,14 +39,20 @@ window.onload = () =>{
                 })
             }
             if(key === 'detail'){
-                key ='none'
+                
+                InnerLinkdata.data.forEach(item=>{
+                    if(detailCont.value[0] === item.key){
+                        key = `detail_${item.key}`
+                    }
+                })                
             }            
             let result = []
             result = quickLinkData.data.filter(item=>{
                 if(item.key === key) return item
             })
-
             
+
+            if (result.length ===0) return console.warn('情境調整未抓取到任何Key');
             
             console.log('最後的key:',key);
             console.log('要顯示的Link資料:',result[0].link);
@@ -142,6 +149,7 @@ window.onload = () =>{
                     BillStatus.value = '無餘額'
                 }
             }
+           
             
             // service - Nav
             const serviceNav = reactive({data:[
@@ -293,6 +301,13 @@ window.onload = () =>{
                 {txt:'',        key:'5G台灣隊迎星',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
                 {txt:'',        key:'myfone萬元禮券',         url:'https://www.myfone.com.tw/mbuy/index.php?action=myfone-sale&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_myfone_sale2312&utm_term=tstarfriends'},
             ]})
+            const InnerLinkdata = reactive({data:[
+                {key:'', headerTxt:'',              contentBg:''},
+                {key:'訊息中心', headerTxt:'訊息中心',              contentBg:'./img/ContBg/gray.png'},
+                {key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
+                {key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
+                {key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
+            ]})
             const handOuterLink = (el) =>{
                 let key = el.currentTarget.dataset.detail
                 OuterLinkdata.data.forEach(item=>{
@@ -303,6 +318,7 @@ window.onload = () =>{
             }
             const handdetailSection = (el) =>{
                 let key = el.currentTarget.dataset.detail
+                let IsInnerLink = false
                 console.log('detail:',key);
 
                 if( key === 'login'){
@@ -315,40 +331,25 @@ window.onload = () =>{
                     contentBg.value = './img/ContBg/index.png'
                     return
                 }
-                if(key ==='合約方案'){
-                    detailCont.value[0] = '合約方案'
-                    detailCont.value[1] = '合約方案'
-                    NowRenderSection.value = 'detail'
-                    contentBg.value = './img/ContBg/black.png'
+                InnerLinkdata.data.forEach(item=>{
+                    if(key === item.key){
+                        NowRenderSection.value = 'detail'
+                        detailCont.value[0] = item.key
+                        detailCont.value[1] = item.headerTxt
+                        contentBg.value = item.contentBg
+                        IsInnerLink = true
+                    }
+                })
+                if(!IsInnerLink){
+                    handOuterLink(el)      
                     return
-                }          
-                if(key ==='billshop'){
-                    detailCont.value[0] = 'billshop'
-                    detailCont.value[1] = '超商繳費條碼'
-                    NowRenderSection.value = 'detail'
-                    contentBg.value = './img/ContBg/gray.png'
-                    return
-                }          
-                if(key ==='訊息中心'){
-                    detailCont.value[0] = '訊息中心'
-                    detailCont.value[1] = '訊息中心'
-                    NowRenderSection.value = 'detail'
-                    contentBg.value = './img/ContBg/gray.png'
-                    return
-                }          
-                if(key ==='帳單明細'){
-                    detailCont.value[0] = '帳單明細'
-                    detailCont.value[1] = '多門號切換繳款與帳單明細'
-                    NowRenderSection.value = 'detail'
-                    contentBg.value = './img/ContBg/gray.png'
-                    return
-                }          
-                handOuterLink(el)      
+                }
+                console.warn('detail尚未指定Link');
             }
+        // detail - 多門號切換繳款與帳單明細
 
 
 
-            
             
             return{
                 // link

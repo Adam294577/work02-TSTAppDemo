@@ -45,9 +45,7 @@ body{
             }
         }
         .LinkBox{
-            .noupdata{
-                padding-left: 1rem;
-            }
+
             li{
                 cursor: pointer;
                 margin-top: 0.5rem;
@@ -1042,6 +1040,7 @@ body{
                 cursor: pointer;
                 display: inline-block;
                 width: 120px;
+                height: 30px;
                 text-align: center;
                 font-size: 0.8rem;
                 position: absolute;

@@ -24,9 +24,18 @@
                 </div>
                 <div class="LinkBox" v-show="quickLinkRender.indexOf('手機裝置') !== -1 ">
                     <li class="quickLinkTitle">手機裝置</li>
-                    <p class="noupdata">(尚未更新)</p>
                     <li class="active">Android</li>
                     <li>Apple</li>
+                </div>
+                <div class="LinkBox" v-show="quickLinkRender.indexOf('小額代收明細') !== -1 ">
+                    <li class="quickLinkTitle">小額代收費</li>
+                    <li>有使用</li>
+                    <li class="active">未使用</li>
+                </div>
+                <div class="LinkBox" v-show="quickLinkRender.indexOf('通話帳單明細') !== -1 ">
+                    <li class="quickLinkTitle">通話費</li>
+                    <li class="active">有使用</li>
+                    <li>未使用</li>
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI.png" alt="">
@@ -346,18 +355,19 @@
                             </ul>
                         </div> 
                         <div class="block">
-                            <div class="itemTitle">帳單</div>
+                            <div class="itemTitle" data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">帳單</div>
                             <div class="itemMsg">
-                                <a href="#">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                                 <div class="bill">
-                                    <div class="noPay" v-show="BillStatus === '無餘額'">
+                                    <div class="noPay" data-detail="帳單明細" @click="handdetailSection" v-show="BillStatus === '無餘額'" style="cursor: pointer;">
                                         <span>應繳 $0</span>
                                         <span>你已完成繳款</span>
                                     </div>
                                     <div class="needPay" v-show="BillStatus === '有餘額'">
-                                        <span>應繳 $5207</span>
-                                        <span>繳費期限 5/27</span>
+                                        <div data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">
+                                            <span>應繳 $5207</span>
+                                            <span>繳費期限 5/27</span>
+                                        </div>
                                         <div class="payBox">
                                             <div class="payItem" data-detail="billcard" @click="handdetailSection">
                                                 <img src="./img/bill/1.png" alt="">
@@ -374,9 +384,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                </a>
                             </div>
-                        </div>   
+                        </div> 
                         <div class="block">
                             <div class="itemTitle">客戶服務</div>
                             <ul class="settingList">
@@ -670,7 +679,7 @@
                                 </ul>
                                 <ul class="payRecordData"  v-if="true">
                                     <li class="dataItem">
-                                        <span class="itemDate">繳費日期 : 2023/11/29<i class="icon"></i></span>
+                                        <span class="itemDate">繳費日期 : 2023/11/29<i class="icon open"></i></span>
                                         <div class="itemCont">
                                             <ul class="generalList">
                                                 <li>

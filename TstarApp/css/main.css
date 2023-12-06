@@ -43,9 +43,6 @@ body {
   height: 2px;
   background: #FFF;
 }
-.leftNav .quickLink .LinkBox .noupdata {
-  padding-left: 1rem;
-}
 .leftNav .quickLink .LinkBox li {
   cursor: pointer;
   margin-top: 0.5rem;
@@ -901,6 +898,7 @@ body {
   cursor: pointer;
   display: inline-block;
   width: 120px;
+  height: 30px;
   text-align: center;
   font-size: 0.8rem;
   position: absolute;
