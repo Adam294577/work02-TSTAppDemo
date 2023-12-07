@@ -28,259 +28,64 @@
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
             <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/07</span></span>
         </div>
-
-        <div class="navbar" v-if="NowRenderSection === 'index'">
-            <ul 
-            :style="`background: url(${navIconImg});`">
-
-                <li
-                v-for="list in NavIcon.data"
-                :data-nav="list.key"
-                :key="list.key"
-                @click="handNavIcon"
-                ></li>
-               
-            </ul>
+        <div id="payload" v-if="loading">
+            <span>Loading...</span>
         </div>
-       
-        <div class="container">
-            <main class="content"  ref="scrollEl"
-            :style="`background: url(${contentBg});`"
-            >
-            <section class="Login" v-if="NowRenderSection === 'login'">
-
-                <div class="BtnBox" v-if="LoginStep === 0">
-                    <button @click="handNextLogin" data-login="next" class="orgBtn">會員登入</button>
-                    <button class="orgBtn"><a data-href="會員註冊" @click="handHrefCont" href="#">會員註冊</a>
-                    </button>
-                </div>
-                <div class="BtnBox" v-if="LoginStep === 1">
-                    <button @click="handHrefCont" data-href="index" class="whiteBtn">下一步</button>
-                </div>
-            </section>
-            <section class="home" v-if="NowRenderSection === 'index'">
-                <div class="header">
-                    <h2 class="title">
-                        <div class="titleMsg">
-                            <p v-show="NavIcon.data[0].act">09088***55</p> 
-                            <p v-show="NavIcon.data[0].act">Hi 宋*雯</p> 
-                            <p v-show="NavIcon.data[1].act">申辦服務</p> 
-                            <p v-show="NavIcon.data[2].act">myfone online購物優惠</p> 
-                            <p v-show="NavIcon.data[3].act">我的帳戶</p> 
-                        </div>
-                    </h2>
-                    <div class="mailIcon" data-href="訊息中心" @click="handHrefCont">
-                        <img src="./img/mail_icon.png" alt="">
-                    </div>
-                </div>
-
-                <div class="ItemBox home" v-show="NavIcon.data[0].act">
-                    <div class="banner" data-href="老客戶專屬優惠" @click="handHrefCont" style="cursor: pointer;">
-                        <img src="./img/home/banner.png" alt="banner">
-                    </div>
-                    <div class="block" data-href="老客戶專屬優惠" @click="handHrefCont" style="cursor: pointer;">
-                        <div class="itemTitle">
-                            <span class="ringIcon">老客戶專屬優惠</span>
-                        </div>
-                        <div class="itemMsg">
-                                <span class="oldcustom">超低價 ! 4G吃到飽月租只要188(網速21Mbps)，每月現省$311(別家499起)!</span>
-                        </div>
-                    </div>
-                    <div class="block">
-                        <div class="itemTitle">
-                            <span class="infoIcon">門號用量</span>
-                            <span class="callPayDate">本期計算至 12/10</span>
-                        </div>
-                        <div class="itemMsg">
-                            <div class="calldata">
-                                <li>
-                                    <span>剩餘上網</span>
-                                    <span>119.3MB</span>
-                                    <span>可用 200.0 MB</span>
-                                    <a data-href="門號用量加購" @click="handHrefCont" href="#">加購</a>
-                                </li>
-                                <li v-show="calldataStatus === 'open'">
-                                    <span>已撥通話</span>
-                                    <span>5分</span>
-                                    <span>網內+網外+市話</span>
-                                </li>
-                                <li v-show="calldataStatus === 'close'">
-                                    <span>已撥網內</span>
-                                    <span>3分</span>
-                                    <span>前3分鐘免費/通</span>
-                                </li>
-                                <li v-show="calldataStatus === 'close'">
-                                    <span>已撥網外</span>
-                                    <span>0分</span>
-                                    <span>送10分鐘/月</span>
-                                </li>
-                                <li v-show="calldataStatus === 'close'">
-                                    <span>已撥市話</span>
-                                    <span>2分</span>
-                                    <span>無優惠</span>
-                                </li>
-                                <div class="btn" data-status="open" v-show="calldataStatus === 'open'"
-                                @click="handCalldataStatus">
-                                    <img src="./img/home/baropen.png"  style="transform: rotate(0deg);">
-                                </div>
-                                <div class="btn" data-status="close" v-show="calldataStatus === 'close'"
-                                @click="handCalldataStatus">
-                                    <img src="./img/home/baropen.png"  style="transform: rotate(180deg);">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block">
-                        <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單</div>
-                        <div class="itemMsg">
-                                <div class="see"><img src="./img/home/block_see.png" alt=""></div>
-                            <div class="bill">
-                                <div class="noPay" data-href="帳單明細" @click="handHrefCont" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
-                                    <span>應繳 $0</span>
-                                    <span>你已完成繳款</span>
-                                </div>
-                                <div class="needPay" v-show="quickLinkList.data[1].statusIs === '有餘額'">
-                                    <div data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">
-                                        <span>應繳 $5207</span>
-                                        <span>繳費期限 5/27</span>
-                                    </div>
-                                    <div class="payBox">
-                                        <div class="payItem" data-href="billcard" @click="handHrefCont">
-                                            <img src="./img/bill/1.png" alt="">
-                                            <span>信用卡</span>
-                                        </div>
-                                        <div class="payItem" data-href="billatm" @click="handHrefCont">
-                                            <img src="./img/bill/2.png" alt="">
-                                            <span>銀行轉帳</span>
-                                        </div>
-                                        <div class="payItem" data-href="billshop" @click="handHrefCont">
-                                            <img src="./img/bill/3.png" alt="">
-                                            <span>超商條碼</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block" style="cursor: pointer;" data-href="合約方案" @click="handHrefCont">
-                        <div class="itemTitle" >合約方案</div>
-                        <div class="itemMsg">
-                                <div class="see"><img src="./img/home/block_see.png" alt=""></div>
-                            <div class="plan">
-                                <span>4G_無約單門號專案</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block">
-                        <div class="itemTitle">手機裝置</div>
-                        <div class="itemMsg">
-                           <div class="device">
-                            <img src="./img/home/andriod.png" alt="andriod">
-                            <span>
-                                你正在使用andriod手機
-                            </span>
-                           </div>
-                        </div>
-                    </div>
-                    <div class="block otherLink">
-                        <ul>
-                            <li><a target="_blank" href="https://littlemy.taiwanmobile.com/?eservice=TSTAPP&TA=null&M=null">
-                                <span>常見問題</span></a></li>
-                            <li><a target="_blank" href="https://www.taiwanmobile.com/mobile/storelbs/lbs.html?t=1701363430907">
-                                <span>服務據點</span></a></li>
-                            <li><a target="_blank" href="https://www.facebook.com/taiwanmobile/?locale=zh_TW">
-                                <span>Facebook</span></a></li>
-                            <li><a target="_blank" href="https://instagram.com/taiwanmobile_official?igshid=NGVhN2U2NjQ0Yg==">
-                                <span>Instagram</span></a></li>
-                            <li><a target="_blank" href="https://liff.line.me/1645278921-kWRPP32q/?accountId=twmline">
-                                <span>LINE</span></a></li>
-                            <li><a target="_blank" href="https://youtube.com/@taiwanmobile?si=V-gf4PxvGeeZ-_GD">
-                                <span>YouTube</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="block null"></div>
-                </div>
-                <div class="ItemBox service" v-show="NavIcon.data[1].act">
-                    <div class="serviceNav">
-                        <li 
-                        v-for="list in serviceNav.data"
-                        :key="list.key"
-                        :data-service="list.key"
-                        :class="[{'active': list.act}]"
-                        @click="handserviceNav"
-                        >
-                        <span>{{list.msg}}</span>
-                        </li>
-                    </div>
-                    <div class="block" 
-                    v-for="list in serviceItemRender"
+        <div class="phoneBox" v-if="!loading">
+            <div class="navbar" v-if="NowRenderSection === 'index'">
+                <ul 
+                :style="`background: url(${navIconImg});`">
+    
+                    <li
+                    v-for="list in NavIcon.data"
+                    :data-nav="list.key"
                     :key="list.key"
-                    :data-href="list.key"
-                    @click="handHrefCont"
-                    >
-                        <img class="iconImg" :src="`./img/service/${list.key}.png`" alt="">
-                        <div class="itemTitle appIcon">{{list.title}}</div>
-                        <div class="itemMsg">{{list.msg}}</div>
-                        <div class="itemPrice">{{list.price}}</div>
-                        <img class="serviceBanner" :src="`./img/service/banner_${list.key}.png`" alt="">
-                    </div>  
-                    <div class="block nodata" v-if="serviceItemNodata">
-                        <div class="msg">
-                            <span>目前沒有適合的方案</span>
-                            <span>先去其他地方逛逛吧</span>
-                        </div>
-                    </div>                    
-                    <div class="block null">
-                        <div class="itemTitle appIcon"></div>
-                        <div class="itemMsg"></div>
-                    </div>                    
-
-                </div>
-                <div class="ItemBox discount" v-show="NavIcon.data[2].act">
-                    <div class="block">
-                        <div class="itemTitle">APP用戶獨享領現金</div>
-                        <div class="itemMsg">
-                            <span>我變我們myfone online 開啟無限，迎星送現金，加入會員送200，還可享更多手機/家電及3C商品優惠。</span>
-                            <div class="banner">
-                                <img @click="handHrefCont" data-href="5G台灣隊迎星" src="./img/discount/a1.png" alt="">
-                                <img @click="handHrefCont" data-href="myfone萬元禮券" src="./img/discount/a2.png" alt="">
+                    @click="handNavIcon"
+                    ></li>
+                   
+                </ul>
+            </div>            
+            <div class="container">
+                <main class="content"  ref="scrollEl"
+                :style="`background: url(${contentBg});`"
+                >
+                <section class="Login" v-if="NowRenderSection === 'login'">
+    
+                    <div class="BtnBox" v-if="LoginStep === 0">
+                        <button @click="handNextLogin" data-login="next" class="orgBtn">會員登入</button>
+                        <button class="orgBtn"><a data-href="會員註冊" @click="handHrefCont" href="#">會員註冊</a>
+                        </button>
+                    </div>
+                    <div class="BtnBox" v-if="LoginStep === 1">
+                        <button @click="handHrefCont" data-href="index" class="whiteBtn">下一步</button>
+                    </div>
+                </section>
+                <section class="home" v-if="NowRenderSection === 'index'">
+                    <div class="header">
+                        <h2 class="title">
+                            <div class="titleMsg">
+                                <p v-show="NavIcon.data[0].act">09088***55</p> 
+                                <p v-show="NavIcon.data[0].act">Hi 宋*雯</p> 
+                                <p v-show="NavIcon.data[1].act">申辦服務</p> 
+                                <p v-show="NavIcon.data[2].act">myfone online購物優惠</p> 
+                                <p v-show="NavIcon.data[3].act">我的帳戶</p> 
                             </div>
+                        </h2>
+                        <div class="mailIcon" data-href="訊息中心" @click="handHrefCont">
+                            <img src="./img/mail_icon.png" alt="">
                         </div>
-                        <div class="itemTitle">momo購物 優惠專區</div>
-                        <div class="itemMsg">
-                            <span>特談商品天天下殺，速食票券即買即用，年菜搶先購，你想要的都在momo購物網</span>
-                            <div class="banner">
-                                <img @click="handHrefCont" data-href="MOMO_麥當勞55折起" src="./img/discount/b1.png" alt="">
+                    </div>
+    
+                    <div class="ItemBox home" v-show="NavIcon.data[0].act">
+                        <div class="banner" data-href="老客戶專屬優惠" @click="handHrefCont" style="cursor: pointer;">
+                            <img src="./img/home/banner.png" alt="banner">
+                        </div>
+                        <div class="block" data-href="老客戶專屬優惠" @click="handHrefCont" style="cursor: pointer;">
+                            <div class="itemTitle">
+                                <span class="ringIcon">老客戶專屬優惠</span>
                             </div>
-                        </div>                        
-                    </div>
-                    <div class="block null"></div>
-                </div>
-                <div class="ItemBox setting" v-show="NavIcon.data[3].act">
-                    <div class="userSetting">
-                        <span class="userName">宋*雯</span>
-                        <span class="userPhone">09088***55</span>
-                        <span class="userType">月租型用戶</span>
-                        <span class="settingIcon" data-href="會員資料設定">
-                            <img src="./img/setting/settingIcon.png" alt="">
-                        </span>
-                    </div>
-                    <div class="settingNav">
-                        <li :class="[{'active' : settingNavIs === '基本管理'}]" data-key="基本管理" @click="handsettingNav">
-                            <span>基本管理</span>
-                        </li>
-                        <li :class="[{'active' : settingNavIs === '消費服務'}]" data-key="消費服務" @click="handsettingNav">
-                            <span>消費服務</span>
-                        </li>
-                    </div>
-                    <div class="settingBox" v-if="settingNavIs === '基本管理'">
-                        <div class="block" style="cursor: pointer;" data-href="合約方案" @click="handHrefCont">
-                            <div class="itemTitle" >合約方案</div>
                             <div class="itemMsg">
-                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
-                                <div class="plan">
-                                    <span>4G_無約單門號專案</span>
-                                </div>
+                                    <span class="oldcustom">超低價 ! 4G吃到飽月租只要188(網速21Mbps)，每月現省$311(別家499起)!</span>
                             </div>
                         </div>
                         <div class="block">
@@ -326,21 +131,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>         
-                        <div class="block">
-                            <div class="itemTitle">服務申請與設定</div>
-                            <ul class="settingList">
-                                <li 
-                                v-for="list in serviceApplyRender"
-                                :key="list.key"
-                                :data-href="list.msg"
-                                @click="handHrefCont"
-                                >
-                                <span>{{list.msg}}</span>
-                                <img :src="list.url" alt="">
-                            </li>
-                            </ul>
-                        </div> 
+                        </div>
                         <div class="block">
                             <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單</div>
                             <div class="itemMsg">
@@ -373,340 +164,555 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="block">
-                            <div class="itemTitle">客戶服務</div>
-                            <ul class="settingList">
-                                <li 
-                                v-for="list in customServiceRender"
-                                :key="list.key"
-                                :data-href="list.msg"
-                                @click="handHrefCont"
-                                >
-                                <span>{{list.msg}}</span>
-                                <img :src="list.url" alt="">
-                            </li>
-                            </ul>
-                        </div> 
-                        <div class="block null"></div>
-                    </div>
-                    <div class="settingBox" v-if="settingNavIs === '消費服務'">
-                        <div class="block" data-href="優惠券" @click="handHrefCont">
-                            <div class="itemTitle">你的優惠</div>
-                            <ul class="settingList">
-                                <li class="coupon">
-                                    <a href="#">
-                                        <span>優惠券</span>
-                                        <img src="./img/setting/list/yourdiscount.png" alt="">
-                                        <span class="orgBtn2">去使用</span>
-                                    </a>
-                                </li>
-                            </ul>
+                        <div class="block" style="cursor: pointer;" data-href="合約方案" @click="handHrefCont">
+                            <div class="itemTitle" >合約方案</div>
+                            <div class="itemMsg">
+                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                <div class="plan">
+                                    <span>4G_無約單門號專案</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="block">
-                            <div class="itemTitle">電信帳單代收</div>
-                            
+                            <div class="itemTitle">手機裝置</div>
                             <div class="itemMsg">
+                               <div class="device">
+                                <img src="./img/home/andriod.png" alt="andriod">
+                                <span>
+                                    你正在使用andriod手機
+                                </span>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="block otherLink">
+                            <ul>
+                                <li><a target="_blank" href="https://littlemy.taiwanmobile.com/?eservice=TSTAPP&TA=null&M=null">
+                                    <span>常見問題</span></a></li>
+                                <li><a target="_blank" href="https://www.taiwanmobile.com/mobile/storelbs/lbs.html?t=1701363430907">
+                                    <span>服務據點</span></a></li>
+                                <li><a target="_blank" href="https://www.facebook.com/taiwanmobile/?locale=zh_TW">
+                                    <span>Facebook</span></a></li>
+                                <li><a target="_blank" href="https://instagram.com/taiwanmobile_official?igshid=NGVhN2U2NjQ0Yg==">
+                                    <span>Instagram</span></a></li>
+                                <li><a target="_blank" href="https://liff.line.me/1645278921-kWRPP32q/?accountId=twmline">
+                                    <span>LINE</span></a></li>
+                                <li><a target="_blank" href="https://youtube.com/@taiwanmobile?si=V-gf4PxvGeeZ-_GD">
+                                    <span>YouTube</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="block null"></div>
+                    </div>
+                    <div class="ItemBox service" v-show="NavIcon.data[1].act">
+                        <div class="serviceNav">
+                            <li 
+                            v-for="list in serviceNav.data"
+                            :key="list.key"
+                            :data-service="list.key"
+                            :class="[{'active': list.act}]"
+                            @click="handserviceNav"
+                            >
+                            <span>{{list.msg}}</span>
+                            </li>
+                        </div>
+                        <div class="block" 
+                        v-for="list in serviceItemRender"
+                        :key="list.key"
+                        :data-href="list.key"
+                        @click="handHrefCont"
+                        >
+                            <img class="iconImg" :src="`./img/service/${list.key}.png`" alt="">
+                            <div class="itemTitle appIcon">{{list.title}}</div>
+                            <div class="itemMsg">{{list.msg}}</div>
+                            <div class="itemPrice">{{list.price}}</div>
+                            <img class="serviceBanner" :src="`./img/service/banner_${list.key}.png`" alt="">
+                        </div>  
+                        <div class="block nodata" v-if="serviceItemNodata">
+                            <div class="msg">
+                                <span>目前沒有適合的方案</span>
+                                <span>先去其他地方逛逛吧</span>
+                            </div>
+                        </div>                    
+                        <div class="block null">
+                            <div class="itemTitle appIcon"></div>
+                            <div class="itemMsg"></div>
+                        </div>                    
+    
+                    </div>
+                    <div class="ItemBox discount" v-show="NavIcon.data[2].act">
+                        <div class="block">
+                            <div class="itemTitle">APP用戶獨享領現金</div>
+                            <div class="itemMsg">
+                                <span>我變我們myfone online 開啟無限，迎星送現金，加入會員送200，還可享更多手機/家電及3C商品優惠。</span>
+                                <div class="banner">
+                                    <img @click="handHrefCont" data-href="5G台灣隊迎星" src="./img/discount/a1.png" alt="">
+                                    <img @click="handHrefCont" data-href="myfone萬元禮券" src="./img/discount/a2.png" alt="">
+                                </div>
+                            </div>
+                            <div class="itemTitle">momo購物 優惠專區</div>
+                            <div class="itemMsg">
+                                <span>特談商品天天下殺，速食票券即買即用，年菜搶先購，你想要的都在momo購物網</span>
+                                <div class="banner">
+                                    <img @click="handHrefCont" data-href="MOMO_麥當勞55折起" src="./img/discount/b1.png" alt="">
+                                </div>
+                            </div>                        
+                        </div>
+                        <div class="block null"></div>
+                    </div>
+                    <div class="ItemBox setting" v-show="NavIcon.data[3].act">
+                        <div class="userSetting">
+                            <span class="userName">宋*雯</span>
+                            <span class="userPhone">09088***55</span>
+                            <span class="userType">月租型用戶</span>
+                            <span class="settingIcon" data-href="會員資料設定">
+                                <img src="./img/setting/settingIcon.png" alt="">
+                            </span>
+                        </div>
+                        <div class="settingNav">
+                            <li :class="[{'active' : settingNavIs === '基本管理'}]" data-key="基本管理" @click="handsettingNav">
+                                <span>基本管理</span>
+                            </li>
+                            <li :class="[{'active' : settingNavIs === '消費服務'}]" data-key="消費服務" @click="handsettingNav">
+                                <span>消費服務</span>
+                            </li>
+                        </div>
+                        <div class="settingBox" v-if="settingNavIs === '基本管理'">
+                            <div class="block" style="cursor: pointer;" data-href="合約方案" @click="handHrefCont">
+                                <div class="itemTitle" >合約方案</div>
+                                <div class="itemMsg">
+                                        <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                    <div class="plan">
+                                        <span>4G_無約單門號專案</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block">
+                                <div class="itemTitle">
+                                    <span class="infoIcon">門號用量</span>
+                                    <span class="callPayDate">本期計算至 12/10</span>
+                                </div>
+                                <div class="itemMsg">
+                                    <div class="calldata">
+                                        <li>
+                                            <span>剩餘上網</span>
+                                            <span>119.3MB</span>
+                                            <span>可用 200.0 MB</span>
+                                            <a data-href="門號用量加購" @click="handHrefCont" href="#">加購</a>
+                                        </li>
+                                        <li v-show="calldataStatus === 'open'">
+                                            <span>已撥通話</span>
+                                            <span>5分</span>
+                                            <span>網內+網外+市話</span>
+                                        </li>
+                                        <li v-show="calldataStatus === 'close'">
+                                            <span>已撥網內</span>
+                                            <span>3分</span>
+                                            <span>前3分鐘免費/通</span>
+                                        </li>
+                                        <li v-show="calldataStatus === 'close'">
+                                            <span>已撥網外</span>
+                                            <span>0分</span>
+                                            <span>送10分鐘/月</span>
+                                        </li>
+                                        <li v-show="calldataStatus === 'close'">
+                                            <span>已撥市話</span>
+                                            <span>2分</span>
+                                            <span>無優惠</span>
+                                        </li>
+                                        <div class="btn" data-status="open" v-show="calldataStatus === 'open'"
+                                        @click="handCalldataStatus">
+                                            <img src="./img/home/baropen.png"  style="transform: rotate(0deg);">
+                                        </div>
+                                        <div class="btn" data-status="close" v-show="calldataStatus === 'close'"
+                                        @click="handCalldataStatus">
+                                            <img src="./img/home/baropen.png"  style="transform: rotate(180deg);">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>         
+                            <div class="block">
+                                <div class="itemTitle">服務申請與設定</div>
+                                <ul class="settingList">
+                                    <li 
+                                    v-for="list in serviceApplyRender"
+                                    :key="list.key"
+                                    :data-href="list.msg"
+                                    @click="handHrefCont"
+                                    >
+                                    <span>{{list.msg}}</span>
+                                    <img :src="list.url" alt="">
+                                </li>
+                                </ul>
+                            </div> 
+                            <div class="block">
+                                <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單</div>
+                                <div class="itemMsg">
+                                        <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                    <div class="bill">
+                                        <div class="noPay" data-href="帳單明細" @click="handHrefCont" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
+                                            <span>應繳 $0</span>
+                                            <span>你已完成繳款</span>
+                                        </div>
+                                        <div class="needPay" v-show="quickLinkList.data[1].statusIs === '有餘額'">
+                                            <div data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">
+                                                <span>應繳 $5207</span>
+                                                <span>繳費期限 5/27</span>
+                                            </div>
+                                            <div class="payBox">
+                                                <div class="payItem" data-href="billcard" @click="handHrefCont">
+                                                    <img src="./img/bill/1.png" alt="">
+                                                    <span>信用卡</span>
+                                                </div>
+                                                <div class="payItem" data-href="billatm" @click="handHrefCont">
+                                                    <img src="./img/bill/2.png" alt="">
+                                                    <span>銀行轉帳</span>
+                                                </div>
+                                                <div class="payItem" data-href="billshop" @click="handHrefCont">
+                                                    <img src="./img/bill/3.png" alt="">
+                                                    <span>超商條碼</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block">
+                                <div class="itemTitle">客戶服務</div>
+                                <ul class="settingList">
+                                    <li 
+                                    v-for="list in customServiceRender"
+                                    :key="list.key"
+                                    :data-href="list.msg"
+                                    @click="handHrefCont"
+                                    >
+                                    <span>{{list.msg}}</span>
+                                    <img :src="list.url" alt="">
+                                </li>
+                                </ul>
+                            </div> 
+                            <div class="block null"></div>
+                        </div>
+                        <div class="settingBox" v-if="settingNavIs === '消費服務'">
+                            <div class="block" data-href="優惠券" @click="handHrefCont">
+                                <div class="itemTitle">你的優惠</div>
+                                <ul class="settingList">
+                                    <li class="coupon">
+                                        <a href="#">
+                                            <span>優惠券</span>
+                                            <img src="./img/setting/list/yourdiscount.png" alt="">
+                                            <span class="orgBtn2">去使用</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="block">
+                                <div class="itemTitle">電信帳單代收</div>
+                                
+                                <div class="itemMsg">
+                                    <a href="#">
+                                        <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                    </a>
+                                    <div class="TelecomBilling">
+                                        <div class="circle"></div>
+                                        <div class="cont">
+                                            <span>可用餘額</span>
+                                            <span>$500</span>
+                                            <span>代收與溢繳總額$500</span>
+                                            <a href="#" data-href="線上溢繳" @click="handHrefCont">
+                                                <span class="orgBtn2">線上溢繳</span>
+                                            </a>
+                                        </div>
+                                    </div>                                
+                                </div>    
+                                <div class="itemTitle topBorder">代收額度管理</div>                        
+                                <ul class="settingList">
+                                    <li class="Collectionlimit">
+                                        <span>目前額度</span>
+                                        <img src="./img/setting/list/Collectionlimit.png" alt="123">
+                                        <span class="limitVal">$500</span>
+                                        <span class="limitmsg">你最高可設定至$500</span>
+                                    </li>
+                                </ul>
+                                <div class="itemTitle">服務管理</div>                        
+                                <ul class="settingList">
+                                    <li 
+                                    v-for="list in serviceManagementRender"
+                                    :key="list.key"
+                                    :data-href="list.msg"
+                                    @click="handHrefCont"
+                                    >
+                                    <span>{{list.msg}}</span>
+                                    <img :src="list.url" alt="">
+    
+                                    <ul class="boolBox"  v-show="list.msg === 'Google Play'">
+                                        <bool class="txt" v-show="list.bool">已開啟</bool>
+                                        <bool class="txt" v-show="!list.bool">已關閉</bool>
+                                    </ul>
+                                    <ul class="boolBox"  v-show="list.msg === '小額付款'">
+                                        <bool class="bool" v-show="list.bool">
+                                            <img src="./img/setting/bool.png" alt="">
+                                        </bool>
+                                        <bool class="bool" v-show="!list.bool">
+                                            <img src="./img/setting/bool.png" alt="">
+                                        </bool>
+                                    </ul>
+                                    
+                                </li>
+                                </ul>
+                            </div>
+                            <div class="block">
+                                <div class="itemTitle" style="cursor: pointer;" data-nav="service"   @click="handNavIcon">加值服務</div>
                                 <a href="#">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
-                                </a>
-                                <div class="TelecomBilling">
-                                    <div class="circle"></div>
-                                    <div class="cont">
-                                        <span>可用餘額</span>
-                                        <span>$500</span>
-                                        <span>代收與溢繳總額$500</span>
-                                        <a href="#" data-href="線上溢繳" @click="handHrefCont">
-                                            <span class="orgBtn2">線上溢繳</span>
-                                        </a>
-                                    </div>
-                                </div>                                
-                            </div>    
-                            <div class="itemTitle topBorder">代收額度管理</div>                        
-                            <ul class="settingList">
-                                <li class="Collectionlimit">
-                                    <span>目前額度</span>
-                                    <img src="./img/setting/list/Collectionlimit.png" alt="123">
-                                    <span class="limitVal">$500</span>
-                                    <span class="limitmsg">你最高可設定至$500</span>
-                                </li>
-                            </ul>
-                            <div class="itemTitle">服務管理</div>                        
-                            <ul class="settingList">
-                                <li 
-                                v-for="list in serviceManagementRender"
-                                :key="list.key"
-                                :data-href="list.msg"
-                                @click="handHrefCont"
-                                >
-                                <span>{{list.msg}}</span>
-                                <img :src="list.url" alt="">
-
-                                <ul class="boolBox"  v-show="list.msg === 'Google Play'">
-                                    <bool class="txt" v-show="list.bool">已開啟</bool>
-                                    <bool class="txt" v-show="!list.bool">已關閉</bool>
+                                </a>                            
+                            </div>
+                            <div class="block">
+                                <div class="itemTitle">訂單</div>
+                                <ul class="settingList">
+                                    <li @click="handHrefCont" data-href="記錄查詢">
+                                        <span>記錄查詢</span>
+                                        <img src="./img/setting/list/billRecord.png" alt="123">
+                                    </li>
                                 </ul>
-                                <ul class="boolBox"  v-show="list.msg === '小額付款'">
-                                    <bool class="bool" v-show="list.bool">
-                                        <img src="./img/setting/bool.png" alt="">
-                                    </bool>
-                                    <bool class="bool" v-show="!list.bool">
-                                        <img src="./img/setting/bool.png" alt="">
-                                    </bool>
-                                </ul>
-                                
-                            </li>
-                            </ul>
+                            </div>
+                            <div class="block null"></div>
                         </div>
-                        <div class="block">
-                            <div class="itemTitle" style="cursor: pointer;" data-nav="service"   @click="handNavIcon">加值服務</div>
-                            <a href="#">
-                                <div class="see"><img src="./img/home/block_see.png" alt=""></div>
-                            </a>                            
-                        </div>
-                        <div class="block">
-                            <div class="itemTitle">訂單</div>
-                            <ul class="settingList">
-                                <li @click="handHrefCont" data-href="記錄查詢">
-                                    <span>記錄查詢</span>
-                                    <img src="./img/setting/list/billRecord.png" alt="123">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="block null"></div>
+                                                  
+                        
                     </div>
-                                              
-                    
-                </div>
-            </section>
-
-            
-            <section class="detailContainer" v-if="NowRenderSection === 'detail'">
-                <div class="detailHeader">
-                    <div id="backBtn" data-href="index" @click="handHrefCont" v-show="backBtnBool">
-                        <img src="./img/detail/detail_back.png" alt="">
-                    </div>
-                    <div class="LeftBtn">
-                        <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
-                            <!-- <span>取消</span>                -->
+                </section>
+    
+                
+                <section class="detailContainer" v-if="NowRenderSection === 'detail'">
+                    <div class="detailHeader">
+                        <div id="backBtn" data-href="index" @click="handHrefCont" v-show="backBtnBool">
+                            <img src="./img/detail/detail_back.png" alt="">
                         </div>
-                    </div>                    
-                    <h2>{{detailCont[1]}}</h2>
-                    <div class="rigntBtn">
+                        <div class="LeftBtn">
+                            <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
+                                <!-- <span>取消</span>                -->
+                            </div>
+                        </div>                    
+                        <h2>{{detailCont[1]}}</h2>
+                        <div class="rigntBtn">
+                            <div class="ItemBox" v-if="detailCont[0] === 'billshop'">
+                                <span>貼心提醒</span>               
+                            </div>
+                            <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
+                                <span>編輯</span>               
+                                <!-- <span>刪除</span>                -->
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="detailCont">
+                        <div class="ItemBox" v-if="detailCont[0] === '合約方案'">
+                            <!-- <div class="block">
+                                <div class="itemTitle">方案內容</div>
+                            </div> -->
+                            <div class="demobox">
+                                <img src="./img/detail/demo_合約方案.png" alt="">
+                            </div>                        
+                            <div class="block null"></div>
+                        </div>
                         <div class="ItemBox" v-if="detailCont[0] === 'billshop'">
-                            <span>貼心提醒</span>               
+                            <div class="demobox">
+                                <img src="./img/detail/demo_超商繳費.png" alt="">
+                            </div>                        
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
-                            <span>編輯</span>               
-                            <!-- <span>刪除</span>                -->
-                        </div>                        
-                    </div>
-                </div>
-                <div class="detailCont">
-                    <div class="ItemBox" v-if="detailCont[0] === '合約方案'">
-                        <!-- <div class="block">
-                            <div class="itemTitle">方案內容</div>
-                        </div> -->
-                        <div class="demobox">
-                            <img src="./img/detail/demo_合約方案.png" alt="">
-                        </div>                        
-                        <div class="block null"></div>
-                    </div>
-                    <div class="ItemBox" v-if="detailCont[0] === 'billshop'">
-                        <div class="demobox">
-                            <img src="./img/detail/demo_超商繳費.png" alt="">
-                        </div>                        
-                    </div>
-                    <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
-                        <div class="mailnav">
-                            <li class="active">最新消息</li>
-                            <li data-href="serviceMail_QA" @click="handHrefCont">客服訊息</li>
-                        </div>
-                        <div class="demobox">
-                            <img src="./img/detail/demo_訊息中心.png" alt="訊息中心demo">
-                        </div>                              
-                    </div>                      
-                    <div class="ItemBox" v-if="detailCont[0] === '帳單明細'">
-                        <div class="whiteblock ">
-                            <div class="billResult thisMonth">
-                                <div class="noPay">
-                                    <ul class="generalList thisMonthList">
-                                        <li>
-                                            <span>每月出帳日</span>
-                                            <span>11日</span>
-                                        </li>
-                                        <li>
-                                            <span>累積應繳金額</span>
-                                            <span>$0</span>
-                                        </li>
-                                        <li>
-                                            <span>繳款截止日</span>
-                                            <span>你已完成繳款</span>
+                            <div class="mailnav">
+                                <li class="active">最新消息</li>
+                                <li data-href="serviceMail_QA" @click="handHrefCont">客服訊息</li>
+                            </div>
+                            <div class="demobox">
+                                <img src="./img/detail/demo_訊息中心.png" alt="訊息中心demo">
+                            </div>                              
+                        </div>                      
+                        <div class="ItemBox" v-if="detailCont[0] === '帳單明細'">
+                            <div class="whiteblock ">
+                                <div class="billResult thisMonth">
+                                    <div class="noPay">
+                                        <ul class="generalList thisMonthList">
+                                            <li>
+                                                <span>每月出帳日</span>
+                                                <span>11日</span>
+                                            </li>
+                                            <li>
+                                                <span>累積應繳金額</span>
+                                                <span>$0</span>
+                                            </li>
+                                            <li>
+                                                <span>繳款截止日</span>
+                                                <span>你已完成繳款</span>
+                                            </li>
+                                        </ul>
+    
+                                    </div>
+                                    <div class="needPay">
+    
+                                    </div>
+                                    <div class="payIcon">
+                                        <div class="item">
+                                            <img src="./img/bill/n1.png" alt="">
+                                            <span>信用卡繳款</span>
+                                        </div>
+                                        <div class="item">
+                                            <img src="./img/bill/n2.png" alt="">
+                                            <span>銀行轉帳繳款</span>
+                                        </div>
+                                        <div class="item">
+                                            <img src="./img/bill/n3.png" alt="">
+                                            <span>超商條碼繳款</span>
+                                        </div>
+                                    </div>                                
+    
+                                    
+                                </div>
+    
+                            </div>
+                            <div class="whiteblock ">
+                                <ul class="generalList">
+                                    <li>
+                                        <span>專案名稱</span>
+                                        <span>4G_無約單門號專案</span>
+                                    </li>
+                                </ul>
+                            </div>     
+    
+                            <div class="whiteblock ">
+                                <div class="billResult nearly" >
+                                    <div class="navBar">
+                                        <li @click="handbillNav" data-key="近12期帳單" :class="[{'active': billNavIs === '近12期帳單'}]">近12期帳單</li>
+                                        <li @click="handbillNav" data-key="繳款紀錄" :class="[{'active': billNavIs === '繳款紀錄'}]">繳款紀錄</li>
+                                    </div>
+                                    <ul class="nearlyBillData" v-if="billNavIs === '近12期帳單'" >
+                                        <li  class="dataItem"  
+                                        v-for="list in nearlyBillData.data" :key="list.billDate">
+                                            <span class="itemDate" @click="handnearlyBillItem" :data-key="list.billDate">{{list.billDate}}
+                                                <i :class="['icon', {'open': list.open}]"></i>
+                                            </span>
+                                            <div class="itemCont" v-show="list.open">
+                                                <div class="paySummary">
+                                                    <ul class="generalList">
+                                                        <li>
+                                                            <span>門號</span>
+                                                            <span>{{list.paySummary.phone}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>出帳日</span>
+                                                            <span>{{list.paySummary.canpayDate}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>繳費截止日</span>
+                                                            <span>{{list.paySummary.paydeadline}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>前期應繳</span>
+                                                            <span>${{list.paySummary.lastpayMoney}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>前期已繳</span>
+                                                            <span>${{list.paySummary.lastpayed}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>本期新增</span>
+                                                            <span>${{list.paySummary.thispayMoney}}</span>
+                                                        </li>
+                                                        <li class="orgmark">
+                                                            <span>本期應繳</span>
+                                                            <span>${{list.paySummary.totalMoney}}</span>
+                                                            <p class="msg">上方顯示為當期應繳總金額，如為合併帳單，即為合併帳之當期應繳總金額。</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+    
+                                                <div class="payDetails">
+                                                    <div class="row">
+                                                        <span>{{list.paySummary.phone}}</span>
+                                                        <span>金額(元)</span>
+                                                    </div>
+                                                    <div class="payItem" v-for="payItem in  list.payDetails">
+                                                        <div class="payTitle">{{payItem.title}}</div>
+                                                        <div class="payMsg">
+                                                            <span>{{payItem.msg}}</span>
+                                                            <span>${{payItem.cost}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="phoneDetail">
+                                                    <div class="download" v-show="list.phoneDetail">
+                                                        <span>請點此查看通話明細</span>
+                                                        <span>(開啟密碼:身分證號後六碼)</span>
+                                                    </div>
+                                                    <span v-show="!list.phoneDetail">本月無通話明細</span>
+                                                </div>
+                                                <div class="micropayDetail">
+                                                    <div class="download" v-show="list.micropayDetail">
+                                                        <span>請點此查看小額付款代收明細</span>
+                                                        <span>(開啟密碼:身分證號後六碼)</span>
+                                                    </div>
+                                                    <span v-show="!list.micropayDetail">本月無小額付款代收明細</span>
+                                                </div>
+                                            </div>                                        
+                                            
                                         </li>
                                     </ul>
-
-                                </div>
-                                <div class="needPay">
-
-                                </div>
-                                <div class="payIcon">
-                                    <div class="item">
-                                        <img src="./img/bill/n1.png" alt="">
-                                        <span>信用卡繳款</span>
-                                    </div>
-                                    <div class="item">
-                                        <img src="./img/bill/n2.png" alt="">
-                                        <span>銀行轉帳繳款</span>
-                                    </div>
-                                    <div class="item">
-                                        <img src="./img/bill/n3.png" alt="">
-                                        <span>超商條碼繳款</span>
-                                    </div>
-                                </div>                                
-
-                                
-                            </div>
-
-                        </div>
-                        <div class="whiteblock ">
-                            <ul class="generalList">
-                                <li>
-                                    <span>專案名稱</span>
-                                    <span>4G_無約單門號專案</span>
-                                </li>
-                            </ul>
-                        </div>     
-
-                        <div class="whiteblock ">
-                            <div class="billResult nearly" >
-                                <div class="navBar">
-                                    <li @click="handbillNav" data-key="近12期帳單" :class="[{'active': billNavIs === '近12期帳單'}]">近12期帳單</li>
-                                    <li @click="handbillNav" data-key="繳款紀錄" :class="[{'active': billNavIs === '繳款紀錄'}]">繳款紀錄</li>
-                                </div>
-                                <ul class="nearlyBillData" v-if="billNavIs === '近12期帳單'" >
-                                    <li  class="dataItem"  
-                                    v-for="list in nearlyBillData.data" :key="list.billDate">
-                                        <span class="itemDate" @click="handnearlyBillItem" :data-key="list.billDate">{{list.billDate}}
-                                            <i :class="['icon', {'open': list.open}]"></i>
-                                        </span>
-                                        <div class="itemCont" v-show="list.open">
-                                            <div class="paySummary">
+                                    <ul class="payRecordData"  v-if="billNavIs === '繳款紀錄'">
+                                        <li class="dataItem" v-for="list in payRecordData.data" :key="list.payDate">
+                                            <span class="itemDate" :data-key="list.payDate" @click="handpayRecordItem">
+                                                繳費日期 : {{list.payDate}}
+                                                <i :class="['icon', {'open': list.open}]"></i>
+                                            </span>
+                                            <div class="itemCont" v-show="list.open">
                                                 <ul class="generalList">
                                                     <li>
-                                                        <span>門號</span>
-                                                        <span>{{list.paySummary.phone}}</span>
+                                                        <span>繳費管道</span>
+                                                        <span>{{list.wherePay}}</span>
                                                     </li>
                                                     <li>
-                                                        <span>出帳日</span>
-                                                        <span>{{list.paySummary.canpayDate}}</span>
+                                                        <span>繳費方式</span>
+                                                        <span>{{list.howPay}}</span>
                                                     </li>
                                                     <li>
-                                                        <span>繳費截止日</span>
-                                                        <span>{{list.paySummary.paydeadline}}</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>前期應繳</span>
-                                                        <span>${{list.paySummary.lastpayMoney}}</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>前期已繳</span>
-                                                        <span>${{list.paySummary.lastpayed}}</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>本期新增</span>
-                                                        <span>${{list.paySummary.thispayMoney}}</span>
-                                                    </li>
-                                                    <li class="orgmark">
-                                                        <span>本期應繳</span>
-                                                        <span>${{list.paySummary.totalMoney}}</span>
-                                                        <p class="msg">上方顯示為當期應繳總金額，如為合併帳單，即為合併帳之當期應繳總金額。</p>
+                                                        <span>繳費金額</span>
+                                                        <span>${{list.payIs}}</span>
                                                     </li>
                                                 </ul>
                                             </div>
-
-                                            <div class="payDetails">
-                                                <div class="row">
-                                                    <span>{{list.paySummary.phone}}</span>
-                                                    <span>金額(元)</span>
-                                                </div>
-                                                <div class="payItem" v-for="payItem in  list.payDetails">
-                                                    <div class="payTitle">{{payItem.title}}</div>
-                                                    <div class="payMsg">
-                                                        <span>{{payItem.msg}}</span>
-                                                        <span>${{payItem.cost}}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="phoneDetail">
-                                                <div class="download" v-show="list.phoneDetail">
-                                                    <span>請點此查看通話明細</span>
-                                                    <span>(開啟密碼:身分證號後六碼)</span>
-                                                </div>
-                                                <span v-show="!list.phoneDetail">本月無通話明細</span>
-                                            </div>
-                                            <div class="micropayDetail">
-                                                <div class="download" v-show="list.micropayDetail">
-                                                    <span>請點此查看小額付款代收明細</span>
-                                                    <span>(開啟密碼:身分證號後六碼)</span>
-                                                </div>
-                                                <span v-show="!list.micropayDetail">本月無小額付款代收明細</span>
-                                            </div>
-                                        </div>                                        
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>  
                                         
-                                    </li>
-                                </ul>
-                                <ul class="payRecordData"  v-if="billNavIs === '繳款紀錄'">
-                                    <li class="dataItem" v-for="list in payRecordData.data" :key="list.payDate">
-                                        <span class="itemDate" :data-key="list.payDate" @click="handpayRecordItem">
-                                            繳費日期 : {{list.payDate}}
-                                            <i :class="['icon', {'open': list.open}]"></i>
-                                        </span>
-                                        <div class="itemCont" v-show="list.open">
-                                            <ul class="generalList">
-                                                <li>
-                                                    <span>繳費管道</span>
-                                                    <span>{{list.wherePay}}</span>
-                                                </li>
-                                                <li>
-                                                    <span>繳費方式</span>
-                                                    <span>{{list.howPay}}</span>
-                                                </li>
-                                                <li>
-                                                    <span>繳費金額</span>
-                                                    <span>${{list.payIs}}</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>  
-                                    
-                        <footer class="itemfooter remindMsg">僅保留最近12個月已入帳繳款紀錄</footer>
-                        <footer class="itemfooter remindBtn" @click="handbillNoticeBool" data-key="notice">注意事項</footer>
-  
-                        <div class="block null"></div>                        
-
-                           
-                    </div>                      
-                </div>
-                <div class="noticeBox" v-if="billNoticeBool">
-                    <div class="noticeTxt">
-                        <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
-                        <span @click="handbillNoticeBool" data-key="cancel">確認</span>
+                            <footer class="itemfooter remindMsg">僅保留最近12個月已入帳繳款紀錄</footer>
+                            <footer class="itemfooter remindBtn" @click="handbillNoticeBool" data-key="notice">注意事項</footer>
+      
+                            <div class="block null"></div>                        
+    
+                               
+                        </div>                      
                     </div>
-                </div>
-            </section>
-
-            </main>
-            
-        </div>
-         <div class="topBar">
+                    <div class="noticeBox" v-if="billNoticeBool">
+                        <div class="noticeTxt">
+                            <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
+                            <span @click="handbillNoticeBool" data-key="cancel">確認</span>
+                        </div>
+                    </div>
+                </section>
+    
+                </main>
                 
+            </div>
+             <div class="topBar">
+                    
+            </div>
+            <div class="footer">
+    
+                <span></span>
+            </div>            
         </div>
-        <div class="footer">
 
-            <span></span>
-        </div>
+       
+
 
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>

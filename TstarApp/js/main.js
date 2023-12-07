@@ -19,6 +19,19 @@ window.onload = () =>{
         PhoneStatusData:[
 
         ]})
+        // loading
+        const loading = ref(true)
+        const handLoading = () =>{
+            loading.value = true
+            let timer = null
+            timer = setTimeout(()=>{
+                loading.value = false
+                clearTimeout(timer)
+            },500)
+           
+
+        }
+        handLoading()
         // 初始資料
         const NowRenderSection = ref('login')
         const contentBg = ref('./img/ContBg/UserlogIn.png')        
@@ -481,6 +494,8 @@ window.onload = () =>{
         }
 
             return{
+                // loading
+                loading,
                 // quickLink
                 quickLinkList,
                 quickLinkRender,
