@@ -364,7 +364,7 @@ window.onload = () =>{
                 {key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
             ]})
             const handOuterLink = (el) =>{
-                let key = el.currentTarget.dataset.detail
+                let key = el.currentTarget.dataset.href
                 OuterLinkdata.data.forEach(item=>{
                     if(item.key === key){
                         window.open(item.url, '_blank', 'height=1200, width=500');
