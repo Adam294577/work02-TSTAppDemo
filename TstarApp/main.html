@@ -13,30 +13,6 @@
         <div class="leftNav">
             <ul class="quickLink" :data-test="quickLinkRender">
                 <span class="firstTitle">情境調整</span>
-                <!-- <div class="LinkBox" v-show="quickLinkRender.indexOf('登入狀態') !== -1 ">
-                    <li class="quickLinkTitle">登入狀態</li>
-                    <li @click="SkiploginSection" data-link="index">跳過登入帳密</li>
-                </div>
-                <div class="LinkBox" v-show="quickLinkRender.indexOf('帳單') !== -1 ">
-                    <li class="quickLinkTitle">帳單</li>
-                    <li data-key="有餘額" @click="handBillStatus" :class="[{'active': BillStatus === '有餘額'}]">帳單有餘額</li>
-                    <li data-key="無餘額" @click="handBillStatus" :class="[{'active': BillStatus === '無餘額'}]">帳單無餘額</li>
-                </div>
-                <div class="LinkBox" v-show="quickLinkRender.indexOf('手機裝置') !== -1 ">
-                    <li class="quickLinkTitle">手機裝置</li>
-                    <li class="active">Android</li>
-                    <li>Apple</li>
-                </div>
-                <div class="LinkBox" v-show="quickLinkRender.indexOf('小額代收明細') !== -1 ">
-                    <li class="quickLinkTitle">小額代收費</li>
-                    <li>有使用</li>
-                    <li class="active">未使用</li>
-                </div>
-                <div class="LinkBox" v-show="quickLinkRender.indexOf('通話帳單明細') !== -1 ">
-                    <li class="quickLinkTitle">通話費</li>
-                    <li class="active">有使用</li>
-                    <li>未使用</li>
-                </div> -->
                 <div class="LinkBox" v-for="list in quickLinkRender" :key="list.search">
                     <li class="quickLinkTitle">{{list.title}}</li>
                     <li v-for="item in list.arr" :key="item.statusKey" @click="handquickLinkStatus"

@@ -19,6 +19,9 @@ window.onload = () =>{
         PhoneStatusData:[
 
         ]})
+        // 初始資料
+        const NowRenderSection = ref('login')
+        const contentBg = ref('./img/ContBg/UserlogIn.png')        
         // quickLink
         const quickLinkData = reactive(
             {data:[
@@ -94,7 +97,7 @@ window.onload = () =>{
                 resultRender = resultRender.flat()
             })
             
-            console.log('要用來Render畫面的data',resultRender);
+            console.log('要用來Render quickLink的data',resultRender);
             return resultRender
             
         })
@@ -103,7 +106,7 @@ window.onload = () =>{
             let statusFn = el.currentTarget.dataset.fn
             let modifyIdx = 0
             let modifykey = ''
-            console.log('要調用的Fn是:',statusFn);
+            console.log('要調整情境的狀態是:',statusFn);
             console.log('要改變狀態的key',key);
             if(statusFn === 'skip帳密'){
                 contentBg.value = "./img/ContBg/index.png"
@@ -129,27 +132,20 @@ window.onload = () =>{
                 }
             })
         }
-
-        // loginSection
-            const NowRenderSection = ref('login')
-
+         // Login
+         const LoginStep = ref(0)
+         const handNextLogin = (el) =>{
+             let key = el.currentTarget.dataset.login
+             if(key === 'next'){
+                 LoginStep.value ++
+             }
+             if(LoginStep.value === 1){
+                 contentBg.value = "./img/ContBg/UserlogIn02.png"
+             }
+         }        
         // homeSection
             // scrollEl
             const scrollEl = ref(null)
-            
-            // contentBg
-            const contentBg = ref('./img/ContBg/UserlogIn.png')
-            // Login
-            const LoginStep = ref(0)
-            const handNextLogin = (el) =>{
-                let key = el.currentTarget.dataset.login
-                if(key === 'next'){
-                    LoginStep.value ++
-                }
-                if(LoginStep.value === 1){
-                    contentBg.value = "./img/ContBg/UserlogIn02.png"
-                }
-            }
             // 導覽列
             const NavIcon = reactive({data:[
                 {idx:0, key:'home' ,    url:"./img/navIcon/01.png",    act:true},
@@ -157,8 +153,6 @@ window.onload = () =>{
                 {idx:2, key:'discount' ,url:"./img/navIcon/03.png",    act:false},
                 {idx:3, key:'setting'  ,url:"./img/navIcon/04.png",    act:false},
             ]})
-
-
             const navIconImg = ref('./img/navIcon/01.png')
             const handNavIcon = (el) =>{
                 let key = el.currentTarget.dataset.nav
@@ -202,19 +196,6 @@ window.onload = () =>{
                     calldataStatus.value = 'open'
                 }
             }
-            // 首頁or設定 - 帳單
-            const BillStatus = ref("有餘額")
-            const handBillStatus = (el) =>{
-                const key = el.currentTarget.dataset.key 
-                if(key === '有餘額'){
-                    BillStatus.value = '有餘額'
-                }
-                if(key === '無餘額'){
-                    BillStatus.value = '無餘額'
-                }
-            }
-           
-            
             // service - Nav
             const serviceNav = reactive({data:[
                 {key:"et" ,msg:"影音娛樂" , act: true},
@@ -330,7 +311,7 @@ window.onload = () =>{
                 return data
 
             })
-        // detailSection - href
+        //href Control
             const detailCont = ref(['key','headerName'])
             const backBtnBool = ref(true)
 
@@ -408,27 +389,24 @@ window.onload = () =>{
 
             
             return{
-                // link
+                // quickLink
                 quickLinkList,
                 quickLinkRender,
                 NowRenderSection,
                 handquickLinkStatus,
                 contentBg,
-                // scrollEl
+                // scrollEl (phone)
                 scrollEl,
                 // Login
                 LoginStep,
                 handNextLogin,
-                // 導覽列   
+                // 導覽列 (index-nav)   
                 navIconImg,                 
                 NavIcon,
                 handNavIcon, 
                 // 首頁- calldata  
                 handCalldataStatus,
                 calldataStatus,   
-                // 首頁、設定 bill
-                BillStatus,
-                handBillStatus,
                  // service - Nav   
                 serviceNav,
                 handserviceNav,
@@ -444,11 +422,8 @@ window.onload = () =>{
                 // detail
                 backBtnBool,
                 detailCont,
+                // herf router
                 handHrefCont,
-                // outerLink
-                handOuterLink,
-
-
             }   
             
         },
