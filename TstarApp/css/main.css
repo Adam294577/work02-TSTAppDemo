@@ -11,6 +11,23 @@ body {
   overflow: hidden;
 }
 
+#payload {
+  height: 100vh;
+  margin-left: 150px;
+  background: #999;
+  position: relative;
+  z-index: 999;
+}
+#payload span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #FFF;
+  font-weight: bold;
+  font-size: 30px;
+}
+
 .leftNav {
   position: fixed;
   left: 0;
