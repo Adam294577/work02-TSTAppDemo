@@ -34,7 +34,7 @@ window.onload = () =>{
 
             // quickLinkList裡面 註解的表示還沒binding statusKey內容
         const quickLinkList = reactive({data:[
-            {idx:0, search:'登入狀態', title: '登入狀態' , statusFn:'skip帳密' , statusIs:'skip帳密',
+            {idx:0, search:'登入狀態', title: '登入狀態' , statusFn:'skip帳密' , statusIs:'none',
             arr:[{statusKey:'skip帳密',msg:'跳過登入帳密'}]},
             {idx:1 ,search:'帳單', title: '帳單' ,        statusFn:'帳單餘額調整' , statusIs:'有餘額',
             arr:[{statusKey:'有餘額',msg:'有餘額未繳'},{statusKey:'無餘額',msg:'已完成繳款'}]},
@@ -330,15 +330,6 @@ window.onload = () =>{
                 return data
 
             })
-        // detail->index
-        const handtoIndexSection = (el) =>{
-            let key = el.currentTarget.dataset.detail
-            if(key === 'index'){
-                NowRenderSection.value = 'index'
-                contentBg.value = './img/ContBg/index.png'
-                return
-            }
-        }
         // detailSection - href
             const detailCont = ref(['key','headerName'])
             const backBtnBool = ref(true)
@@ -380,10 +371,11 @@ window.onload = () =>{
                     }
                 })                
             }
-            const handdetailSection = (el) =>{
-                let key = el.currentTarget.dataset.detail
+
+            const handHrefCont = (el) =>{
+                let key = el.currentTarget.dataset.href
                 let IsInnerLink = false
-                console.log('detail:',key);
+                console.log('href:',key);
 
                 if( key === 'login'){
                     NowRenderSection.value = 'login'
@@ -408,7 +400,7 @@ window.onload = () =>{
                     handOuterLink(el)      
                     return
                 }
-                console.warn('detail尚未指定Link');
+                console.warn('尚未指定href');
             }
         // detail - 多門號切換繳款與帳單明細
 
@@ -452,8 +444,7 @@ window.onload = () =>{
                 // detail
                 backBtnBool,
                 detailCont,
-                handtoIndexSection,
-                handdetailSection,
+                handHrefCont,
                 // outerLink
                 handOuterLink,
 
