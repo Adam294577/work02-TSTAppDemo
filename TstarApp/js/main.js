@@ -20,7 +20,8 @@ window.onload = () =>{
 
         ]})
         // quickLink
-        const quickLinkData = reactive({data:[
+        const quickLinkData = reactive(
+            {data:[
             {key:'login',link:['登入狀態',]},
             {key:'index_home',link:['帳單',"手機裝置"]},
             {key:'index_service',link:['',]},
@@ -28,9 +29,25 @@ window.onload = () =>{
             {key:'index_setting',link:['帳單',]},
             {key:'detail_帳單明細',link:['小額代收明細','通話帳單明細']},
             {key:'none',link:['']}
-        ]})
-        const quickLinkRender = computed(()=>{
-            let key = NowRenderSection.value
+            ]})
+
+
+            // quickLinkList裡面 註解的表示還沒binding statusKey內容
+        const quickLinkList = reactive({data:[
+            {idx:0, search:'登入狀態', title: '登入狀態' , statusFn:'skip帳密' , statusIs:'skip帳密',
+            arr:[{statusKey:'skip帳密',msg:'跳過登入帳密'}]},
+            {idx:1 ,search:'帳單', title: '帳單' ,        statusFn:'帳單餘額調整' , statusIs:'有餘額',
+            arr:[{statusKey:'有餘額',msg:'有餘額未繳'},{statusKey:'無餘額',msg:'已完成繳款'}]},
+            // {idx:2 ,search:'手機裝置', title: '手機裝置' , statusFn:'手機裝置更換' , statusIs:'androidPhone',
+            // arr:[{statusKey:'androidPhone',msg:'Android'},{statusKey:'iPhone',msg:'Apple'}]},
+            // {idx:3 ,search:'小額代收明細', title: '小額代收' ,        statusFn:'小額代收使用狀況' , statusIs:'有使用',
+            // arr:[{statusKey:'有使用',msg:'有使用'},{statusKey:'未使用',msg:'未使用'}]},            
+            // {idx:4 ,search:'通話帳單明細', title: '通話帳單' ,        statusFn:'通話使用狀況' , statusIs:'未使用',
+            // arr:[{statusKey:'有使用',msg:'有使用'},{statusKey:'未使用',msg:'未使用'}]},            
+            {idx:5 ,search:'', title: '' ,        statusFn:'' , statusIs:'',
+            arr:[{statusKey:'',msg:''},{statusKey:'',msg:''}]},            
+        ]})            
+        const quickLinkContIs = (key) =>{
             if(key === 'index'){
                 NavIcon.data.forEach(item=>{
                     if(item.act){
@@ -45,30 +62,77 @@ window.onload = () =>{
                         key = `detail_${item.key}`
                     }
                 })                
-            }            
-            let result = []
-            result = quickLinkData.data.filter(item=>{
+            }   
+            return key
+        }
+        const quickLinkRender = computed(()=>{
+            let key = NowRenderSection.value
+            key =  quickLinkContIs(key)
+            // console.log('quickLink的區域為:',key);
+
+            let resultKey = []
+            let resultRender = []
+           
+            resultKey = quickLinkData.data.filter(item=>{
                 if(item.key === key) return item
             })
-            
 
-            if (result.length ===0) return console.warn('情境調整未抓取到任何Key');
+            if(resultKey.length === 0){
+                resultRender = []
+                // console.log('無quickLink要render')
+                return resultRender
+            }
+           
+            console.log('要顯示的Link資料的Key有哪些:',resultKey[0].link);
+            resultKey[0].link.forEach(key=>{
+                // console.log(key);
+                let arr = []
+                arr = quickLinkList.data.filter(item=>{
+                    if(item.search === key) return item
+                })
+                resultRender.push(arr)
+                resultRender = resultRender.flat()
+            })
             
-            console.log('最後的key:',key);
-            console.log('要顯示的Link資料:',result[0].link);
-            return result[0].link
-
+            console.log('要用來Render畫面的data',resultRender);
+            return resultRender
             
         })
+        const handquickLinkStatus = (el) =>{
+            let key = el.currentTarget.dataset.key
+            let statusFn = el.currentTarget.dataset.fn
+            let modifyIdx = 0
+            let modifykey = ''
+            console.log('要調用的Fn是:',statusFn);
+            console.log('要改變狀態的key',key);
+            if(statusFn === 'skip帳密'){
+                contentBg.value = "./img/ContBg/index.png"
+                NowRenderSection.value ='index'
+                return
+            }
+            let usedLinkIs = []
+            usedLinkIs = quickLinkList.data.filter(item=>{
+                if(item.statusFn === statusFn){
+                    modifyIdx = item.idx
+                    return item
+                }
+            })
+            
+            usedLinkIs[0].arr.forEach(result=>{
+                if(result.statusKey === key){
+                    modifykey = result.statusKey
+                }
+            })
+            quickLinkList.data.forEach(item=>{
+                if(item.idx === modifyIdx){
+                    item.statusIs = modifykey
+                }
+            })
+        }
+
         // loginSection
             const NowRenderSection = ref('login')
-            const SkiploginSection = (el)=>{
-                let key = el.currentTarget.dataset.link
-                if(key === 'index'){
-                    contentBg.value = "./img/ContBg/index.png"
-                    NowRenderSection.value ='index'
-                }
-            }
+
         // homeSection
             // scrollEl
             const scrollEl = ref(null)
@@ -353,9 +417,10 @@ window.onload = () =>{
             
             return{
                 // link
+                quickLinkList,
                 quickLinkRender,
                 NowRenderSection,
-                SkiploginSection,
+                handquickLinkStatus,
                 contentBg,
                 // scrollEl
                 scrollEl,

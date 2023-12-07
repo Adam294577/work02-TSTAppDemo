@@ -13,7 +13,7 @@
         <div class="leftNav">
             <ul class="quickLink" :data-test="quickLinkRender">
                 <span class="firstTitle">情境調整</span>
-                <div class="LinkBox" v-show="quickLinkRender.indexOf('登入狀態') !== -1 ">
+                <!-- <div class="LinkBox" v-show="quickLinkRender.indexOf('登入狀態') !== -1 ">
                     <li class="quickLinkTitle">登入狀態</li>
                     <li @click="SkiploginSection" data-link="index">跳過登入帳密</li>
                 </div>
@@ -36,10 +36,21 @@
                     <li class="quickLinkTitle">通話費</li>
                     <li class="active">有使用</li>
                     <li>未使用</li>
+                </div> -->
+                <div class="LinkBox" v-for="list in quickLinkRender" :key="list.search">
+                    <li class="quickLinkTitle">{{list.title}}</li>
+                    <li v-for="item in list.arr" :key="item.statusKey" @click="handquickLinkStatus"
+                    :class="[{'active' : item.statusKey === list.statusIs}]"
+                    :data-fn="list.statusFn"
+                    :data-key="item.statusKey"
+                    >
+                        {{item.msg}}
+                    </li>
+
                 </div>
             </ul>
-            <img class="AppIcon" src="./img/AppUI.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/06</span></span>
+            <img class="AppIcon" src="./img/AppUI2.png" alt="">
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/07</span></span>
         </div>
 
         <div class="navbar" v-if="NowRenderSection === 'index'">
@@ -68,7 +79,7 @@
                     </button>
                 </div>
                 <div class="BtnBox" v-if="LoginStep === 1">
-                    <button @click="SkiploginSection" data-link="index" class="whiteBtn">下一步</button>
+                    <button @click="handdetailSection" data-detail="index" class="whiteBtn">下一步</button>
                 </div>
             </section>
             <section class="home" v-if="NowRenderSection === 'index'">
@@ -148,11 +159,11 @@
                         <div class="itemMsg">
                                 <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                             <div class="bill">
-                                <div class="noPay" data-detail="帳單明細" @click="handdetailSection" v-show="BillStatus === '無餘額'" style="cursor: pointer;">
+                                <div class="noPay" data-detail="帳單明細" @click="handdetailSection" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
                                     <span>應繳 $0</span>
                                     <span>你已完成繳款</span>
                                 </div>
-                                <div class="needPay" v-show="BillStatus === '有餘額'">
+                                <div class="needPay" v-show="quickLinkList.data[1].statusIs === '有餘額'">
                                     <div data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">
                                         <span>應繳 $5207</span>
                                         <span>繳費期限 5/27</span>
@@ -359,11 +370,11 @@
                             <div class="itemMsg">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                                 <div class="bill">
-                                    <div class="noPay" data-detail="帳單明細" @click="handdetailSection" v-show="BillStatus === '無餘額'" style="cursor: pointer;">
+                                    <div class="noPay" data-detail="帳單明細" @click="handdetailSection" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
                                         <span>應繳 $0</span>
                                         <span>你已完成繳款</span>
                                     </div>
-                                    <div class="needPay" v-show="BillStatus === '有餘額'">
+                                    <div class="needPay" v-show="quickLinkList.data[1].statusIs === '有餘額'">
                                         <div data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">
                                             <span>應繳 $5207</span>
                                             <span>繳費期限 5/27</span>
@@ -385,7 +396,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="block">
                             <div class="itemTitle">客戶服務</div>
                             <ul class="settingList">
