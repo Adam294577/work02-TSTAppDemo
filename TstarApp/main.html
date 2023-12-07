@@ -75,11 +75,11 @@
 
                 <div class="BtnBox" v-if="LoginStep === 0">
                     <button @click="handNextLogin" data-login="next" class="orgBtn">會員登入</button>
-                    <button class="orgBtn"><a data-detail="會員註冊" @click="handdetailSection" href="#">會員註冊</a>
+                    <button class="orgBtn"><a data-href="會員註冊" @click="handHrefCont" href="#">會員註冊</a>
                     </button>
                 </div>
                 <div class="BtnBox" v-if="LoginStep === 1">
-                    <button @click="handdetailSection" data-detail="index" class="whiteBtn">下一步</button>
+                    <button @click="handHrefCont" data-href="index" class="whiteBtn">下一步</button>
                 </div>
             </section>
             <section class="home" v-if="NowRenderSection === 'index'">
@@ -93,16 +93,16 @@
                             <p v-show="NavIcon.data[3].act">我的帳戶</p> 
                         </div>
                     </h2>
-                    <div class="mailIcon" data-detail="訊息中心" @click="handdetailSection">
+                    <div class="mailIcon" data-href="訊息中心" @click="handHrefCont">
                         <img src="./img/mail_icon.png" alt="">
                     </div>
                 </div>
 
                 <div class="ItemBox home" v-show="NavIcon.data[0].act">
-                    <div class="banner" data-detail="老客戶專屬優惠" @click="handdetailSection" style="cursor: pointer;">
+                    <div class="banner" data-href="老客戶專屬優惠" @click="handHrefCont" style="cursor: pointer;">
                         <img src="./img/home/banner.png" alt="banner">
                     </div>
-                    <div class="block" data-detail="老客戶專屬優惠" @click="handdetailSection" style="cursor: pointer;">
+                    <div class="block" data-href="老客戶專屬優惠" @click="handHrefCont" style="cursor: pointer;">
                         <div class="itemTitle">
                             <span class="ringIcon">老客戶專屬優惠</span>
                         </div>
@@ -121,7 +121,7 @@
                                     <span>剩餘上網</span>
                                     <span>119.3MB</span>
                                     <span>可用 200.0 MB</span>
-                                    <a data-detail="門號用量加購" @click="handdetailSection" href="#">加購</a>
+                                    <a data-href="門號用量加購" @click="handHrefCont" href="#">加購</a>
                                 </li>
                                 <li v-show="calldataStatus === 'open'">
                                     <span>已撥通話</span>
@@ -155,29 +155,29 @@
                         </div>
                     </div>
                     <div class="block">
-                        <div class="itemTitle" data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">帳單</div>
+                        <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單</div>
                         <div class="itemMsg">
                                 <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                             <div class="bill">
-                                <div class="noPay" data-detail="帳單明細" @click="handdetailSection" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
+                                <div class="noPay" data-href="帳單明細" @click="handHrefCont" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
                                     <span>應繳 $0</span>
                                     <span>你已完成繳款</span>
                                 </div>
                                 <div class="needPay" v-show="quickLinkList.data[1].statusIs === '有餘額'">
-                                    <div data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">
+                                    <div data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">
                                         <span>應繳 $5207</span>
                                         <span>繳費期限 5/27</span>
                                     </div>
                                     <div class="payBox">
-                                        <div class="payItem" data-detail="billcard" @click="handdetailSection">
+                                        <div class="payItem" data-href="billcard" @click="handHrefCont">
                                             <img src="./img/bill/1.png" alt="">
                                             <span>信用卡</span>
                                         </div>
-                                        <div class="payItem" data-detail="billatm" @click="handdetailSection">
+                                        <div class="payItem" data-href="billatm" @click="handHrefCont">
                                             <img src="./img/bill/2.png" alt="">
                                             <span>銀行轉帳</span>
                                         </div>
-                                        <div class="payItem" data-detail="billshop" @click="handdetailSection">
+                                        <div class="payItem" data-href="billshop" @click="handHrefCont">
                                             <img src="./img/bill/3.png" alt="">
                                             <span>超商條碼</span>
                                         </div>
@@ -186,7 +186,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="block" style="cursor: pointer;" data-detail="合約方案" @click="handdetailSection">
+                    <div class="block" style="cursor: pointer;" data-href="合約方案" @click="handHrefCont">
                         <div class="itemTitle" >合約方案</div>
                         <div class="itemMsg">
                                 <div class="see"><img src="./img/home/block_see.png" alt=""></div>
@@ -239,8 +239,8 @@
                     <div class="block" 
                     v-for="list in serviceItemRender"
                     :key="list.key"
-                    :data-detail="list.key"
-                    @click="handdetailSection"
+                    :data-href="list.key"
+                    @click="handHrefCont"
                     >
                         <img class="iconImg" :src="`./img/service/${list.key}.png`" alt="">
                         <div class="itemTitle appIcon">{{list.title}}</div>
@@ -266,15 +266,15 @@
                         <div class="itemMsg">
                             <span>我變我們myfone online 開啟無限，迎星送現金，加入會員送200，還可享更多手機/家電及3C商品優惠。</span>
                             <div class="banner">
-                                <img @click="handdetailSection" data-detail="5G台灣隊迎星" src="./img/discount/a1.png" alt="">
-                                <img @click="handdetailSection" data-detail="myfone萬元禮券" src="./img/discount/a2.png" alt="">
+                                <img @click="handHrefCont" data-href="5G台灣隊迎星" src="./img/discount/a1.png" alt="">
+                                <img @click="handHrefCont" data-href="myfone萬元禮券" src="./img/discount/a2.png" alt="">
                             </div>
                         </div>
                         <div class="itemTitle">momo購物 優惠專區</div>
                         <div class="itemMsg">
                             <span>特談商品天天下殺，速食票券即買即用，年菜搶先購，你想要的都在momo購物網</span>
                             <div class="banner">
-                                <img @click="handdetailSection" data-detail="MOMO_麥當勞55折起" src="./img/discount/b1.png" alt="">
+                                <img @click="handHrefCont" data-href="MOMO_麥當勞55折起" src="./img/discount/b1.png" alt="">
                             </div>
                         </div>                        
                     </div>
@@ -285,7 +285,7 @@
                         <span class="userName">宋*雯</span>
                         <span class="userPhone">09088***55</span>
                         <span class="userType">月租型用戶</span>
-                        <span class="settingIcon" data-detail="會員資料設定">
+                        <span class="settingIcon" data-href="會員資料設定">
                             <img src="./img/setting/settingIcon.png" alt="">
                         </span>
                     </div>
@@ -298,7 +298,7 @@
                         </li>
                     </div>
                     <div class="settingBox" v-if="settingNavIs === '基本管理'">
-                        <div class="block" style="cursor: pointer;" data-detail="合約方案" @click="handdetailSection">
+                        <div class="block" style="cursor: pointer;" data-href="合約方案" @click="handHrefCont">
                             <div class="itemTitle" >合約方案</div>
                             <div class="itemMsg">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
@@ -318,7 +318,7 @@
                                         <span>剩餘上網</span>
                                         <span>119.3MB</span>
                                         <span>可用 200.0 MB</span>
-                                        <a data-detail="門號用量加購" @click="handdetailSection" href="#">加購</a>
+                                        <a data-href="門號用量加購" @click="handHrefCont" href="#">加購</a>
                                     </li>
                                     <li v-show="calldataStatus === 'open'">
                                         <span>已撥通話</span>
@@ -357,8 +357,8 @@
                                 <li 
                                 v-for="list in serviceApplyRender"
                                 :key="list.key"
-                                :data-detail="list.msg"
-                                @click="handdetailSection"
+                                :data-href="list.msg"
+                                @click="handHrefCont"
                                 >
                                 <span>{{list.msg}}</span>
                                 <img :src="list.url" alt="">
@@ -366,29 +366,29 @@
                             </ul>
                         </div> 
                         <div class="block">
-                            <div class="itemTitle" data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">帳單</div>
+                            <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單</div>
                             <div class="itemMsg">
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                                 <div class="bill">
-                                    <div class="noPay" data-detail="帳單明細" @click="handdetailSection" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
+                                    <div class="noPay" data-href="帳單明細" @click="handHrefCont" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
                                         <span>應繳 $0</span>
                                         <span>你已完成繳款</span>
                                     </div>
                                     <div class="needPay" v-show="quickLinkList.data[1].statusIs === '有餘額'">
-                                        <div data-detail="帳單明細" @click="handdetailSection" style="cursor: pointer;">
+                                        <div data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">
                                             <span>應繳 $5207</span>
                                             <span>繳費期限 5/27</span>
                                         </div>
                                         <div class="payBox">
-                                            <div class="payItem" data-detail="billcard" @click="handdetailSection">
+                                            <div class="payItem" data-href="billcard" @click="handHrefCont">
                                                 <img src="./img/bill/1.png" alt="">
                                                 <span>信用卡</span>
                                             </div>
-                                            <div class="payItem" data-detail="billatm" @click="handdetailSection">
+                                            <div class="payItem" data-href="billatm" @click="handHrefCont">
                                                 <img src="./img/bill/2.png" alt="">
                                                 <span>銀行轉帳</span>
                                             </div>
-                                            <div class="payItem" data-detail="billshop" @click="handdetailSection">
+                                            <div class="payItem" data-href="billshop" @click="handHrefCont">
                                                 <img src="./img/bill/3.png" alt="">
                                                 <span>超商條碼</span>
                                             </div>
@@ -403,8 +403,8 @@
                                 <li 
                                 v-for="list in customServiceRender"
                                 :key="list.key"
-                                :data-detail="list.msg"
-                                @click="handdetailSection"
+                                :data-href="list.msg"
+                                @click="handHrefCont"
                                 >
                                 <span>{{list.msg}}</span>
                                 <img :src="list.url" alt="">
@@ -414,7 +414,7 @@
                         <div class="block null"></div>
                     </div>
                     <div class="settingBox" v-if="settingNavIs === '消費服務'">
-                        <div class="block" data-detail="優惠券" @click="handdetailSection">
+                        <div class="block" data-href="優惠券" @click="handHrefCont">
                             <div class="itemTitle">你的優惠</div>
                             <ul class="settingList">
                                 <li class="coupon">
@@ -439,7 +439,7 @@
                                         <span>可用餘額</span>
                                         <span>$500</span>
                                         <span>代收與溢繳總額$500</span>
-                                        <a href="#" data-detail="線上溢繳" @click="handdetailSection">
+                                        <a href="#" data-href="線上溢繳" @click="handHrefCont">
                                             <span class="orgBtn2">線上溢繳</span>
                                         </a>
                                     </div>
@@ -459,8 +459,8 @@
                                 <li 
                                 v-for="list in serviceManagementRender"
                                 :key="list.key"
-                                :data-detail="list.msg"
-                                @click="handdetailSection"
+                                :data-href="list.msg"
+                                @click="handHrefCont"
                                 >
                                 <span>{{list.msg}}</span>
                                 <img :src="list.url" alt="">
@@ -490,7 +490,7 @@
                         <div class="block">
                             <div class="itemTitle">訂單</div>
                             <ul class="settingList">
-                                <li @click="handdetailSection" data-detail="記錄查詢">
+                                <li @click="handHrefCont" data-href="記錄查詢">
                                     <span>記錄查詢</span>
                                     <img src="./img/setting/list/billRecord.png" alt="123">
                                 </li>
@@ -506,7 +506,7 @@
             
             <section class="detailContainer" v-if="NowRenderSection === 'detail'">
                 <div class="detailHeader">
-                    <div id="backBtn" data-detail="index" @click="handtoIndexSection" v-show="backBtnBool">
+                    <div id="backBtn" data-href="index" @click="handHrefCont" v-show="backBtnBool">
                         <img src="./img/detail/detail_back.png" alt="">
                     </div>
                     <div class="LeftBtn">
@@ -543,7 +543,7 @@
                     <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
                         <div class="mailnav">
                             <li class="active">最新消息</li>
-                            <li data-detail="serviceMail_QA" @click="handdetailSection">客服訊息</li>
+                            <li data-href="serviceMail_QA" @click="handHrefCont">客服訊息</li>
                         </div>
                         <div class="demobox">
                             <img src="./img/detail/demo_訊息中心.png" alt="訊息中心demo">
