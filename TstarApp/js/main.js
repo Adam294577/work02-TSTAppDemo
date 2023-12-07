@@ -384,10 +384,102 @@ window.onload = () =>{
                 console.warn('尚未指定href');
             }
         // detail - 多門號切換繳款與帳單明細
+        const billNavIs = ref('近12期帳單')
+        const handbillNav = (el) =>{
+            let key = el.currentTarget.dataset.key
+            if(key === '近12期帳單'){
+                billNavIs.value = key
+                return
+            }
+            if(key === '繳款紀錄'){
+                billNavIs.value = key
+                nearlyBillData.data.forEach(item=>{
+                    item.open = false
+                })
+                return
+            }
+        }
+        const nearlyBillData = reactive({data:[
+            {idx:0 , billDate:'2023年11月', open: true, 
+            paySummary:{phone: '09088***55', paydeadline: '20231129', canpayDate:'20231111', lastpayMoney: 199,lastpayed:0, thispayMoney: 200 ,totalMoney:399},
+            payDetails:[
+                {title:'月租費',msg:'數據199型月租費1011-1110',cost:199},
+                {title:'國內通信費',msg:'網外簡訊費',cost:1},
+            ],
+            phoneDetail: true,
+            micropayDetail: false,
+            },
+            {idx:1 , billDate:'2023年10月', open: false, 
+            paySummary:{phone: '09088***55', paydeadline: '20231029', canpayDate:'20231011', lastpayMoney: 398,lastpayed:398, thispayMoney: 199 ,totalMoney:199},
+            payDetails:[
+                {title:'月租費',msg:'數據199型月租費0911-1010',cost:199},
+            ],
+            phoneDetail: false,
+            micropayDetail: false,
+            },
+            {idx:2 , billDate:'2023年09月', open: false, 
+            paySummary:{phone: '09088***55', paydeadline: '20230929', canpayDate:'20230911', lastpayMoney: 199,lastpayed:0, thispayMoney: 199 ,totalMoney:398},
+            payDetails:[
+                {title:'月租費',msg:'數據199型月租費0811-0910',cost:199},
+            ],
+            phoneDetail: false,
+            micropayDetail: false,
+            },
+            {idx:3 , billDate:'2023年08月', open: false, 
+            paySummary:{phone: '09088***55', paydeadline: '20230829', canpayDate:'20230811', lastpayMoney: 398,lastpayed:398, thispayMoney: 199 ,totalMoney:199},
+            payDetails:[
+                {title:'月租費',msg:'數據199型月租費0711-0810',cost:199},
+            ],
+            phoneDetail: false,
+            micropayDetail: false,
+            },
+            {idx:3 , billDate:'2023年07月', open: false, 
+            paySummary:{phone: '09088***55', paydeadline: '20230729', canpayDate:'20230711', lastpayMoney: 199,lastpayed:0, thispayMoney: 199 ,totalMoney:398},
+            payDetails:[
+                {title:'月租費',msg:'數據199型月租費0611-0710',cost:199},
+            ],
+            phoneDetail: false,
+            micropayDetail: false,
+            },
+        ]})
+        const handnearlyBillItem = (el) =>{
+            let key = el.currentTarget.dataset.key
+            nearlyBillData.data.forEach(item=>{
+                
+                if(key === item.billDate && item.open === true) return item.open = false
+                item.open = false
+                if(key === item.billDate){
+                    item.open =  true
+                }
+            })
+        }        
+        const payRecordData = reactive({data:[
+            {idx:0 , open: false, payDate: '2023/11/29', wherePay: '線上繳款-APP', howPay: '信用卡', payIs:399},
+            {idx:1 , open: false, payDate: '2023/09/19', wherePay: '線上繳款-APP', howPay: '信用卡', payIs:398},
+            {idx:2 , open: false, payDate: '2023/07/14', wherePay: '線上繳款-APP', howPay: '信用卡', payIs:398},
+        ]})
+        const handpayRecordItem = (el) =>{
+            let key = el.currentTarget.dataset.key
+            console.log(key);
+            payRecordData.data.forEach(item=>{
+                if(key === item.payDate && item.open === true) return item.open = false
+                    item.open = false
+                if(key === item.payDate){
+                    item.open =  true
+                }
+            })
+        }
+        const billNoticeBool = ref(false)
+        const handbillNoticeBool = (el)=>{
+            let key = el.currentTarget.dataset.key
+            if(key === 'cancel'){
+                billNoticeBool.value = false
+            }
+            if(key === 'notice'){
+                billNoticeBool.value = true
+            }
+        }
 
-
-
-            
             return{
                 // quickLink
                 quickLinkList,
@@ -422,8 +514,20 @@ window.onload = () =>{
                 // detail
                 backBtnBool,
                 detailCont,
+                // detail - 多門號切換繳款與帳單明細
+                    // nav
+                billNavIs,
+                handbillNav,       
+                nearlyBillData, 
+                handnearlyBillItem,    
+                payRecordData,
+                handpayRecordItem,
+                    // notice
+                billNoticeBool,
+                handbillNoticeBool,                
                 // herf router
                 handHrefCont,
+                
             }   
             
         },

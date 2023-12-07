@@ -579,44 +579,45 @@
                         <div class="whiteblock ">
                             <div class="billResult nearly" >
                                 <div class="navBar">
-                                    <li class="active">近12期帳單</li>
-                                    <li>繳款紀錄</li>
+                                    <li @click="handbillNav" data-key="近12期帳單" :class="[{'active': billNavIs === '近12期帳單'}]">近12期帳單</li>
+                                    <li @click="handbillNav" data-key="繳款紀錄" :class="[{'active': billNavIs === '繳款紀錄'}]">繳款紀錄</li>
                                 </div>
-                                <ul class="nearlyBillData" v-if="true" >
-                                    <li class="dataItem">
-                                        <span class="itemDate">2023年11月
-                                            <i class="icon open"></i>
+                                <ul class="nearlyBillData" v-if="billNavIs === '近12期帳單'" >
+                                    <li  class="dataItem"  
+                                    v-for="list in nearlyBillData.data" :key="list.billDate">
+                                        <span class="itemDate" @click="handnearlyBillItem" :data-key="list.billDate">{{list.billDate}}
+                                            <i :class="['icon', {'open': list.open}]"></i>
                                         </span>
-                                        <div class="itemCont">
+                                        <div class="itemCont" v-show="list.open">
                                             <div class="paySummary">
                                                 <ul class="generalList">
                                                     <li>
                                                         <span>門號</span>
-                                                        <span>09088***55</span>
+                                                        <span>{{list.paySummary.phone}}</span>
                                                     </li>
                                                     <li>
                                                         <span>出帳日</span>
-                                                        <span>20231111</span>
+                                                        <span>{{list.paySummary.canpayDate}}</span>
                                                     </li>
                                                     <li>
                                                         <span>繳費截止日</span>
-                                                        <span>20231129</span>
+                                                        <span>{{list.paySummary.paydeadline}}</span>
                                                     </li>
                                                     <li>
                                                         <span>前期應繳</span>
-                                                        <span>$199</span>
+                                                        <span>${{list.paySummary.lastpayMoney}}</span>
                                                     </li>
                                                     <li>
                                                         <span>前期已繳</span>
-                                                        <span>$0</span>
+                                                        <span>${{list.paySummary.lastpayed}}</span>
                                                     </li>
                                                     <li>
                                                         <span>本期新增</span>
-                                                        <span>$200</span>
+                                                        <span>${{list.paySummary.thispayMoney}}</span>
                                                     </li>
                                                     <li class="orgmark">
                                                         <span>本期應繳</span>
-                                                        <span>$399</span>
+                                                        <span>${{list.paySummary.totalMoney}}</span>
                                                         <p class="msg">上方顯示為當期應繳總金額，如為合併帳單，即為合併帳之當期應繳總金額。</p>
                                                     </li>
                                                 </ul>
@@ -624,77 +625,75 @@
 
                                             <div class="payDetails">
                                                 <div class="row">
-                                                    <span>09088***55</span>
+                                                    <span>{{list.paySummary.phone}}</span>
                                                     <span>金額(元)</span>
                                                 </div>
-                                                <div class="payItem">
-                                                    <div class="payTitle">月租費</div>
+                                                <div class="payItem" v-for="payItem in  list.payDetails">
+                                                    <div class="payTitle">{{payItem.title}}</div>
                                                     <div class="payMsg">
-                                                        <span>數據199型月租費1011-1110</span>
-                                                        <span>$199</span>
-                                                    </div>
-                                                </div>
-                                                <div class="payItem">
-                                                    <div class="payTitle">國內通信費</div>
-                                                    <div class="payMsg">
-                                                        <span>網外簡訊費</span>
-                                                        <span>$1</span>
+                                                        <span>{{payItem.msg}}</span>
+                                                        <span>${{payItem.cost}}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="phoneDetail">
-                                                <div class="download">
+                                                <div class="download" v-show="list.phoneDetail">
                                                     <span>請點此查看通話明細</span>
                                                     <span>(開啟密碼:身分證號後六碼)</span>
                                                 </div>
-                                                <span v-if="false">本月無通話明細</span>
+                                                <span v-show="!list.phoneDetail">本月無通話明細</span>
                                             </div>
                                             <div class="micropayDetail">
-                                                <div class="download" v-if="false">
+                                                <div class="download" v-show="list.micropayDetail">
                                                     <span>請點此查看小額付款代收明細</span>
                                                     <span>(開啟密碼:身分證號後六碼)</span>
                                                 </div>
-                                                <span>本月無小額付款代收明細</span>
+                                                <span v-show="!list.micropayDetail">本月無小額付款代收明細</span>
                                             </div>
-
-                                        </div>
-                                    </li>
-                                    <li class="dataItem">
-                                        <span class="itemDate">2023年10月<i class="icon"></i></span>
+                                        </div>                                        
                                         
                                     </li>
                                 </ul>
-                                <ul class="payRecordData"  v-if="true">
-                                    <li class="dataItem">
-                                        <span class="itemDate">繳費日期 : 2023/11/29<i class="icon open"></i></span>
-                                        <div class="itemCont">
+                                <ul class="payRecordData"  v-if="billNavIs === '繳款紀錄'">
+                                    <li class="dataItem" v-for="list in payRecordData.data" :key="list.payDate">
+                                        <span class="itemDate" :data-key="list.payDate" @click="handpayRecordItem">
+                                            繳費日期 : {{list.payDate}}
+                                            <i :class="['icon', {'open': list.open}]"></i>
+                                        </span>
+                                        <div class="itemCont" v-show="list.open">
                                             <ul class="generalList">
                                                 <li>
                                                     <span>繳費管道</span>
-                                                    <span>線上繳款-APP</span>
+                                                    <span>{{list.wherePay}}</span>
                                                 </li>
                                                 <li>
                                                     <span>繳費方式</span>
-                                                    <span>信用卡</span>
+                                                    <span>{{list.howPay}}</span>
                                                 </li>
                                                 <li>
                                                     <span>繳費金額</span>
-                                                    <span>$399</span>
+                                                    <span>${{list.payIs}}</span>
                                                 </li>
                                             </ul>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
-                        </div>            
+                        </div>  
+                                    
                         <footer class="itemfooter remindMsg">僅保留最近12個月已入帳繳款紀錄</footer>
-                        <footer class="itemfooter remindBtn">注意事項</footer>
+                        <footer class="itemfooter remindBtn" @click="handbillNoticeBool" data-key="notice">注意事項</footer>
   
                         <div class="block null"></div>                        
 
                            
                     </div>                      
-                  
+                </div>
+                <div class="noticeBox" v-if="billNoticeBool">
+                    <div class="noticeTxt">
+                        <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
+                        <span @click="handbillNoticeBool" data-key="cancel">確認</span>
+                    </div>
                 </div>
             </section>
 
