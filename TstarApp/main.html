@@ -11,24 +11,27 @@
 <body>
     <div id="app">
         <div class="leftNav">
-            <ul class="quickLink" :data-test="quickLinkRender">
+            <ul class="quickLink">
                 <span class="firstTitle">情境調整</span>
-                <div class="LinkBox" v-for="list in quickLinkRender" :key="list.search">
-                    <li class="quickLinkTitle">{{list.title}}</li>
-                    <li v-for="item in list.arr" :key="item.statusKey" @click="handquickLinkStatus"
-                    :class="[{'active' : item.statusKey === list.statusIs}]"
-                    :data-fn="list.statusFn"
-                    :data-key="item.statusKey"
-                    >
-                        {{item.msg}}
-                    </li>
-
+                <div class="quickLinkContainer"  v-if="!loading">
+                    <div class="LinkBox" v-for="list in quickLinkRender" :key="list.search">
+                        <li class="quickLinkTitle">{{list.title}}</li>
+                        <li v-for="item in list.arr" :key="item.statusKey" @click="handquickLinkStatus"
+                        :class="[{'active' : item.statusKey === list.statusIs}]"
+                        :data-fn="list.statusFn"
+                        :data-key="item.statusKey"
+                        >
+                            {{item.msg}}
+                        </li>
+    
+                    </div>
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
             <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/07</span></span>
         </div>
         <div id="payload" v-if="loading">
+            <div class="LeftBlock"></div>
             <span>Loading...</span>
         </div>
         <div class="phoneBox" v-if="!loading">

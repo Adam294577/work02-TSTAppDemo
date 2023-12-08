@@ -27,6 +27,14 @@ body {
   font-weight: bold;
   font-size: 30px;
 }
+#payload .LeftBlock {
+  position: fixed;
+  left: 0;
+  top: 67px;
+  width: 150px;
+  height: 70vh;
+  background: #CCC;
+}
 
 .leftNav {
   position: fixed;
