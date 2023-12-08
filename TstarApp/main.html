@@ -23,7 +23,6 @@
                         >
                             {{item.msg}}
                         </li>
-    
                     </div>
                 </div>
             </ul>
@@ -266,7 +265,7 @@
                             <span class="userName">宋*雯</span>
                             <span class="userPhone">09088***55</span>
                             <span class="userType">月租型用戶</span>
-                            <span class="settingIcon" data-href="會員資料設定">
+                            <span class="settingIcon" @click="handHrefCont" data-href="會員資料設定">
                                 <img src="./img/setting/settingIcon.png" alt="">
                             </span>
                         </div>
@@ -692,14 +691,61 @@
                             <div class="block null"></div>                        
     
                                
-                        </div>                      
+                        </div>         
+                        <div class="ItemBox" v-if="detailCont[0] === '會員資料設定'">
+                            <div class="memberSettingBox">
+                                <div class="title"></div>
+                                <ul>
+                                    <li>
+                                        <span class="itemTitle"></span>
+                                        <span><i data-href="" class="edit"></i></span>
+                                        <span class="blueBtn" data-href=""></span>
+                                        <span data-alert="" data-key="" class="orgBool active" ></span>
+                                        <span data-alert="" data-key="" class="orgBool " ></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="block null"></div>
+                        </div>                                     
                     </div>
+
                     <div class="noticeBox" v-if="billNoticeBool">
                         <div class="noticeTxt">
                             <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
                             <span @click="handbillNoticeBool" data-key="cancel">確認</span>
                         </div>
                     </div>
+                </section>
+                <!-- 會員資料設定編輯細項 -->
+                <section class="memberSetting" v-if="false">
+                    <div class="detailHeader">
+                        <div id="backBtn" data-href="會員資料設定" @click="handHrefCont" v-show="backBtnBool">
+                            <img src="./img/detail/detail_back.png" alt="">
+                        </div>
+                        <div class="LeftBtn"></div>                    
+                        <h2>{{detailCont[1]}}</h2>
+                        <div class="rigntBtn"></div>
+                    </div>                    
+                    <div class="detailCont">
+                        <div class="ItemBox" v-if="detailCont[0] === '變更暱稱'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === 'Email設定'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '帳單類型設定'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '帳單地址設定'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '電子帳單申請'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '版本說明'">
+                            <div class="block null"></div>
+                        </div>
+                    </div>                    
                 </section>
     
                 </main>

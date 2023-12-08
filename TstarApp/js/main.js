@@ -330,6 +330,7 @@ window.onload = () =>{
 
             const OuterLinkdata = reactive({data:[
                 {txt:'',        key:'',         url:''},
+                {txt:'',        key:'',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=creditcardPayment'},
                 {txt:'',        key:'會員註冊',         url:'https://oauth.taiwanmobile.com/MemberOAuth/twm/login/ed69ee19c30f51db57c4428f02bc78db'},
                 {txt:'',        key:'serviceMail_QA',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/serviceMail_QA.php'},
                 {txt:'',        key:'記錄查詢',         url:'https://emall.tstarcs.taiwanmobile.com/eMall/order/search?t=1701619200045'},
@@ -356,21 +357,27 @@ window.onload = () =>{
                 {key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
                 {key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
                 {key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
+                {key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
             ]})
-            const handOuterLink = (el) =>{
+            const handOuterLink = (el, bool) =>{
                 let key = el.currentTarget.dataset.href
+                console.log('bool',bool);
                 OuterLinkdata.data.forEach(item=>{
                     if(item.key === key){
                         window.open(item.url, '_blank', 'height=1200, width=500');
+                        return bool = true
                     }
+                    return bool = false
                 })                
             }
 
             const handHrefCont = (el) =>{
                 let key = el.currentTarget.dataset.href
                 let IsInnerLink = false
+                let IsOuterLink = false
                 console.log('href:',key);
 
+                if(key === 'null') return
                 if( key === 'login'){
                     NowRenderSection.value = 'login'
                     contentBg.value = './img/ContBg/UserlogIn.png'
@@ -391,10 +398,14 @@ window.onload = () =>{
                     }
                 })
                 if(!IsInnerLink){
-                    handOuterLink(el)      
+                    IsOuterLink = handOuterLink(el,IsOuterLink)    
+                    console.log('調用外網功能',IsOuterLink);
+                    if(!IsOuterLink){
+                        console.warn('尚未指定ineerhref');  
+                    }
                     return
                 }
-                console.warn('尚未指定href');
+                
             }
         // detail - 多門號切換繳款與帳單明細
         const billNavIs = ref('近12期帳單')
