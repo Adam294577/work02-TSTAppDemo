@@ -23,12 +23,11 @@
                         >
                             {{item.msg}}
                         </li>
-    
                     </div>
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/07</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/11</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -136,9 +135,11 @@
                             </div>
                         </div>
                         <div class="block">
-                            <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單</div>
+                            <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單
+                                <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                            </div>
                             <div class="itemMsg">
-                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                   
                                 <div class="bill">
                                     <div class="noPay" data-href="帳單明細" @click="handHrefCont" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
                                         <span>應繳 $0</span>
@@ -168,9 +169,10 @@
                             </div>
                         </div>
                         <div class="block" style="cursor: pointer;" data-href="合約方案" @click="handHrefCont">
-                            <div class="itemTitle" >合約方案</div>
+                            <div class="itemTitle" >合約方案
+                                <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                            </div>
                             <div class="itemMsg">
-                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                                 <div class="plan">
                                     <span>4G_無約單門號專案</span>
                                 </div>
@@ -266,7 +268,7 @@
                             <span class="userName">宋*雯</span>
                             <span class="userPhone">09088***55</span>
                             <span class="userType">月租型用戶</span>
-                            <span class="settingIcon" data-href="會員資料設定">
+                            <span class="settingIcon" @click="handHrefCont" data-href="會員資料設定">
                                 <img src="./img/setting/settingIcon.png" alt="">
                             </span>
                         </div>
@@ -280,9 +282,10 @@
                         </div>
                         <div class="settingBox" v-if="settingNavIs === '基本管理'">
                             <div class="block" style="cursor: pointer;" data-href="合約方案" @click="handHrefCont">
-                                <div class="itemTitle" >合約方案</div>
+                                <div class="itemTitle" >合約方案
+                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                </div>
                                 <div class="itemMsg">
-                                        <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                                     <div class="plan">
                                         <span>4G_無約單門號專案</span>
                                     </div>
@@ -347,9 +350,11 @@
                                 </ul>
                             </div> 
                             <div class="block">
-                                <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單</div>
+                                <div class="itemTitle" data-href="帳單明細" @click="handHrefCont" style="cursor: pointer;">帳單
+                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                </div>
                                 <div class="itemMsg">
-                                        <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                        
                                     <div class="bill">
                                         <div class="noPay" data-href="帳單明細" @click="handHrefCont" v-show=" quickLinkList.data[1].statusIs === '無餘額'" style="cursor: pointer;">
                                             <span>應繳 $0</span>
@@ -408,12 +413,11 @@
                                 </ul>
                             </div>
                             <div class="block">
-                                <div class="itemTitle">電信帳單代收</div>
+                                <div class="itemTitle">電信帳單代收
+                                    <div class="see"><img src="./img/home/block_see.png" alt=""></div>
+                                </div>
                                 
                                 <div class="itemMsg">
-                                    <a href="#">
-                                        <div class="see"><img src="./img/home/block_see.png" alt=""></div>
-                                    </a>
                                     <div class="TelecomBilling">
                                         <div class="circle"></div>
                                         <div class="cont">
@@ -463,10 +467,9 @@
                                 </ul>
                             </div>
                             <div class="block">
-                                <div class="itemTitle" style="cursor: pointer;" data-nav="service"   @click="handNavIcon">加值服務</div>
-                                <a href="#">
+                                <div class="itemTitle" style="cursor: pointer;" data-nav="service"   @click="handNavIcon">加值服務
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
-                                </a>                            
+                                </div>
                             </div>
                             <div class="block">
                                 <div class="itemTitle">訂單</div>
@@ -692,14 +695,61 @@
                             <div class="block null"></div>                        
     
                                
-                        </div>                      
+                        </div>         
+                        <div class="ItemBox" v-if="detailCont[0] === '會員資料設定'">
+                            <div class="memberSettingBox">
+                                <div class="title"></div>
+                                <ul>
+                                    <li>
+                                        <span class="itemTitle"></span>
+                                        <span><i data-href="" class="edit"></i></span>
+                                        <span class="blueBtn" data-href=""></span>
+                                        <span data-alert="" data-key="" class="orgBool active" ></span>
+                                        <span data-alert="" data-key="" class="orgBool " ></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="block null"></div>
+                        </div>                                     
                     </div>
+
                     <div class="noticeBox" v-if="billNoticeBool">
                         <div class="noticeTxt">
                             <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
                             <span @click="handbillNoticeBool" data-key="cancel">確認</span>
                         </div>
                     </div>
+                </section>
+                <!-- 會員資料設定編輯細項 -->
+                <section class="memberSetting" v-if="false">
+                    <div class="detailHeader">
+                        <div id="backBtn" data-href="會員資料設定" @click="handHrefCont" v-show="backBtnBool">
+                            <img src="./img/detail/detail_back.png" alt="">
+                        </div>
+                        <div class="LeftBtn"></div>                    
+                        <h2>{{detailCont[1]}}</h2>
+                        <div class="rigntBtn"></div>
+                    </div>                    
+                    <div class="detailCont">
+                        <div class="ItemBox" v-if="detailCont[0] === '變更暱稱'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === 'Email設定'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '帳單類型設定'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '帳單地址設定'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '電子帳單申請'">
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '版本說明'">
+                            <div class="block null"></div>
+                        </div>
+                    </div>                    
                 </section>
     
                 </main>
@@ -714,7 +764,7 @@
             </div>            
         </div>
 
-       
+
 
 
     </div>
