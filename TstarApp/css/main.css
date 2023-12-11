@@ -782,7 +782,6 @@ body {
   top: 95px;
   width: 390px;
   height: 50px;
-  background: #000;
   z-index: 10;
 }
 .detailHeader #backBtn {
@@ -858,6 +857,12 @@ body {
   left: 50%;
   transform: translate(-50%, 0);
   background: #3d4971;
+}
+.detailCont .ItemBox .block .itemTitle .infoIcon::after, .detailCont .ItemBox .whiteblock .itemTitle .infoIcon::after {
+  position: relative;
+  top: 3px;
+  left: 5px;
+  content: url("../img/home/infoIcon.png");
 }
 .detailCont .ItemBox .block .detailList, .detailCont .ItemBox .whiteblock .detailList {
   padding-bottom: 1rem;
@@ -1176,4 +1181,77 @@ body {
 }
 .detailCont .billResult .payIcon .item:last-child::after {
   display: none;
+}
+.detailCont .serviceDetailBox {
+  border: 1px solid transparent;
+  position: relative;
+}
+.detailCont .serviceDetailBox .banner {
+  position: absolute;
+  top: -4rem;
+}
+.detailCont .serviceDetailBox .applyBox {
+  background: #09153f;
+}
+.detailCont .serviceDetailBox .applyBox .applyTitle {
+  padding-left: 1rem;
+  padding-top: 1.5rem;
+  font-weight: bold;
+  color: #d5d9fe;
+}
+.detailCont .serviceDetailBox .applyBox .applyCont .card {
+  width: 90%;
+  background: #050b21;
+  margin: auto;
+  margin-top: 1rem;
+  position: relative;
+}
+.detailCont .serviceDetailBox .applyBox .applyCont .card input {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.detailCont .serviceDetailBox .applyBox .applyCont .card .cardTitle {
+  position: absolute;
+  top: 1.5rem;
+  left: 3.5rem;
+  color: #d5d9fe;
+}
+.detailCont .serviceDetailBox .applyBox .applyCont .card .promotion {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: rgb(255, 94, 0);
+  font-weight: bold;
+}
+.detailCont .serviceDetailBox .applyBox .applyCont .card .price {
+  display: inline-block;
+  padding-left: 3rem;
+  padding-top: 3.2rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: rgb(255, 94, 0);
+}
+.detailCont .serviceDetailBox .applyBox .applyCont .card .msg {
+  margin-top: 0.5rem;
+  margin-left: 3.5rem;
+}
+.detailCont .serviceDetailBox .applyBox .applyCont .card .msg li {
+  padding-top: 0.3rem;
+  color: #FFF;
+}
+.detailCont .serviceDetailBox .applyBox .applyCont .card .msg li:last-child {
+  padding-bottom: 0.5rem;
+}
+.detailCont .nextflow {
+  position: fixed;
+  width: 390px;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-45%);
+}
+.detailCont .nextflow .orgBtn {
+  width: 90%;
+  font-weight: bold;
+  text-align: center;
 }/*# sourceMappingURL=main.css.map */
