@@ -394,6 +394,7 @@ window.onload = () =>{
                         detailCont.value[0] = item.key
                         detailCont.value[1] = item.headerTxt
                         contentBg.value = item.contentBg
+                        scrollEl.value.scrollTop = 0
                         IsInnerLink = true
                     }
                 })
