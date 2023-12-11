@@ -489,7 +489,7 @@
     
                 
                 <section class="detailContainer" v-if="NowRenderSection === 'detail'">
-                    <div class="detailHeader">
+                    <div class="detailHeader" :style="detailHeaderBg">
                         <div id="backBtn" data-href="index" @click="handHrefCont" v-show="backBtnBool">
                             <img src="./img/detail/detail_back.png" alt="">
                         </div>
@@ -511,9 +511,6 @@
                     </div>
                     <div class="detailCont">
                         <div class="ItemBox" v-if="detailCont[0] === '合約方案'">
-                            <!-- <div class="block">
-                                <div class="itemTitle">方案內容</div>
-                            </div> -->
                             <div class="demobox">
                                 <img src="./img/detail/demo_合約方案.png" alt="">
                             </div>                        
@@ -710,7 +707,45 @@
                                 </ul>
                             </div>
                             <div class="block null"></div>
-                        </div>                                     
+                        </div>    
+                        <div class="ItemBox" v-if="detailCont[0] === '加值服務申辦內容'">
+                            <div class="serviceDetailBox">
+                                <div class="applyIs" v-for="list in serviceItemDataRender" :key="list.id">
+                                    <div class="banner">
+                                        <img :src="list.banner" alt="">
+                                    </div>
+                                    <div class="applyNull" :style="`margin-top: ${list.mgTop};`"></div>                                    
+                                    <div class="applyBox">
+                                        <div class="applyTitle">{{list.applyTitle}}</div>
+                                        <div class="applyCont">
+                                            <div class="card" v-for="card in list.card" :key="card.key">
+                                                <input 
+                                                :data-id="list.id" :data-cardkey="card.key" :alt="card.bool" type="image" 
+                                                @click="handserviceItemBool"
+                                                :src="(card.bool) ? 
+                                                `./img/service/checkbox_act.png` :
+                                                `./img/service/checkbox.png`">
+                                                <span class="cardTitle">{{card.txt}}</span>
+                                                <span class="promotion">{{card.promotion}}</span>
+                                                <span class="price">{{card.price}}</span>
+                                                <ul class="msg" v-for="msg in card.msg">
+                                                    <li>{{msg.idx}}.{{msg.cont}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="block">
+                                <div class="itemTitle">
+                                    <span class="infoIcon">常見問題</span>
+                                </div>
+                            </div>                            
+                            <div class="nextflow">
+                                <div class="orgBtn" style="cursor: pointer;">線上申辦({{nextWantApplyIs}})</div>
+                            </div>                        
+                            <div class="block null"></div>
+                        </div>                                                         
                     </div>
 
                     <div class="noticeBox" v-if="billNoticeBool">

@@ -326,6 +326,7 @@ window.onload = () =>{
             })
         //href Control
             const detailCont = ref(['key','headerName'])
+            const detailHeaderBg = ref('')
             const backBtnBool = ref(true)
 
             const OuterLinkdata = reactive({data:[
@@ -358,6 +359,8 @@ window.onload = () =>{
                 {key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
                 {key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
                 {key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
+                {key:'et2', headerTxt:'MyVideo',              contentBg:'./img/ContBg/black.png'},
+                {key:'et3', headerTxt:'Tinder 交友平台',              contentBg:'./img/ContBg/black.png'},
             ]})
             const handOuterLink = (el, bool) =>{
                 let key = el.currentTarget.dataset.href
@@ -392,6 +395,18 @@ window.onload = () =>{
                     if(key === item.key){
                         NowRenderSection.value = 'detail'
                         detailCont.value[0] = item.key
+                        detailHeaderBg.value = `background-color: #000;`
+                        
+                        if(detailCont.value[0] === 'et2'){
+                            detailCont.value[0] = '加值服務申辦內容'
+                            detailHeaderBg.value = `background-color: transparent;`
+                            serviceItemIs.value = item.headerTxt
+                        }
+                        if(detailCont.value[0] === 'et3'){
+                            detailCont.value[0] = '加值服務申辦內容'
+                            detailHeaderBg.value = `background-color: transparent;`
+                            serviceItemIs.value = 'Tinder'
+                        }
                         detailCont.value[1] = item.headerTxt
                         contentBg.value = item.contentBg
                         scrollEl.value.scrollTop = 0
@@ -504,6 +519,72 @@ window.onload = () =>{
                 billNoticeBool.value = true
             }
         }
+        // detail - serviceDetailBox
+        const serviceItemIs = ref()
+        const serviceItemData = reactive({data:[
+            {id:'MyVideo', banner:'./img/detail/demo_myvideo.png' ,mgTop:'15rem', applyTitle:'MyVideo 優惠方案',
+            selected:'加值型',
+            card:[
+                {bool: true, key:'加值型' ,txt:'加值型' ,promotion: '首月免費',price:'$250/月',msg:[
+                 {idx:1, cont:'本服務無須綁約'},
+                 {idx:2, cont:'首次申裝享前30天免月租費'},
+                 {idx:3, cont:'享穎是電影/Discovery專區無限看'},
+                ]},
+                {bool: false, key:'12m綁約型' ,txt:'12M綁約型' ,promotion: '',price:'$149/月',msg:[
+                 {idx:1, cont:'本優惠方案須綁約12個月'},
+                 {idx:2, cont:'享穎是電影/Discovery專區無限看'},
+                ]},
+            ]},
+            {id:'Tinder', banner:'./img/detail/demo_tinder.png' ,mgTop:'15rem', applyTitle:'Tinder 交友平台 優惠方案',
+            selected:'tinder_plus_1m型',
+            card:[
+                {bool: true, key:'tinder_plus_1m型',txt:'Tinder Plus_1M型',promotion: '',price:'$470/月',msg:[
+                    {idx:1, cont:'活動期間首次申辦再享9折優惠'},
+                    {idx:2, cont:'本服務無須綁約'},
+                    {idx:3, cont:'享無限按讚、倒回、配對提升工具'},
+                    ]},
+                {bool: false, key:'tinder_gold_1m型',txt:'Tinder Gold_1M型' ,promotion: '',price:'$765/月',msg:[
+                    {idx:1, cont:'活動期間首次申辦再享9折優惠'},
+                    {idx:2, cont:'本服務無須綁約'},
+                    {idx:3, cont:'Plus功能再升級，快速脫單首選'},
+                   ]},
+                {bool: false, key:'tinder_plus_6m型' ,txt:'Tinder Plus_6M型' ,promotion: '',price:'$1817/6個月',msg:[
+                    {idx:1, cont:'活動期間首次申辦再享9折優惠'},
+                    {idx:2, cont:'本優惠方案須一次繳付6個月費用'},
+                    {idx:3, cont:'享無限按讚、倒回、配對提升工具'},
+                   ]},
+                {bool: false, key:'tinder_gold_6m型' ,txt:'Tinder Gold_6M型' ,promotion: '',price:'$2754/6個月',msg:[
+                    {idx:1, cont:'活動期間首次申辦再享9折優惠'},
+                    {idx:2, cont:'本優惠方案須一次繳付6個月費用'},
+                    {idx:3, cont:'Plus功能再升級，快速脫單首選'},
+                   ]},                   
+            ]},
+        ]})
+        const serviceItemDataRender = computed(()=>{
+            let key = serviceItemIs.value 
+            let result = serviceItemData.data.filter(item=>{
+                if(item.id === key) return item               
+            })
+            result[0].card.forEach(item=>{
+                if(item.bool) nextWantApplyIs.value =  item.txt
+            })
+            return result
+        })
+        const nextWantApplyIs = ref('')
+        const handserviceItemBool = (el) =>{
+            let key = el.currentTarget.dataset.cardkey
+            let id = el.currentTarget.dataset.id
+
+            let selectArr = []
+            selectArr = serviceItemData.data.filter(item=>{
+                if(item.id  === id) return item
+            })
+            // console.log('選到的資料:',selectArr);
+            selectArr[0].card.forEach(item=>{
+                item.bool = false
+                if(item.key === key) item.bool = true
+            })
+        }
 
             return{
                 // loading
@@ -541,6 +622,7 @@ window.onload = () =>{
                 // detail
                 backBtnBool,
                 detailCont,
+                detailHeaderBg,
                 // detail - 多門號切換繳款與帳單明細
                     // nav
                 billNavIs,
@@ -554,6 +636,11 @@ window.onload = () =>{
                 handbillNoticeBool,                
                 // herf router
                 handHrefCont,
+                // detail - serviceDetailBox
+                serviceItemIs,
+                serviceItemDataRender,
+                handserviceItemBool,
+                nextWantApplyIs,
                 
             }   
             
