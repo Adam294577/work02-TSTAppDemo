@@ -27,7 +27,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/11</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/12</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -210,6 +210,7 @@
                     <div class="ItemBox service" v-show="NavIcon.data[1].act">
                         <div class="serviceNav">
                             <li 
+                            style="cursor: pointer;"
                             v-for="list in serviceNav.data"
                             :key="list.key"
                             :data-service="list.key"
@@ -220,6 +221,7 @@
                             </li>
                         </div>
                         <div class="block" 
+                        style="cursor: pointer;"
                         v-for="list in serviceItemRender"
                         :key="list.key"
                         :data-href="list.key"
