@@ -34,7 +34,19 @@ window.onload = () =>{
         handLoading()
         // 初始資料
         const NowRenderSection = ref('login')
-        const contentBg = ref('./img/ContBg/UserlogIn.png')        
+        const contentBg = ref('./img/ContBg/UserlogIn.png')       
+        const restartData = () =>{
+            NowRenderSection.value = 'login'
+            contentBg.value = './img/ContBg/UserlogIn.png'
+            LoginStep.value = 0
+            navIconImg.value = './img/navIcon/01.png'
+            NavIcon.data.forEach(item=>{
+                item.act = false
+                if(item.idx === 0) item.act = true
+            })     
+            scrollEl.value.scrollTop = 0      
+            settingNavIs.value = '基本管理'
+        }
         // quickLink
         const quickLinkData = reactive(
             {data:[
@@ -360,6 +372,8 @@ window.onload = () =>{
                 {where:'會員資料設定',   key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/gray.png'},
                 {where:'會員資料設定',   key:'email設定', headerTxt:'Email設定',              contentBg:'./img/ContBg/gray.png'},
                 {where:'會員資料設定',   key:'變更暱稱', headerTxt:'變更暱稱',              contentBg:'./img/ContBg/gray.png'},
+                {where:'index',         key:'et3', headerTxt:'Tinder 交友平台',              contentBg:'./img/ContBg/black.png'},
+                {where:'index',         key:'et2', headerTxt:'MyVideo',              contentBg:'./img/ContBg/black.png'},
                 {where:'index',         key:'訊息中心', headerTxt:'訊息中心',              contentBg:'./img/ContBg/gray.png'},
                 {where:'index',         key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
                 {where:'index',         key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
@@ -662,10 +676,7 @@ window.onload = () =>{
             }
             if( key === 'logout_y'){
                 MemberSettingNoticeRegion.value = 'none'
-                NowRenderSection.value = 'login'
-                contentBg.value = './img/ContBg/UserlogIn.png'
-                navIconImg.value = './img/navIcon/01.png'
-                
+                restartData()
             }
             if( key === 'logout_n'){
                 MemberSettingNoticeRegion.value = 'none'

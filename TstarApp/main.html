@@ -27,7 +27,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/12</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/13</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -779,12 +779,10 @@
                             <div class="nextflow">
                                 <div class="orgBtn" style="cursor: pointer;">線上申辦({{nextWantApplyIs}})</div>
                             </div>                        
-                            </div>
-
- 
                             <div class="block null"></div>
                         </div>                                                         
                     </div>
+
                     <div class="noticeContainer">
                         <!-- notice - 會員設定 - 推播設定 -->
                         <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'receive_msg'">
@@ -814,7 +812,7 @@
                 </section>
                 <!-- 會員資料設定編輯細項 -->
                 <section class="memberSetting" v-if=" NowRenderSection === '會員資料設定'">
-                    <div class="detailHeader">
+                    <div class="detailHeader" style="background-color: #000;">
                         <div id="backBtn" data-href="會員資料設定" @click="handHrefCont" v-show="backBtnBool">
                             <img src="./img/detail/detail_back.png" alt="">
                         </div>
