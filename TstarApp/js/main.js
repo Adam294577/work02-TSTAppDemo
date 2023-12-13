@@ -330,7 +330,7 @@ window.onload = () =>{
 
             const OuterLinkdata = reactive({data:[
                 {txt:'',        key:'',         url:''},
-                {txt:'',        key:'',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=creditcardPayment'},
+                {txt:'',        key:'外網設定密碼',         url:'https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst80D7CFD4821C433380913A5A320A6CC9LP3gp&ru=https%3A%2F%2Fmember.taiwanmobile.com%2FMemberCenter%2FchangePassword%2Fbegin.do'},
                 {txt:'',        key:'會員註冊',         url:'https://oauth.taiwanmobile.com/MemberOAuth/twm/login/ed69ee19c30f51db57c4428f02bc78db'},
                 {txt:'',        key:'serviceMail_QA',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/serviceMail_QA.php'},
                 {txt:'',        key:'記錄查詢',         url:'https://emall.tstarcs.taiwanmobile.com/eMall/order/search?t=1701619200045'},
@@ -352,12 +352,18 @@ window.onload = () =>{
                 {txt:'',        key:'myfone萬元禮券',         url:'https://www.myfone.com.tw/mbuy/index.php?action=myfone-sale&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_myfone_sale2312&utm_term=tstarfriends'},
             ]})
             const InnerLinkdata = reactive({data:[
-                {key:'', headerTxt:'',              contentBg:''},
-                {key:'訊息中心', headerTxt:'訊息中心',              contentBg:'./img/ContBg/gray.png'},
-                {key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
-                {key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
-                {key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
-                {key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
+                {where:'',              key:'', headerTxt:'',              contentBg:''},
+                {where:'會員資料設定',   key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
+                {where:'會員資料設定',   key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/gray.png'},
+                {where:'會員資料設定',   key:'電子帳單申請', headerTxt:'電子帳單申請',              contentBg:'./img/ContBg/gray.png'},
+                {where:'會員資料設定',   key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/gray.png'},
+                {where:'會員資料設定',   key:'email設定', headerTxt:'Email設定',              contentBg:'./img/ContBg/gray.png'},
+                {where:'會員資料設定',   key:'變更暱稱', headerTxt:'變更暱稱',              contentBg:'./img/ContBg/gray.png'},
+                {where:'index',         key:'訊息中心', headerTxt:'訊息中心',              contentBg:'./img/ContBg/gray.png'},
+                {where:'index',         key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
+                {where:'index',         key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
+                {where:'index',         key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
+                {where:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
             ]})
             const handOuterLink = (el, bool) =>{
                 let key = el.currentTarget.dataset.href
@@ -395,8 +401,18 @@ window.onload = () =>{
                         detailCont.value[1] = item.headerTxt
                         contentBg.value = item.contentBg
                         IsInnerLink = true
+
+                        if(item.where === '會員資料設定'){
+                            NowRenderSection.value = item.where
+                            return
+                        }
                     }
+
+
+                   
+
                 })
+                
                 if(!IsInnerLink){
                     IsOuterLink = handOuterLink(el,IsOuterLink)    
                     console.log('調用外網功能',IsOuterLink);
@@ -503,6 +519,79 @@ window.onload = () =>{
                 billNoticeBool.value = true
             }
         }
+        // detail - 會員資料設定
+        const memberSettingData = reactive({data:[
+            {type:'', title:'', txt:'', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'會員資料', title:'暱稱', txt:'未設定', hasEdit: true, editKey:'變更暱稱', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'會員資料', title:'Email', txt:'', hasEdit: true, editKey:'email設定', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'會員資料', title:'密碼設定', txt:'', hasEdit: true, editKey:'外網設定密碼', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'會員資料', title:'姓名', txt:'宋*雯', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'會員資料', title:'登入門號', txt:'09088***55', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'資訊帳單', title:'帳單類型', txt:'紙本帳單', hasEdit: true,editKey:'帳單類型設定', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'資訊帳單', title:'帳單寄送地址', txt:'新北市三重區******', hasEdit: true,editKey:'帳單地址設定', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'資訊帳單', title:'電子帳單', txt:'電子帳單申請', hasEdit: false,editKey:'電子帳單申請', blueTxt:true, hasOrgBool:false ,active: false},
+            {type:'更多設定', title:'保持登入', txt:'', hasEdit: false,editKey:'keeplogin', blueTxt:false, hasOrgBool:true ,active: true, },
+            {type:'更多設定', title:'接收推播', txt:'', hasEdit: false,editKey:'receive_msg', blueTxt:false, hasOrgBool:true ,active: false, },
+            {type:'更多設定', title:'APP 版本號碼', txt:'7.0.0', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false, },
+        ]})
+        const packageMemberSetting = (key) =>{
+            
+            let result = memberSettingData.data.filter(item=>{
+                if(item.type === key) return item
+            })
+            return result
+        }
+        const memberInfoListRender = computed(()=>{
+           let data =  packageMemberSetting('會員資料')
+           return data
+        })
+        const billInfoListRender = computed(()=>{
+            let data =  packageMemberSetting('資訊帳單')
+            return data
+        })
+        const memberMoreSetListRender = computed(()=>{
+            let data =  packageMemberSetting('更多設定')
+            return data
+        })
+        const handMemberSettingBool = (el) =>{
+            let key = el.currentTarget.dataset.key
+            if(key === 'keeplogin'){
+                memberMoreSetListRender.value.forEach(item=>{
+                    if(item.editKey === key){
+                        item.active = !item.active
+                    }
+                })
+            }
+            if(key === 'receive_msg'){
+                MemberSettingNoticeRegion.value = key
+                memberMoreSetListRender.value.forEach(item=>{
+                    if(item.editKey === key){
+                        item.active = !item.active
+                    }
+                })
+            }
+            if(key === 'logout'){
+                MemberSettingNoticeRegion.value = key
+            }
+        }
+        const MemberSettingNoticeRegion  = ref('none')
+        const handMemberSettingNoticeRegion = (el) =>{
+            let key = el.currentTarget.dataset.key 
+            if( key === 'receive_msg'){
+                MemberSettingNoticeRegion.value = 'none'
+            }
+            if( key === 'logout_y'){
+                MemberSettingNoticeRegion.value = 'none'
+                NowRenderSection.value = 'login'
+                contentBg.value = './img/ContBg/UserlogIn.png'
+                navIconImg.value = './img/navIcon/01.png'
+                
+            }
+            if( key === 'logout_n'){
+                MemberSettingNoticeRegion.value = 'none'
+            }
+        }
+        
 
             return{
                 // loading
@@ -553,7 +642,13 @@ window.onload = () =>{
                 handbillNoticeBool,                
                 // herf router
                 handHrefCont,
-                
+                // detail - 會員資料設定
+                memberInfoListRender,
+                billInfoListRender,
+                memberMoreSetListRender,
+                handMemberSettingBool,
+                MemberSettingNoticeRegion,
+                handMemberSettingNoticeRegion,
             }   
             
         },

@@ -751,12 +751,7 @@ body {
   font-size: 0.8rem;
 }
 
-.detailContainer {
-  position: relative;
-}
-.detailContainer .noticeBox {
-  position: relative;
-  border: 1px solid rgb(6, 82, 40);
+.noticeBox {
   position: fixed;
   z-index: 20;
   width: 390px;
@@ -764,7 +759,7 @@ body {
   top: 95px;
   background: rgba(0, 0, 0, 0.5960784314);
 }
-.detailContainer .noticeBox .noticeTxt span {
+.noticeBox .noticeTxt span.orgtxt {
   cursor: pointer;
   display: inline-block;
   width: 70px;
@@ -775,6 +770,43 @@ body {
   right: 2rem;
   bottom: 3.2rem;
   color: rgb(255, 94, 0);
+}
+.noticeBox .whiteblock {
+  width: 90%;
+  margin: 0 5%;
+  background: #FFF;
+  position: absolute;
+  min-height: 7rem;
+  top: 40%;
+  transform: translate(0, -50%);
+}
+.noticeBox .whiteblock .msg {
+  display: inline-block;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+.noticeBox .whiteblock .btn {
+  display: inline-block;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  cursor: pointer;
+  color: rgb(255, 94, 0);
+}
+.noticeBox .whiteblock .btn.cancel {
+  right: 4rem;
+}
+.noticeBox .whiteblock h1 {
+  font-weight: normal;
+  padding-left: 1rem;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.detailContainer {
+  position: relative;
 }
 
 .detailHeader {
@@ -1176,4 +1208,82 @@ body {
 }
 .detailCont .billResult .payIcon .item:last-child::after {
   display: none;
+}
+
+.memberSettingBox .title {
+  padding-left: 1rem;
+  margin: 0.5rem 0;
+}
+.memberSettingBox .title.first {
+  margin-top: 0;
+}
+.memberSettingBox ul {
+  background: #FFF;
+}
+.memberSettingBox ul li {
+  position: relative;
+  padding: 0.7rem 0;
+}
+.memberSettingBox ul li::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 1px;
+  background: #EEE;
+}
+.memberSettingBox ul .itemTitle {
+  padding-left: 1rem;
+}
+.memberSettingBox ul .itemTxt {
+  position: absolute;
+  right: 1rem;
+  color: #999;
+}
+.memberSettingBox ul .hasEdit {
+  position: absolute;
+  right: 3.5rem;
+}
+.memberSettingBox ul .blueTxt {
+  color: #5f8eb8;
+  right: 3rem;
+  cursor: pointer;
+}
+.memberSettingBox ul span .edit::after {
+  content: url(../img/setting/edit.png);
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+.memberSettingBox ul span.orgBool {
+  position: absolute;
+  right: 0.5rem;
+}
+.memberSettingBox ul span.orgBool::after {
+  content: url(../img/setting/whitebool.png);
+}
+.memberSettingBox ul span.orgBool.active::after {
+  content: url(../img/setting/whitebool_act.png);
+}
+.memberSettingBox .logoutBtn {
+  display: block;
+  text-align: center;
+  width: 240px;
+  margin-top: 1rem;
+  margin: auto;
+  top: 2rem;
+  position: relative;
+}
+.memberSettingBox .logoutBtn span {
+  color: rgb(255, 94, 0);
+  border: 1px solid rgb(255, 94, 0);
+  border-radius: 20px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 0.7rem 0;
 }/*# sourceMappingURL=main.css.map */
