@@ -696,17 +696,50 @@
                                
                         </div>         
                         <div class="ItemBox" v-if="detailCont[0] === '會員資料設定'">
-                            <div class="memberSettingBox">
-                                <div class="title"></div>
-                                <ul>
+                            <div class="memberSettingBox" >
+                                <div class="title first">{{memberInfoListRender[0].type}}</div>
+                                <ul v-for="list in memberInfoListRender" :key="list.title">
                                     <li>
-                                        <span class="itemTitle"></span>
-                                        <span><i data-href="" class="edit"></i></span>
-                                        <span class="blueBtn" data-href=""></span>
-                                        <span data-alert="" data-key="" class="orgBool active" ></span>
-                                        <span data-alert="" data-key="" class="orgBool " ></span>
+                                        <span class="itemTitle">{{list.title}}</span>
+                                        <span :class="['itemTxt', {'hasEdit': list.hasEdit}]">{{list.txt}}
+                                            <i v-show="list.hasEdit" :data-href="list.editKey" @click="handHrefCont" class="edit"></i>
+                                        </span>
                                     </li>
                                 </ul>
+                            </div>
+                            <div class="memberSettingBox" >
+                                <div class="title">{{billInfoListRender[0].type}}</div>
+                                <ul v-for="list in billInfoListRender" :key="list.title">
+                                    <li>
+                                        <span class="itemTitle">{{list.title}}</span>
+                                        <span v-show="!list.blueTxt" :class="['itemTxt', {'hasEdit': list.hasEdit}]">{{list.txt}}
+                                            <i v-show="list.hasEdit" :data-href="list.editKey" @click="handHrefCont" class="edit"></i>
+                                        </span>
+                                        <span v-show="list.blueTxt" class="itemTxt blueTxt" :data-href="list.editKey" @click="handHrefCont">
+                                            {{list.txt}}
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="memberSettingBox" >
+                                <div class="title">{{memberMoreSetListRender[0].type}}</div>
+                                <ul v-for="list in memberMoreSetListRender" :key="list.title">
+                                    <li>
+                                        <span class="itemTitle">{{list.title}}</span>
+                                        <span v-show="!list.hasOrgBool" :class="['itemTxt', {'hasEdit': list.hasEdit}]">{{list.txt}}
+                                            <i v-show="list.hasEdit" :data-href="list.editKey" @click="handHrefCont" class="edit"></i>
+                                        </span>
+                                        <span v-show="list.hasOrgBool" :class="['orgBool', {'active': list.active}]" 
+                                        :data-key="list.editKey"
+                                        @click="handMemberSettingBool"
+                                        ></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="memberSettingBox">
+                                <div class="logoutBtn" data-key="logout" @click="handMemberSettingBool">
+                                    <span>登出</span>
+                                </div>
                             </div>
                             <div class="block null"></div>
                         </div>    
@@ -746,19 +779,41 @@
                             <div class="nextflow">
                                 <div class="orgBtn" style="cursor: pointer;">線上申辦({{nextWantApplyIs}})</div>
                             </div>                        
+                            </div>
+
+ 
                             <div class="block null"></div>
                         </div>                                                         
                     </div>
-
-                    <div class="noticeBox" v-if="billNoticeBool">
-                        <div class="noticeTxt">
-                            <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
-                            <span @click="handbillNoticeBool" data-key="cancel">確認</span>
+                    <div class="noticeContainer">
+                        <!-- notice - 會員設定 - 推播設定 -->
+                        <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'receive_msg'">
+                            <div class="whiteblock">
+                                <span class="msg">變更成功</span>
+                                <span class="btn" @click="handMemberSettingNoticeRegion" data-key="receive_msg">確定</span>
+                            </div>
+                        </div>  
+                         <!-- notice - 會員設定 - 登出 -->
+                        <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'logout'">
+                            <div class="whiteblock">
+                                <h1 class="title">登出</h1>
+                                <span class="msg">登出後需要重新登入，確定要登出?</span>
+                                <span class="btn cancel" @click="handMemberSettingNoticeRegion" data-key="logout_n">取消</span>
+                                <span class="btn" @click="handMemberSettingNoticeRegion" data-key="logout_y">確定</span>
+                            </div>
+                        </div>  
+                        <!-- notice - 帳單 -->
+                        <div class="noticeBox" v-if="billNoticeBool">
+                            <div class="noticeTxt">
+                                <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
+                                <span class="orgtxt" @click="handbillNoticeBool" data-key="cancel">確認</span>
+                            </div>
                         </div>
                     </div>
+
                 </section>
                 <!-- 會員資料設定編輯細項 -->
-                <section class="memberSetting" v-if="false">
+                <section class="memberSetting" v-if=" NowRenderSection === '會員資料設定'">
                     <div class="detailHeader">
                         <div id="backBtn" data-href="會員資料設定" @click="handHrefCont" v-show="backBtnBool">
                             <img src="./img/detail/detail_back.png" alt="">
@@ -771,7 +826,7 @@
                         <div class="ItemBox" v-if="detailCont[0] === '變更暱稱'">
                             <div class="block null"></div>
                         </div>
-                        <div class="ItemBox" v-if="detailCont[0] === 'Email設定'">
+                        <div class="ItemBox" v-if="detailCont[0] === 'email設定'">
                             <div class="block null"></div>
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '帳單類型設定'">
@@ -786,7 +841,8 @@
                         <div class="ItemBox" v-if="detailCont[0] === '版本說明'">
                             <div class="block null"></div>
                         </div>
-                    </div>                    
+                    </div>  
+                                    
                 </section>
     
                 </main>
