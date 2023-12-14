@@ -27,7 +27,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/13</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/14</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -783,31 +783,7 @@
                         </div>                                                         
                     </div>
 
-                    <div class="noticeContainer">
-                        <!-- notice - 會員設定 - 推播設定 -->
-                        <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'receive_msg'">
-                            <div class="whiteblock">
-                                <span class="msg">變更成功</span>
-                                <span class="btn" @click="handMemberSettingNoticeRegion" data-key="receive_msg">確定</span>
-                            </div>
-                        </div>  
-                         <!-- notice - 會員設定 - 登出 -->
-                        <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'logout'">
-                            <div class="whiteblock">
-                                <h1 class="title">登出</h1>
-                                <span class="msg">登出後需要重新登入，確定要登出?</span>
-                                <span class="btn cancel" @click="handMemberSettingNoticeRegion" data-key="logout_n">取消</span>
-                                <span class="btn" @click="handMemberSettingNoticeRegion" data-key="logout_y">確定</span>
-                            </div>
-                        </div>  
-                        <!-- notice - 帳單 -->
-                        <div class="noticeBox" v-if="billNoticeBool">
-                            <div class="noticeTxt">
-                                <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
-                                <span class="orgtxt" @click="handbillNoticeBool" data-key="cancel">確認</span>
-                            </div>
-                        </div>
-                    </div>
+
 
                 </section>
                 <!-- 會員資料設定編輯細項 -->
@@ -822,7 +798,12 @@
                     </div>                    
                     <div class="detailCont">
                         <div class="ItemBox" v-if="detailCont[0] === '變更暱稱'">
-                            <div class="block null"></div>
+                            <div class="memberSettingBox" >
+                                <div class="title first">請輸入新的暱稱</div>
+                                <input class="nickname" type="text" placeholder="請輸入暱稱" v-model="nicknameInput">
+                                <span v-show="nicknameInputAlert" class="alert">請輸入暱稱</span>
+                                <div class="summitBtn" @click="updateNickname">確認送出</div>
+                            </div>                            
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === 'email設定'">
                             <div class="block null"></div>
@@ -831,7 +812,34 @@
                             <div class="block null"></div>
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '帳單地址設定'">
-                            <div class="block null"></div>
+                            <div class="addressBox">
+                                <ul>
+                                    <li class="AddressItem">
+                                        <span>目前帳單地址 :</span>
+                                        <span class="cont">重新路五段609巷2號10樓</span>
+                                    </li>
+                                    <li class="AddressItem">
+                                        <span>請選擇縣市 :</span>
+                                        <div class="inputStyle cont"><span>新北市</span></div>
+                                    </li>
+                                    <li class="AddressItem">
+                                        <span>請選擇地區 :</span>
+                                        <div class="inputStyle cont"><span>三重區</span></div>
+                                    </li>
+                                    <li class="AddressItem">
+                                        <span>請選輸入地址 :</span>
+                                        <div class="cont detail_address">
+                                            <textarea ref="detailAddress" @input="detailAddressAutoHeight" maxlength="50"></textarea>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="remindTxt" :style="remindTxtmgTop">
+                                <img src="./img/detail/demo_紙本地址注意事項.png" alt="">
+                            </div>
+                            <div class="summitBtn">
+                                <span>確認送出</span>
+                            </div>
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '電子帳單申請'">
                             <div class="block null"></div>
@@ -840,8 +848,38 @@
                             <div class="block null"></div>
                         </div>
                     </div>  
-                                    
                 </section>
+                <div class="noticeContainer" v-if="true">
+                    <!-- <div class="noticeBox">
+                        <div class="whiteblock">
+
+                        </div>
+                    </div> -->
+
+                    <!-- notice - 會員設定 - 推播設定 -->
+                    <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'receive_msg'">
+                        <div class="whiteblock">
+                            <span class="msg">變更成功</span>
+                            <span class="btn" @click="handMemberSettingNoticeRegion" data-key="receive_msg">確定</span>
+                        </div>
+                    </div>  
+                     <!-- notice - 會員設定 - 登出 -->
+                    <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'logout'">
+                        <div class="whiteblock">
+                            <h1 class="title">登出</h1>
+                            <span class="msg">登出後需要重新登入，確定要登出?</span>
+                            <span class="btn cancel" @click="handMemberSettingNoticeRegion" data-key="logout_n">取消</span>
+                            <span class="btn" @click="handMemberSettingNoticeRegion" data-key="logout_y">確定</span>
+                        </div>
+                    </div>  
+                    <!-- notice - 帳單 -->
+                    <div class="noticeBox" v-if="billNoticeBool">
+                        <div class="noticeTxt">
+                            <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
+                            <span class="orgtxt" @click="handbillNoticeBool" data-key="cancel">確認</span>
+                        </div>
+                    </div>
+                </div>
     
                 </main>
                 

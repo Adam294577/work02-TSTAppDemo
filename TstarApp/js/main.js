@@ -343,7 +343,9 @@ window.onload = () =>{
 
             const OuterLinkdata = reactive({data:[
                 {txt:'',        key:'',         url:''},
-                {txt:'',        key:'外網設定密碼',         url:'https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst80D7CFD4821C433380913A5A320A6CC9LP3gp&ru=https%3A%2F%2Fmember.taiwanmobile.com%2FMemberCenter%2FchangePassword%2Fbegin.do'},
+                {txt:'',        key:'billcard',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=creditcardPayment'},
+                {txt:'',        key:'billatm',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=depositPayment'},
+                {txt:'',        key:'外網設定密碼',         url:'https://member.taiwanmobile.com/MemberCenter/changePassword/begin.do'},
                 {txt:'',        key:'會員註冊',         url:'https://oauth.taiwanmobile.com/MemberOAuth/twm/login/ed69ee19c30f51db57c4428f02bc78db'},
                 {txt:'',        key:'serviceMail_QA',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/serviceMail_QA.php'},
                 {txt:'',        key:'記錄查詢',         url:'https://emall.tstarcs.taiwanmobile.com/eMall/order/search?t=1701619200045'},
@@ -366,8 +368,9 @@ window.onload = () =>{
             ]})
             const InnerLinkdata = reactive({data:[
                 {where:'',              key:'', headerTxt:'',              contentBg:''},
+                {where:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
                 {where:'會員資料設定',   key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
-                {where:'會員資料設定',   key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/gray.png'},
+                {where:'會員資料設定',   key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/lavender.png'},
                 {where:'會員資料設定',   key:'電子帳單申請', headerTxt:'電子帳單申請',              contentBg:'./img/ContBg/gray.png'},
                 {where:'會員資料設定',   key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/gray.png'},
                 {where:'會員資料設定',   key:'email設定', headerTxt:'Email設定',              contentBg:'./img/ContBg/gray.png'},
@@ -378,7 +381,7 @@ window.onload = () =>{
                 {where:'index',         key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
                 {where:'index',         key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
                 {where:'index',         key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
-                {where:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
+                
             ]})
             const handOuterLink = (el, bool) =>{
                 let key = el.currentTarget.dataset.href
@@ -415,6 +418,7 @@ window.onload = () =>{
                         detailCont.value[0] = item.key
                         detailHeaderBg.value = `background-color: #000;`
                         
+                        
                         if(detailCont.value[0] === 'et2'){
                             detailCont.value[0] = '加值服務申辦內容'
                             detailHeaderBg.value = `background-color: transparent;`
@@ -430,6 +434,8 @@ window.onload = () =>{
                         scrollEl.value.scrollTop = 0
                         IsInnerLink = true
 
+
+                        nicknameInputAlert.value = false
                         if(item.where === '會員資料設定'){
                             NowRenderSection.value = item.where
                             return
@@ -616,11 +622,11 @@ window.onload = () =>{
         // detail - 會員資料設定
         const memberSettingData = reactive({data:[
             {type:'', title:'', txt:'', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'會員資料', title:'姓名', txt:'宋*雯', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'會員資料', title:'登入門號', txt:'09088***55', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'會員資料', title:'暱稱', txt:'未設定', hasEdit: true, editKey:'變更暱稱', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'會員資料', title:'Email', txt:'', hasEdit: true, editKey:'email設定', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'會員資料', title:'密碼設定', txt:'', hasEdit: true, editKey:'外網設定密碼', blueTxt:false, hasOrgBool:false ,active: false},
-            {type:'會員資料', title:'姓名', txt:'宋*雯', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
-            {type:'會員資料', title:'登入門號', txt:'09088***55', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'帳單類型', txt:'紙本帳單', hasEdit: true,editKey:'帳單類型設定', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'帳單寄送地址', txt:'新北市三重區******', hasEdit: true,editKey:'帳單地址設定', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'電子帳單', txt:'電子帳單申請', hasEdit: false,editKey:'電子帳單申請', blueTxt:true, hasOrgBool:false ,active: false},
@@ -682,6 +688,49 @@ window.onload = () =>{
                 MemberSettingNoticeRegion.value = 'none'
             }
         }
+        //  // detail - 會員資料設定 - 暱稱
+        const nicknameInput = ref('')
+        const nicknameInputAlert = ref(false)
+        const updateNickname = () =>{
+            if(nicknameInput.value === '') return nicknameInputAlert.value = true
+            memberSettingData.data.forEach(item=>{
+                if(item.title === '暱稱') {
+                    item.txt  = nicknameInput.value
+                    nicknameInput.value = ''
+                    NowRenderSection.value = 'detail'
+                    detailCont.value[0] = '會員資料設定'
+                    detailCont.value[1] = '會員資料設定'
+                    nicknameInputAlert.value = false
+                }
+            })
+
+        }
+        // Address
+        const AddressData = reactive({data:[]})
+        const AddressCity = ref("新北市")
+        const AddressRegion = ref("三重區")
+        const AddressDetail = ref("重新路五段609巷2號10樓")
+        
+        const remindTxtmgTop = ref(0)
+        const detailAddress = ref("null")
+        const detailAddressAutoHeight = () =>{
+            let height = detailAddress.value.scrollHeight
+            let row = 0
+            row = Math.floor( (height - 12) / 26) 
+            detailAddress.value.style.height = `${12 + row * 26}px` 
+            remindTxtmgTop.value = `margin-top:${(row -1) * 26}px;`
+            AddressDetail.value = detailAddress.value.value
+        }
+        onMounted(()=>{
+            axios.get("./api/taiwanAddress.json")
+            .then(res=>{
+                AddressData.data = res.data.data
+                // console.log(AddressData.data);
+            })
+            .catch(err=>{
+                console.error('沒接到API');
+            })
+        })
         
 
             return{
@@ -746,6 +795,14 @@ window.onload = () =>{
                 handMemberSettingBool,
                 MemberSettingNoticeRegion,
                 handMemberSettingNoticeRegion,
+                    // 暱稱
+                nicknameInput,
+                nicknameInputAlert,
+                updateNickname,
+                // 地址
+                detailAddress,
+                detailAddressAutoHeight,
+                remindTxtmgTop,
             }   
             
         },

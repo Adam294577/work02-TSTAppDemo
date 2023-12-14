@@ -375,6 +375,7 @@ body{
                             height: 120px;
                             background: #030314;
                             position: relative;
+                            cursor: pointer;
                             img{
                                 position: absolute;
                                 left: 50%;
@@ -1486,10 +1487,93 @@ body{
     }
 
 }
+// 紙本地址
+.addressBox{
+    .AddressItem{
+        display: flex;
+        flex-wrap: nowrap;
+        margin-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #CCC;
+        &:last-child{
+            border: none;
+        }
+        span{
+            &:first-child{
+                padding: 0.5rem ;
+                width: 15rem;
+                // border: 1px solid #F00;
+            }
+        }
+        .cont{
+            width: 100%;
+            // border: 1px solid #F00;
+            padding-top: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .inputStyle{
+            cursor: pointer;
+            background: #FFF;
+            border: 1px solid #CCC;
+            position: relative;
+            &.cont{
+                color: #777;
+            }
+            &::after{
+                position: absolute;
+                right: 1rem;
+                content: url(../img/setting/arrow.png);
+            }
+            &:active{
+                background-color: #AAA;
+            }
+        }
+        .detail_address{
+            position: relative;
+            textarea{
+                height: 38px;
+                position: absolute;
+                font-size: 1.2rem;
+                top: 0;
+                left: 0;
+                width: 100%;
+                resize: none;
+                padding: 5px 0 7px;
+                padding-left: 0.5rem;
+                border: 1px solid #CCC;
+                // height: 100%;
+                &::-webkit-scrollbar{
+                    display: none;
+                }
+                &:focus{
+                    outline: none;
+                }
+
+            }
+        }
+
+    }
+  
+}
+.summitBtn{
+    width: 260px;
+    padding: 0.7rem;
+    background: $mainOrg;
+    margin: auto;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #FFF;
+    margin-top: 0.5rem;
+    span{
+        color:#FFF
+    }
+}  
 // 會員資料設定
 .memberSettingBox{
     // border: 1px solid #F00;
     // margin-top: 0.5rem;
+    position: relative;
  .title{
     padding-left: 1rem;
     margin: 0.5rem 0;
@@ -1538,8 +1622,7 @@ body{
                 display: inline-block;
                 // border: 1px solid #F00;
                 position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
+                top: -0.35rem;
                 margin-left: 0.5rem;
                 cursor: pointer;
             }
@@ -1558,8 +1641,29 @@ body{
             }
         }
     }
-
  }
+ .nickname{
+    width: 100%;
+    padding: 0.7rem 0;
+    padding-left: 0.5rem;
+    border: none;
+    font-size: 1rem;
+    &:focus{
+        outline: none;
+    }
+    &::-webkit-input-placeholder {
+        text-shadow: none;
+        -webkit-text-fill-color: #AAA;
+        font-size: 0.9rem;
+      }    
+    color: $mainOrg;
+    -webkit-text-fill-color: #000;    
+}
+.alert{
+    color: $mainOrg;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
  .logoutBtn{
     display: block;
     text-align: center;
