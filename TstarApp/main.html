@@ -816,20 +816,20 @@
                                 <ul>
                                     <li class="AddressItem">
                                         <span>目前帳單地址 :</span>
-                                        <span class="cont">重新路五段609巷2號10樓</span>
+                                        <span class="cont">{{nowAddressResult.is[2].val}}</span>
                                     </li>
                                     <li class="AddressItem">
                                         <span>請選擇縣市 :</span>
-                                        <div class="inputStyle cont"><span>新北市</span></div>
+                                        <div class="inputStyle cont" data-notice="顯示縣市資料" @click="handAddressListRender"><span>{{AddressCity}}</span></div>
                                     </li>
                                     <li class="AddressItem">
                                         <span>請選擇地區 :</span>
-                                        <div class="inputStyle cont"><span>三重區</span></div>
+                                        <div class="inputStyle cont" data-notice="顯示地區資料" @click="handAddressListRender"><span>{{AddressRegion}}</span></div>
                                     </li>
                                     <li class="AddressItem">
                                         <span>請選輸入地址 :</span>
                                         <div class="cont detail_address">
-                                            <textarea ref="detailAddress" @input="detailAddressAutoHeight" maxlength="50"></textarea>
+                                            <textarea ref="detailAddress" @input="detailAddressAutoHeight" maxlength="50" :value="AddressDetail"></textarea>
                                         </div>
                                     </li>
                                 </ul>
@@ -837,9 +837,10 @@
                             <div class="remindTxt" :style="remindTxtmgTop">
                                 <img src="./img/detail/demo_紙本地址注意事項.png" alt="">
                             </div>
-                            <div class="summitBtn">
+                            <div class="summitBtn" @click="handnowAddressResult">
                                 <span>確認送出</span>
                             </div>
+                            <div class="block null"></div>
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '電子帳單申請'">
                             <div class="block null"></div>
@@ -849,12 +850,32 @@
                         </div>
                     </div>  
                 </section>
-                <div class="noticeContainer" v-if="true">
-                    <!-- <div class="noticeBox">
-                        <div class="whiteblock">
+                <div class="noticeContainer">
 
+                    <div class="noticeBox" v-if="AddressListRender.key === '顯示縣市資料'">
+                        <div class="whiteblock">
+                            <ul class="addressList" ref="cityscroll">
+                                <li 
+                                :ref="(el)=>noticeEl.push(el) "
+                                v-for="list in AddressListRender.is" :key="list.city"
+                                :class="[{'active': list.act}]"
+                                :data-key="list.city"  data-notice="變更縣市資料" @click="handAddressListRender">
+                                {{list.city}}</li>
+                            </ul>
                         </div>
-                    </div> -->
+                    </div>
+                    <div class="noticeBox" v-if="AddressListRender.key === '顯示地區資料'">
+                        <div class="whiteblock">
+                            <ul class="addressList" ref="regionscroll">
+                                <li 
+                                :ref="(el)=>noticeEl.push(el) "
+                                v-for="list in AddressListRender.is" :key="list.key"
+                                :class="[{'active': list.act}]"
+                                :data-key="list.key"  data-notice="變更地區資料" @click="handAddressListRender">
+                                {{list.key}}</li>
+                            </ul>
+                        </div>
+                    </div>
 
                     <!-- notice - 會員設定 - 推播設定 -->
                     <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'receive_msg'">

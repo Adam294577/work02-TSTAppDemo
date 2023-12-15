@@ -778,8 +778,9 @@ body {
   background: #FFF;
   position: absolute;
   min-height: 7rem;
-  top: 40%;
+  top: 50%;
   transform: translate(0, -50%);
+  max-height: 45rem;
 }
 .noticeBox .whiteblock .msg {
   display: inline-block;
@@ -804,6 +805,30 @@ body {
   margin-top: 1rem;
   font-size: 1.2rem;
   font-weight: 600;
+}
+.noticeBox .whiteblock .addressList {
+  max-height: 45rem;
+  overflow-y: scroll;
+}
+.noticeBox .whiteblock .addressList::-webkit-scrollbar {
+  width: 4px;
+}
+.noticeBox .whiteblock .addressList::-webkit-scrollbar-thumb {
+  display: inline-block;
+  background: #AAA;
+}
+.noticeBox .whiteblock .addressList li {
+  cursor: pointer;
+  padding: 1rem;
+  position: relative;
+}
+.noticeBox .whiteblock .addressList li::after {
+  position: absolute;
+  right: 1rem;
+  content: url(../img/setting/list_null.png);
+}
+.noticeBox .whiteblock .addressList li.active::after {
+  content: url(../img/setting/list_act.png);
 }
 
 .detailContainer {
@@ -1338,6 +1363,7 @@ body {
   width: 100%;
   resize: none;
   padding: 5px 0 7px;
+  padding-right: 0.5rem;
   padding-left: 0.5rem;
   border: 1px solid #CCC;
 }

@@ -434,13 +434,25 @@ window.onload = () =>{
                         scrollEl.value.scrollTop = 0
                         IsInnerLink = true
 
+                        if(detailCont.value[1] ===  '帳單地址設定'){
+                            AddressCity.value = nowAddressResult.is[0].val
+                            AddressRegion.value = nowAddressResult.is[1].val
+                            AddressDetail.value = nowAddressResult.is[2].val
+                            setTimeout(()=>{
+                                detailAddressAutoHeight()
+                            },50)
+                        }
+
 
                         nicknameInputAlert.value = false
                         if(item.where === '會員資料設定'){
                             NowRenderSection.value = item.where
+                            
                             return
                         }
                     }
+
+     
 
 
                    
@@ -628,7 +640,7 @@ window.onload = () =>{
             {type:'會員資料', title:'Email', txt:'', hasEdit: true, editKey:'email設定', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'會員資料', title:'密碼設定', txt:'', hasEdit: true, editKey:'外網設定密碼', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'帳單類型', txt:'紙本帳單', hasEdit: true,editKey:'帳單類型設定', blueTxt:false, hasOrgBool:false ,active: false},
-            {type:'資訊帳單', title:'帳單寄送地址', txt:'新北市三重區******', hasEdit: true,editKey:'帳單地址設定', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'資訊帳單', title:'帳單寄送地址', txt:'-', hasEdit: true,editKey:'帳單地址設定', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'電子帳單', txt:'電子帳單申請', hasEdit: false,editKey:'電子帳單申請', blueTxt:true, hasOrgBool:false ,active: false},
             {type:'更多設定', title:'保持登入', txt:'', hasEdit: false,editKey:'keeplogin', blueTxt:false, hasOrgBool:true ,active: true, },
             {type:'更多設定', title:'接收推播', txt:'', hasEdit: false,editKey:'receive_msg', blueTxt:false, hasOrgBool:true ,active: false, },
@@ -647,6 +659,12 @@ window.onload = () =>{
         })
         const billInfoListRender = computed(()=>{
             let data =  packageMemberSetting('資訊帳單')
+            data.forEach(item=>{
+                if(item.title === '帳單寄送地址'){
+                    item.txt = `${nowAddressResult.is[0].val}${nowAddressResult.is[1].val}******`
+                }
+            })
+            AddressDetail.value = nowAddressResult.is[2].val
             return data
         })
         const memberMoreSetListRender = computed(()=>{
@@ -688,7 +706,12 @@ window.onload = () =>{
                 MemberSettingNoticeRegion.value = 'none'
             }
         }
-        //  // detail - 會員資料設定 - 暱稱
+        const backToMemberSetting = () =>{
+            NowRenderSection.value = 'detail'
+            detailCont.value[0] = '會員資料設定'
+            detailCont.value[1] = '會員資料設定'
+        }
+        // detail - 會員資料設定 - 暱稱
         const nicknameInput = ref('')
         const nicknameInputAlert = ref(false)
         const updateNickname = () =>{
@@ -697,35 +720,159 @@ window.onload = () =>{
                 if(item.title === '暱稱') {
                     item.txt  = nicknameInput.value
                     nicknameInput.value = ''
-                    NowRenderSection.value = 'detail'
-                    detailCont.value[0] = '會員資料設定'
-                    detailCont.value[1] = '會員資料設定'
                     nicknameInputAlert.value = false
+                    backToMemberSetting()
                 }
             })
 
         }
-        // Address
+        // detail - 會員資料設定 - Address
         const AddressData = reactive({data:[]})
-        const AddressCity = ref("新北市")
-        const AddressRegion = ref("三重區")
-        const AddressDetail = ref("重新路五段609巷2號10樓")
-        
+        const AddressCity = ref("")
+        const AddressRegion = ref("")
+        const AddressDetail = ref("")
+        const nowAddressResult = reactive({is:[
+            {key:"city", val:'新北市'},
+            {key:"region", val:'三重區'},
+            {key:"detail", val:'重新路五段609巷2號10樓'},
+        ]})
+        const noticeAddressList = reactive({is:[],key:''})
+        const noticeEl = ref([])
+        const cityscroll = ref(null)
+        const regionscroll = ref(null)
+        const AddressListRender = computed(()=>{
+            
+            let data = noticeAddressList.is
+            let key = noticeAddressList.key
+            
+           
+            setTimeout(()=>{
+                let noticeElArr = []
+                noticeEl.value.forEach(item=>{
+                    
+                    if(item !== null){
+                        noticeElArr.push(item)
+                    }
+                })
+                if(key === '顯示縣市資料'|| key === '顯示地區資料'){
+                    // console.log('點選後當時撈取的data:' ,noticeElArr);
+                    noticeElArr.forEach(item=>{
+                        if(item.classList.contains('active')){
+                            // console.log('el的位置',item.offsetTop);
+                            if(key === '顯示縣市資料') cityscroll.value.scrollTop = item.offsetTop
+                            if(key === '顯示地區資料') regionscroll.value.scrollTop = item.offsetTop
+                        }
+                    })
+    
+                }                
+                noticeEl.value = []
+            },10)
+            return noticeAddressList
+        })
+
+
+        const handAddressListRender = (el)=>{
+            let data = AddressData.data
+            let key = el.currentTarget.dataset.notice
+            if(key === '顯示縣市資料'){
+                data = data.map(item=>{
+                    if(item.city === AddressCity.value){
+                        item.act = true
+                    }else{
+                        item.act  = false
+                    }
+                    return item
+                } )
+                noticeAddressList.is = data
+                noticeAddressList.key = key
+                
+            }
+            if(key === '變更縣市資料'){
+                let val = el.currentTarget.dataset.key
+                let nochange = false
+                data = data.map(item=>{
+                    if(item.city === val){
+                        AddressCity.value = val
+                        if(item.act){
+                            nochange = true
+                        }                        
+                        item.act = true
+                    }else{
+                        item.act  = false
+                    }
+                    return item
+                } )
+                if(!nochange) {
+                    let defaultRegion = noticeAddressList.is.filter(item=>{
+                        if(item.act) return item
+                    })
+                    AddressRegion.value = defaultRegion[0].region[0].key
+
+                    // console.log('指定city的第一個區域',AddressRegion.value);
+                }
+                noticeAddressList.is = []
+                noticeAddressList.key = ''
+            }
+            if(key === '顯示地區資料'){
+                data = data.map(item=>{
+                    if(item.city === AddressCity.value){
+                        item.act = true
+                    }else{
+                        item.act  = false
+                    }
+                    return item
+                } )                
+                data = data.filter(item => item.act);
+                data[0].region = data[0].region.map(item=>{
+                    if(item.key === AddressRegion.value){
+                        item.act = true
+                    }else{
+                        item.act  = false
+                    }
+                    return item
+                } )   
+                noticeAddressList.is = data[0].region
+                noticeAddressList.key = key                             
+            }
+            if(key === '變更地區資料'){
+                let val = el.currentTarget.dataset.key
+                noticeAddressList.is = noticeAddressList.is.map(item=>{
+                    if(item.key === val){
+                        AddressRegion.value = val
+                        item.act = true
+                    }else{
+                        item.act  = false
+                    }
+                    return item
+                } )
+                noticeAddressList.is = []
+                noticeAddressList.key = ''                
+            }
+        }
+
+        const handnowAddressResult = () =>{
+            nowAddressResult.is[0].val = AddressCity.value
+            nowAddressResult.is[1].val = AddressRegion.value
+            nowAddressResult.is[2].val = AddressDetail.value
+            backToMemberSetting()
+        }
         const remindTxtmgTop = ref(0)
         const detailAddress = ref("null")
         const detailAddressAutoHeight = () =>{
-            let height = detailAddress.value.scrollHeight
-            let row = 0
-            row = Math.floor( (height - 12) / 26) 
-            detailAddress.value.style.height = `${12 + row * 26}px` 
-            remindTxtmgTop.value = `margin-top:${(row -1) * 26}px;`
-            AddressDetail.value = detailAddress.value.value
+            if(detailAddress.value !== null){
+                let height = detailAddress.value.scrollHeight
+                let row = 0
+                row = Math.floor( (height - 12) / 26) 
+                detailAddress.value.style.height = `${12 + row * 26}px` 
+                remindTxtmgTop.value = `margin-top:${(row -1) * 26}px;`
+                AddressDetail.value = detailAddress.value.value
+            }
         }
         onMounted(()=>{
+            // console.log('test',noticeEl.value)
             axios.get("./api/taiwanAddress.json")
             .then(res=>{
                 AddressData.data = res.data.data
-                // console.log(AddressData.data);
             })
             .catch(err=>{
                 console.error('沒接到API');
@@ -800,9 +947,19 @@ window.onload = () =>{
                 nicknameInputAlert,
                 updateNickname,
                 // 地址
+                AddressCity,
+                AddressRegion,
+                AddressDetail,
                 detailAddress,
                 detailAddressAutoHeight,
                 remindTxtmgTop,
+                nowAddressResult,
+                AddressListRender,
+                noticeEl,
+                handAddressListRender,
+                handnowAddressResult,
+                cityscroll,
+                regionscroll,
             }   
             
         },
