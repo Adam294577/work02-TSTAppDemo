@@ -747,26 +747,19 @@ window.onload = () =>{
             
            
             setTimeout(()=>{
-                let noticeElArr = []
-                noticeEl.value.forEach(item=>{
-                    
-                    if(item !== null){
-                        noticeElArr.push(item)
-                    }
-                })
-                if(key === '顯示縣市資料'|| key === '顯示地區資料'){
-                    // console.log('點選後當時撈取的data:' ,noticeElArr);
-                    noticeElArr.forEach(item=>{
-                        if(item.classList.contains('active')){
-                            // console.log('el的位置',item.offsetTop);
-                            if(key === '顯示縣市資料') cityscroll.value.scrollTop = item.offsetTop
-                            if(key === '顯示地區資料') regionscroll.value.scrollTop = item.offsetTop
-                        }
+                console.log('addressListElement',noticeEl.value);
+                if(key === '顯示地區資料'){
+                    noticeEl.value.forEach(item=>{
+                        if(item.classList.contains('active')) regionscroll.value.scrollTop = item.offsetTop
                     })
-    
-                }                
+                }   
+                if(key === '顯示縣市資料'){
+                    noticeEl.value.forEach(item=>{
+                        if(item.classList.contains('active')) cityscroll.value.scrollTop = item.offsetTop
+                    })
+                }   
                 noticeEl.value = []
-            },10)
+            },1)
             return noticeAddressList
         })
 
@@ -866,6 +859,11 @@ window.onload = () =>{
                 detailAddress.value.style.height = `${12 + row * 26}px` 
                 remindTxtmgTop.value = `margin-top:${(row -1) * 26}px;`
                 AddressDetail.value = detailAddress.value.value
+            }
+            if(detailAddress.value.value === ''){
+                row = 1
+                detailAddress.value.style.height = `${12 + row * 26}px` 
+                remindTxtmgTop.value = `margin-top:${(row -1) * 26}px;`
             }
         }
         onMounted(()=>{

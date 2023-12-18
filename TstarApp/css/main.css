@@ -1366,6 +1366,7 @@ body {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
   border: 1px solid #CCC;
+  overflow: hidden;
 }
 .addressBox .AddressItem .detail_address textarea::-webkit-scrollbar {
   display: none;

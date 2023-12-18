@@ -27,7 +27,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/14</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/18</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -856,7 +856,7 @@
                         <div class="whiteblock">
                             <ul class="addressList" ref="cityscroll">
                                 <li 
-                                :ref="(el)=>noticeEl.push(el) "
+                                :ref=" (el)=>el && noticeEl.push(el)"
                                 v-for="list in AddressListRender.is" :key="list.city"
                                 :class="[{'active': list.act}]"
                                 :data-key="list.city"  data-notice="變更縣市資料" @click="handAddressListRender">
@@ -868,7 +868,7 @@
                         <div class="whiteblock">
                             <ul class="addressList" ref="regionscroll">
                                 <li 
-                                :ref="(el)=>noticeEl.push(el) "
+                                :ref=" (el)=>el && noticeEl.push(el)"
                                 v-for="list in AddressListRender.is" :key="list.key"
                                 :class="[{'active': list.act}]"
                                 :data-key="list.key"  data-notice="變更地區資料" @click="handAddressListRender">
@@ -924,3 +924,4 @@
  
 </body>
 </html>
+
