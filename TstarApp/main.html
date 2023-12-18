@@ -492,7 +492,7 @@
                 
                 <section class="detailContainer" v-if="NowRenderSection === 'detail'">
                     <div class="detailHeader" :style="detailHeaderBg">
-                        <div id="backBtn" data-href="index" @click="handHrefCont" v-show="backBtnBool">
+                        <div id="backBtn" :data-href="backBtnIs.key" @click="handHrefCont">
                             <img src="./img/detail/detail_back.png" alt="">
                         </div>
                         <div class="LeftBtn">
@@ -510,6 +510,7 @@
                             </div>                        
                         </div>
                     </div>
+                    <!-- index -->
                     <div class="detailCont">
                         <div class="ItemBox" v-if="detailCont[0] === '合約方案'">
                             <div class="demobox">
@@ -780,22 +781,9 @@
                                 <div class="orgBtn" style="cursor: pointer;">線上申辦({{nextWantApplyIs}})</div>
                             </div>                        
                             <div class="block null"></div>
-                        </div>                                                         
+                        </div>   
                     </div>
-
-
-
-                </section>
-                <!-- 會員資料設定編輯細項 -->
-                <section class="memberSetting" v-if=" NowRenderSection === '會員資料設定'">
-                    <div class="detailHeader" style="background-color: #000;">
-                        <div id="backBtn" data-href="會員資料設定" @click="handHrefCont" v-show="backBtnBool">
-                            <img src="./img/detail/detail_back.png" alt="">
-                        </div>
-                        <div class="LeftBtn"></div>                    
-                        <h2>{{detailCont[1]}}</h2>
-                        <div class="rigntBtn"></div>
-                    </div>                    
+                     <!-- 會員資料設定編輯細項 -->
                     <div class="detailCont">
                         <div class="ItemBox" v-if="detailCont[0] === '變更暱稱'">
                             <div class="memberSettingBox" >
@@ -869,9 +857,9 @@
                         <div class="ItemBox" v-if="detailCont[0] === '版本說明'">
                             <div class="block null"></div>
                         </div>
-                    </div>  
-                </section>
-
+                    </div> 
+                    
+                </section>               
                 <div class="noticeContainer">
                     <!-- 紙本帳單地址 -->
                     <div class="noticeBox" v-if="NoticeIs === '顯示縣市資料'">

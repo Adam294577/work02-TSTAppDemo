@@ -352,8 +352,7 @@ window.onload = () =>{
         //href Control
             const detailCont = ref(['key','headerName'])
             const detailHeaderBg = ref('')
-            const backBtnBool = ref(true)
-
+            const backBtnIs = ref({key:'index' ,show: true})
             const OuterLinkdata = reactive({data:[
                 {txt:'',        key:'',         url:''},
                 {txt:'',        key:'billcard',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=creditcardPayment'},
@@ -383,21 +382,21 @@ window.onload = () =>{
                 {key:'變更電子帳單信箱_notice'}
             ]})
             const InnerLinkdata = reactive({data:[
-                {where:'',              key:'', headerTxt:'',              contentBg:''},
-                {where:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
-                {where:'會員資料設定',   key:'變更電子帳單信箱內容', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
-                {where:'會員資料設定',   key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
-                {where:'會員資料設定',   key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/lavender.png'},
-                {where:'會員資料設定',   key:'電子帳單申請', headerTxt:'電子帳單申請',              contentBg:'./img/ContBg/fa_gray.png'},
-                {where:'會員資料設定',   key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/gray.png'},
-                {where:'會員資料設定',   key:'email設定', headerTxt:'Email設定',              contentBg:'./img/ContBg/fa_gray.png'},
-                {where:'會員資料設定',   key:'變更暱稱', headerTxt:'變更暱稱',              contentBg:'./img/ContBg/gray.png'},
-                {where:'index',         key:'et3', headerTxt:'Tinder 交友平台',              contentBg:'./img/ContBg/black.png'},
-                {where:'index',         key:'et2', headerTxt:'MyVideo',              contentBg:'./img/ContBg/black.png'},
-                {where:'index',         key:'訊息中心', headerTxt:'訊息中心',              contentBg:'./img/ContBg/gray.png'},
-                {where:'index',         key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
-                {where:'index',         key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
-                {where:'index',         key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'',              key:'', headerTxt:'',              contentBg:''},
+                {backBtn:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'會員資料設定',   key:'變更電子帳單信箱內容', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'會員資料設定',   key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'會員資料設定',   key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/lavender.png'},
+                {backBtn:'會員資料設定',   key:'電子帳單申請', headerTxt:'電子帳單申請',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'會員資料設定',   key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'會員資料設定',   key:'email設定', headerTxt:'Email設定',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'會員資料設定',   key:'變更暱稱', headerTxt:'變更暱稱',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'index',         key:'et3', headerTxt:'Tinder 交友平台',              contentBg:'./img/ContBg/black.png'},
+                {backBtn:'index',         key:'et2', headerTxt:'MyVideo',              contentBg:'./img/ContBg/black.png'},
+                {backBtn:'index',         key:'訊息中心', headerTxt:'訊息中心',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'index',         key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'index',         key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
+                {backBtn:'index',         key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
                 
             ]})
             const handOuterLink = (el, bool) =>{
@@ -466,14 +465,11 @@ window.onload = () =>{
                                 detailAddressAutoHeight()
                             },50)
                         }
+                        backBtnIs.value.key = item.backBtn
 
 
                         nicknameInputAlert.value = false
-                        if(item.where === '會員資料設定'){
-                            NowRenderSection.value = item.where
-                            
-                            return
-                        }
+         
                     }
                    
                 })
@@ -958,7 +954,7 @@ window.onload = () =>{
                 customServiceRender,
                 serviceManagementRender,
                 // detail
-                backBtnBool,
+                backBtnIs,
                 detailCont,
                 detailHeaderBg,
                 // detail - 多門號切換繳款與帳單明細
