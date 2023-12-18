@@ -340,6 +340,7 @@ body {
   height: 120px;
   background: #030314;
   position: relative;
+  cursor: pointer;
 }
 .home .ItemBox .block .itemMsg .bill .payBox .payItem img {
   position: absolute;
@@ -777,8 +778,9 @@ body {
   background: #FFF;
   position: absolute;
   min-height: 7rem;
-  top: 40%;
+  top: 50%;
   transform: translate(0, -50%);
+  max-height: 45rem;
 }
 .noticeBox .whiteblock .msg {
   display: inline-block;
@@ -803,6 +805,30 @@ body {
   margin-top: 1rem;
   font-size: 1.2rem;
   font-weight: 600;
+}
+.noticeBox .whiteblock .addressList {
+  max-height: 45rem;
+  overflow-y: scroll;
+}
+.noticeBox .whiteblock .addressList::-webkit-scrollbar {
+  width: 4px;
+}
+.noticeBox .whiteblock .addressList::-webkit-scrollbar-thumb {
+  display: inline-block;
+  background: #AAA;
+}
+.noticeBox .whiteblock .addressList li {
+  cursor: pointer;
+  padding: 1rem;
+  position: relative;
+}
+.noticeBox .whiteblock .addressList li::after {
+  position: absolute;
+  right: 1rem;
+  content: url(../img/setting/list_null.png);
+}
+.noticeBox .whiteblock .addressList li.active::after {
+  content: url(../img/setting/list_act.png);
 }
 
 .detailContainer {
@@ -1289,6 +1315,84 @@ body {
   text-align: center;
 }
 
+.addressBox .AddressItem {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #CCC;
+}
+.addressBox .AddressItem:last-child {
+  border: none;
+}
+.addressBox .AddressItem span:first-child {
+  padding: 0.5rem;
+  width: 15rem;
+}
+.addressBox .AddressItem .cont {
+  width: 100%;
+  padding-top: 0.5rem;
+  margin-right: 0.5rem;
+}
+.addressBox .AddressItem .inputStyle {
+  cursor: pointer;
+  background: #FFF;
+  border: 1px solid #CCC;
+  position: relative;
+}
+.addressBox .AddressItem .inputStyle.cont {
+  color: #777;
+}
+.addressBox .AddressItem .inputStyle::after {
+  position: absolute;
+  right: 1rem;
+  content: url(../img/setting/arrow.png);
+}
+.addressBox .AddressItem .inputStyle:active {
+  background-color: #AAA;
+}
+.addressBox .AddressItem .detail_address {
+  position: relative;
+}
+.addressBox .AddressItem .detail_address textarea {
+  height: 38px;
+  position: absolute;
+  font-size: 1.2rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  resize: none;
+  padding: 5px 0 7px;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  border: 1px solid #CCC;
+  overflow: hidden;
+}
+.addressBox .AddressItem .detail_address textarea::-webkit-scrollbar {
+  display: none;
+}
+.addressBox .AddressItem .detail_address textarea:focus {
+  outline: none;
+}
+
+.summitBtn {
+  width: 260px;
+  padding: 0.7rem;
+  background: rgb(255, 94, 0);
+  margin: auto;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #FFF;
+  margin-top: 0.5rem;
+}
+.summitBtn span {
+  color: #FFF;
+}
+
+.memberSettingBox {
+  position: relative;
+}
 .memberSettingBox .title {
   padding-left: 1rem;
   margin: 0.5rem 0;
@@ -1333,8 +1437,7 @@ body {
   content: url(../img/setting/edit.png);
   display: inline-block;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: -0.35rem;
   margin-left: 0.5rem;
   cursor: pointer;
 }
@@ -1347,6 +1450,28 @@ body {
 }
 .memberSettingBox ul span.orgBool.active::after {
   content: url(../img/setting/whitebool_act.png);
+}
+.memberSettingBox .nickname {
+  width: 100%;
+  padding: 0.7rem 0;
+  padding-left: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  color: rgb(255, 94, 0);
+  -webkit-text-fill-color: #000;
+}
+.memberSettingBox .nickname:focus {
+  outline: none;
+}
+.memberSettingBox .nickname::-webkit-input-placeholder {
+  text-shadow: none;
+  -webkit-text-fill-color: #AAA;
+  font-size: 0.9rem;
+}
+.memberSettingBox .alert {
+  color: rgb(255, 94, 0);
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
 }
 .memberSettingBox .logoutBtn {
   display: block;
