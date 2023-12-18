@@ -102,14 +102,26 @@ body {
 }
 
 .orgBtn, .whiteBtn {
+  cursor: pointer;
   width: 200px;
   padding: 0.5rem;
   border-radius: 20px;
   color: #FFF;
+  cursor: pointer;
 }
 .orgBtn a, .whiteBtn a {
   text-decoration: none;
   color: #FFF;
+}
+.orgBtn.center, .whiteBtn.center {
+  width: 270px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  text-align: center;
+}
+.orgBtn.mt-3, .whiteBtn.mt-3 {
+  margin-top: 1.5rem;
 }
 
 .orgBtn2 {
@@ -758,6 +770,8 @@ body {
   width: 390px;
   height: 800px;
   top: 95px;
+  left: 50%;
+  transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.5960784314);
 }
 .noticeBox .noticeTxt span.orgtxt {
@@ -806,28 +820,28 @@ body {
   font-size: 1.2rem;
   font-weight: 600;
 }
-.noticeBox .whiteblock .addressList {
+.noticeBox .whiteblock .noticeList {
   max-height: 45rem;
   overflow-y: scroll;
 }
-.noticeBox .whiteblock .addressList::-webkit-scrollbar {
+.noticeBox .whiteblock .noticeList::-webkit-scrollbar {
   width: 4px;
 }
-.noticeBox .whiteblock .addressList::-webkit-scrollbar-thumb {
+.noticeBox .whiteblock .noticeList::-webkit-scrollbar-thumb {
   display: inline-block;
   background: #AAA;
 }
-.noticeBox .whiteblock .addressList li {
+.noticeBox .whiteblock .noticeList li {
   cursor: pointer;
   padding: 1rem;
   position: relative;
 }
-.noticeBox .whiteblock .addressList li::after {
+.noticeBox .whiteblock .noticeList li::after {
   position: absolute;
   right: 1rem;
   content: url(../img/setting/list_null.png);
 }
-.noticeBox .whiteblock .addressList li.active::after {
+.noticeBox .whiteblock .noticeList li.active::after {
   content: url(../img/setting/list_act.png);
 }
 
@@ -1315,6 +1329,36 @@ body {
   text-align: center;
 }
 
+.billType {
+  padding-left: 1rem;
+}
+.billType .inputstyle {
+  cursor: pointer;
+  margin-left: 1rem;
+  width: 250px;
+  display: inline-block;
+  background: #FFF;
+  position: relative;
+  padding: 0.2rem 0;
+}
+.billType span {
+  padding-left: 1rem;
+  color: #999;
+}
+.billType span::after {
+  position: absolute;
+  right: 1rem;
+  content: url(../img/setting/arrow.png);
+}
+
+.billTypeMsg {
+  padding: 0 1rem;
+  padding-bottom: 1.5rem;
+}
+.billTypeMsg .mark {
+  color: rgb(255, 94, 0);
+}
+
 .addressBox .AddressItem {
   display: flex;
   flex-wrap: nowrap;
@@ -1392,6 +1436,9 @@ body {
 
 .memberSettingBox {
   position: relative;
+}
+.memberSettingBox .ItemBox {
+  display: none;
 }
 .memberSettingBox .title {
   padding-left: 1rem;

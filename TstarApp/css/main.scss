@@ -107,13 +107,25 @@ body{
     }
 }
 .orgBtn,.whiteBtn{
+    cursor: pointer;
     width: 200px;
     padding: 0.5rem;
     border-radius: 20px;
     color: #FFF;
+    cursor: pointer;
     a{
         text-decoration: none;
         color: #FFF;
+    }
+    &.center{
+        width: 270px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%,0);
+        text-align: center;
+    }
+    &.mt-3{
+        margin-top: 1.5rem;
     }
 
 }
@@ -881,6 +893,8 @@ body{
     width: 390px;
     height: 800px;
     top: 95px;
+    left: 50%;
+    transform: translateX(-50%);
     background: #00000098;
     .noticeTxt{
         span{
@@ -932,7 +946,7 @@ body{
             font-size: 1.2rem;
             font-weight: 600;
         }
-        .addressList{
+        .noticeList{
             // border: 1px solid #F00;
             max-height: 45rem;
             overflow-y: scroll;
@@ -1517,7 +1531,39 @@ body{
         }
     }
 
+
 }
+// 帳單類型
+.billType{
+    padding-left: 1rem;
+    .inputstyle{
+        cursor: pointer;
+        margin-left: 1rem;
+        width: 250px;
+        display: inline-block;
+        background: #FFF;
+        position: relative;
+        padding: 0.2rem 0;
+    }
+    span{
+        padding-left: 1rem;
+       
+        color:#999;
+       
+        &::after{
+            position: absolute;
+            right: 1rem;
+            content: url(../img/setting/arrow.png);
+        }
+    }
+ }
+ .billTypeMsg{
+    padding:0 1rem;
+    padding-bottom: 1.5rem;
+    .mark{
+        color: $mainOrg;
+    }
+ }
 // 紙本地址
 .addressBox{
     .AddressItem{
@@ -1606,6 +1652,9 @@ body{
 .memberSettingBox{
     // border: 1px solid #F00;
     // margin-top: 0.5rem;
+    .ItemBox{
+        display: none;
+    }
     position: relative;
  .title{
     padding-left: 1rem;
@@ -1715,4 +1764,5 @@ body{
         padding: 0.7rem 0;
     }
  }
+
 }

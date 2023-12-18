@@ -721,6 +721,7 @@
                                     </li>
                                 </ul>
                             </div>
+
                             <div class="memberSettingBox" >
                                 <div class="title">{{memberMoreSetListRender[0].type}}</div>
                                 <ul v-for="list in memberMoreSetListRender" :key="list.title">
@@ -806,10 +807,28 @@
                             </div>                            
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === 'email設定'">
+                            <div class="demobox">
+                                <img src="./img/detail/demo_email設定.png" alt="">
+                            </div>                        
                             <div class="block null"></div>
-                        </div>
+                        </div>                       
                         <div class="ItemBox" v-if="detailCont[0] === '帳單類型設定'">
-                            <div class="block null"></div>
+                            <div class="billTypeMsg" v-show="billType === '紙本帳單'">
+                                <span>你目前採用<span class="mark">紙本帳單</span>，改用電子帳單一起愛護地球吧!</span>
+                            </div>
+                            <div class="billTypeMsg" v-show="billType === '電子帳單_待驗證'">
+                                <span>電子帳單申請確認函已寄出，請至你的Email信箱進行【線上認證】。</span>
+                            </div>
+                            <li class="billType">帳單類型 
+                                <div class="inputstyle" data-key="帳單類型更換" @click="handMemberSettingBool"><span>電子帳單</span></div>
+                            </li>
+                            <div class="orgBtn center mt-3" data-href="電子帳單申請" @click="handHrefCont">申請變更</div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '變更電子帳單信箱'">
+                            <div class="demobox">
+                                <img src="./img/detail/demo_變更電子帳單信箱.png" alt="">
+                            </div> 
+                            <div class="orgBtn center mt-3">確認送出</div>
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '帳單地址設定'">
                             <div class="addressBox">
@@ -843,7 +862,10 @@
                             <div class="block null"></div>
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '電子帳單申請'">
-                            <div class="block null"></div>
+                            <div class="demobox">
+                                <img src="./img/detail/demo_電子帳單申請.png" alt="">
+                            </div>                             
+                            <div class="orgBtn center mt-3">確認送出</div>
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '版本說明'">
                             <div class="block null"></div>
@@ -851,10 +873,10 @@
                     </div>  
                 </section>
                 <div class="noticeContainer">
-
+                    <!-- 紙本帳單地址 -->
                     <div class="noticeBox" v-if="AddressListRender.key === '顯示縣市資料'">
                         <div class="whiteblock">
-                            <ul class="addressList" ref="cityscroll">
+                            <ul class="noticeList" ref="cityscroll">
                                 <li 
                                 :ref=" (el)=>el && noticeEl.push(el)"
                                 v-for="list in AddressListRender.is" :key="list.city"
@@ -866,7 +888,7 @@
                     </div>
                     <div class="noticeBox" v-if="AddressListRender.key === '顯示地區資料'">
                         <div class="whiteblock">
-                            <ul class="addressList" ref="regionscroll">
+                            <ul class="noticeList" ref="regionscroll">
                                 <li 
                                 :ref=" (el)=>el && noticeEl.push(el)"
                                 v-for="list in AddressListRender.is" :key="list.key"
@@ -876,7 +898,25 @@
                             </ul>
                         </div>
                     </div>
+                    <!-- 帳單類型 -->
+                    <div class="noticeBox" v-if="MemberSettingNoticeRegion === '帳單類型更換'">
+                        <div class="whiteblock">
+                            <h1 class="title">選擇帳單類型</h1>
+                            <ul class="noticeList" ref="cityscroll">
+                                <li class="active" @click="handMemberSettingNoticeRegion" data-key="none">電子帳單</li>
+                            </ul>
+                        </div>
+                    </div> 
+                    <div class="noticeBox" v-if="MemberSettingNoticeRegion === '變更電子帳單信箱'">
+                    <!-- <div class="noticeBox" v-if="true"> -->
+                        <div class="whiteblock">
+                            <h1 class="title">提醒</h1>
+                            <span class="msg">電子帳單申請中，若你尚未進行認證，請盡速至郵箱認證以開放服務</span>
+                            <span class="btn cancel" @click="handMemberSettingNoticeRegion" data-key="none">取消</span>
+                            <span class="btn" @click="" data-key="">修改</span>
 
+                        </div>
+                    </div> 
                     <!-- notice - 會員設定 - 推播設定 -->
                     <div class="noticeBox" v-if="MemberSettingNoticeRegion === 'receive_msg'">
                         <div class="whiteblock">
@@ -889,7 +929,7 @@
                         <div class="whiteblock">
                             <h1 class="title">登出</h1>
                             <span class="msg">登出後需要重新登入，確定要登出?</span>
-                            <span class="btn cancel" @click="handMemberSettingNoticeRegion" data-key="logout_n">取消</span>
+                            <span class="btn cancel" @click="handMemberSettingNoticeRegion" data-key="none">取消</span>
                             <span class="btn" @click="handMemberSettingNoticeRegion" data-key="logout_y">確定</span>
                         </div>
                     </div>  
