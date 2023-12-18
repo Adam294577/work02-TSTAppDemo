@@ -1686,6 +1686,11 @@ body{
         right: 1rem;
         color: #999;
         // top: ;
+        &.btn{
+            text-align: right;
+            cursor: pointer;
+            width: 100px;
+        }
     }
     .hasEdit{
         position: absolute;

@@ -74,7 +74,7 @@ window.onload = () =>{
             // {idx:3 ,search:'小額代收明細', title: '小額代收' ,        statusFn:'小額代收使用狀況' , statusIs:'有使用',
             // arr:[{statusKey:'有使用',msg:'有使用'},{statusKey:'未使用',msg:'未使用'}]},            
             {idx:4 ,search:'帳單類型', title: '帳單類型' ,        statusFn:'帳單類型轉換' , statusIs:'紙本帳單',
-            arr:[{statusKey:'紙本帳單',msg:'紙本帳單'},{statusKey:'電子帳單_待驗證',msg:'電子帳單(待驗證)'}]},            
+            arr:[{statusKey:'紙本帳單',msg:'紙本帳單'},{statusKey:'電子帳單_待驗證',msg:'電子帳單(待驗證)'},{statusKey:'電子帳單_已驗證',msg:'電子帳單(已驗證)'}]},            
             // {idx:5 ,search:'', title: '' ,        statusFn:'' , statusIs:'',
             // arr:[{statusKey:'',msg:''},{statusKey:'',msg:''}]},            
         ]})            
@@ -384,11 +384,11 @@ window.onload = () =>{
             const InnerLinkdata = reactive({data:[
                 {backBtn:'',              key:'', headerTxt:'',              contentBg:''},
                 {backBtn:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
-                {backBtn:'會員資料設定',   key:'變更電子帳單信箱內容', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'會員資料設定',   key:'變更電子帳單信箱', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'會員資料設定',   key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
                 {backBtn:'會員資料設定',   key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/lavender.png'},
                 {backBtn:'會員資料設定',   key:'電子帳單申請', headerTxt:'電子帳單申請',              contentBg:'./img/ContBg/fa_gray.png'},
-                {backBtn:'會員資料設定',   key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'會員資料設定',   key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'會員資料設定',   key:'email設定', headerTxt:'Email設定',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'會員資料設定',   key:'變更暱稱', headerTxt:'變更暱稱',              contentBg:'./img/ContBg/gray.png'},
                 {backBtn:'index',         key:'et3', headerTxt:'Tinder 交友平台',              contentBg:'./img/ContBg/black.png'},
@@ -659,9 +659,11 @@ window.onload = () =>{
             {type:'資訊帳單', title:'電子帳單',     billType:'紙本帳單' , txt:'電子帳單申請', hasEdit: false,editKey:'電子帳單申請', blueTxt:true, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'帳單類型',     billType:'電子帳單_待驗證' , txt:'電子信箱待驗證', hasEdit: true,editKey:'帳單類型設定', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'電子帳單',     billType:'電子帳單_待驗證' , txt:'*t*t*8*@gmail.com', hasEdit: true,editKey:'變更電子帳單信箱_notice', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'資訊帳單', title:'帳單類型',     billType:'電子帳單_已驗證' , txt:'電子帳單', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'資訊帳單', title:'電子帳單',     billType:'電子帳單_已驗證' , txt:'*t*t*8*@gmail.com', hasEdit: true,editKey:'變更電子帳單信箱', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'更多設定', title:'保持登入', txt:'', hasEdit: false,  editKey:'keeplogin', hasOrgBool:true ,active: true, },
             {type:'更多設定', title:'接收推播', txt:'', hasEdit: false,  editKey:'接收推播', hasOrgBool:true ,active: false, },
-            {type:'更多設定', title:'APP 版本號碼', txt:'7.0.0', hasEdit: false,editKey:'', hasOrgBool:false ,active: false, },
+            {type:'更多設定', title:'APP 版本號碼', txt:'7.0.0', hasEdit: false,editKey:'版本說明', hasOrgBool:false ,active: false, },
         ]})
         const packageMemberSetting = (key) =>{
             
@@ -884,6 +886,7 @@ window.onload = () =>{
          const billType = ref('紙本帳單')
          const handbillType = (key) =>{
             billType.value = key
+            backToMemberSetting()
          }
         // notice整合
         const noticeData = reactive({data:[

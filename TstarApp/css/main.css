@@ -1471,6 +1471,11 @@ body {
   right: 1rem;
   color: #999;
 }
+.memberSettingBox ul .itemTxt.btn {
+  text-align: right;
+  cursor: pointer;
+  width: 100px;
+}
 .memberSettingBox ul .hasEdit {
   position: absolute;
   right: 3.5rem;
