@@ -492,7 +492,7 @@
                 
                 <section class="detailContainer" v-if="NowRenderSection === 'detail'">
                     <div class="detailHeader" :style="detailHeaderBg">
-                        <div id="backBtn" data-href="index" @click="handHrefCont" v-show="backBtnBool">
+                        <div id="backBtn" :data-href="backBtnIs.key" @click="handHrefCont">
                             <img src="./img/detail/detail_back.png" alt="">
                         </div>
                         <div class="LeftBtn">
@@ -510,6 +510,7 @@
                             </div>                        
                         </div>
                     </div>
+                    <!-- index -->
                     <div class="detailCont">
                         <div class="ItemBox" v-if="detailCont[0] === '合約方案'">
                             <div class="demobox">
@@ -711,10 +712,12 @@
                                 <ul v-for="list in billInfoListRender" :key="list.title">
                                     <li>
                                         <span class="itemTitle">{{list.title}}</span>
+
                                         <span v-show="!list.blueTxt" :class="['itemTxt', {'hasEdit': list.hasEdit}]">{{list.txt}}
                                             <i v-show="list.hasEdit"  :data-key="list.editKey"  :data-href="list.editKey" @click="handHrefCont" class="edit"></i>
                                         </span>
-                                        <span v-show="list.blueTxt" class="itemTxt blueTxt":data-href="list.editKey" @click="handHrefCont">
+
+                                        <span v-show="list.blueTxt" class="itemTxt blueTxt" :data-href="list.editKey" @click="handHrefCont">
                                             {{list.txt}}
                                         </span>
                                     </li>
@@ -726,9 +729,7 @@
                                 <ul v-for="list in memberMoreSetListRender" :key="list.title">
                                     <li>
                                         <span class="itemTitle">{{list.title}}</span>
-                                        <span v-show="!list.hasOrgBool" :class="['itemTxt', {'hasEdit': list.hasEdit}]">{{list.txt}}
-                                            <i v-show="list.hasEdit" :data-href="list.editKey" @click="handHrefCont" class="edit"></i>
-                                        </span>
+                                        <span v-show="!list.hasOrgBool" class="itemTxt btn" :data-href="list.editKey" @click="handHrefCont">{{list.txt}}</span>
                                         <span v-show="list.hasOrgBool" :class="['orgBool', {'active': list.active}]" 
                                         :data-key="list.editKey"
                                         @click="handMemberSettingBool"
@@ -780,22 +781,9 @@
                                 <div class="orgBtn" style="cursor: pointer;">線上申辦({{nextWantApplyIs}})</div>
                             </div>                        
                             <div class="block null"></div>
-                        </div>                                                         
+                        </div>   
                     </div>
-
-
-
-                </section>
-                <!-- 會員資料設定編輯細項 -->
-                <section class="memberSetting" v-if=" NowRenderSection === '會員資料設定'">
-                    <div class="detailHeader" style="background-color: #000;">
-                        <div id="backBtn" data-href="會員資料設定" @click="handHrefCont" v-show="backBtnBool">
-                            <img src="./img/detail/detail_back.png" alt="">
-                        </div>
-                        <div class="LeftBtn"></div>                    
-                        <h2>{{detailCont[1]}}</h2>
-                        <div class="rigntBtn"></div>
-                    </div>                    
+                     <!-- 會員資料設定編輯細項 -->
                     <div class="detailCont">
                         <div class="ItemBox" v-if="detailCont[0] === '變更暱稱'">
                             <div class="memberSettingBox" >
@@ -864,14 +852,16 @@
                             <div class="demobox">
                                 <img src="./img/detail/demo_電子帳單申請.png" alt="">
                             </div>                             
-                            <div class="orgBtn center mt-3">確認送出</div>
+                            <div class="orgBtn center mt-3" data-fn="帳單類型轉換" data-key="電子帳單_待驗證" @click="handquickLinkStatus">確認送出</div>
                         </div>
                         <div class="ItemBox" v-if="detailCont[0] === '版本說明'">
+                            <div class="demobox">
+                                <img src="./img/detail/demo_版本說明.png" alt="">
+                            </div> 
                             <div class="block null"></div>
                         </div>
-                    </div>  
-                </section>
-
+                    </div> 
+                </section>               
                 <div class="noticeContainer">
                     <!-- 紙本帳單地址 -->
                     <div class="noticeBox" v-if="NoticeIs === '顯示縣市資料'">
@@ -912,7 +902,7 @@
                             <h1 class="title">提醒</h1>
                             <span class="msg">電子帳單申請中，若你尚未進行認證，請盡速至郵箱認證以開放服務</span>
                             <span class="btn cancel" @click="handNoticeIs" data-key="none">取消</span>
-                            <span class="btn"       @click="handHrefCont" data-href="變更電子帳單信箱內容">修改</span>
+                            <span class="btn"       @click="handHrefCont" data-href="變更電子帳單信箱">修改</span>
 
                         </div>
                     </div> 
