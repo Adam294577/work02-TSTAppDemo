@@ -718,6 +718,7 @@ window.onload = () =>{
 
         }
         const backToMemberSetting = () =>{
+            backBtnIs.value.key = 'index'
             NowRenderSection.value = 'detail'
             detailCont.value[0] = '會員資料設定'
             detailCont.value[1] = '會員資料設定'
