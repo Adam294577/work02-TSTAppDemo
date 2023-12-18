@@ -36,6 +36,7 @@ window.onload = () =>{
         const NowRenderSection = ref('login')
         const contentBg = ref('./img/ContBg/UserlogIn.png')       
         const restartData = () =>{
+            NoticeIs.value = ''
             NowRenderSection.value = 'login'
             contentBg.value = './img/ContBg/UserlogIn.png'
             LoginStep.value = 0
@@ -378,10 +379,13 @@ window.onload = () =>{
                 {txt:'',        key:'5G台灣隊迎星',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
                 {txt:'',        key:'myfone萬元禮券',         url:'https://www.myfone.com.tw/mbuy/index.php?action=myfone-sale&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_myfone_sale2312&utm_term=tstarfriends'},
             ]})
+            const noticeLinkData = reactive({data:[
+                {key:'變更電子帳單信箱_notice'}
+            ]})
             const InnerLinkdata = reactive({data:[
                 {where:'',              key:'', headerTxt:'',              contentBg:''},
                 {where:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
-                {where:'會員資料設定',   key:'變更電子帳單信箱', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
+                {where:'會員資料設定',   key:'變更電子帳單信箱內容', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
                 {where:'會員資料設定',   key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
                 {where:'會員資料設定',   key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/lavender.png'},
                 {where:'會員資料設定',   key:'電子帳單申請', headerTxt:'電子帳單申請',              contentBg:'./img/ContBg/fa_gray.png'},
@@ -409,15 +413,22 @@ window.onload = () =>{
             }
 
             const handHrefCont = (el) =>{
-                let key = el.currentTarget.dataset.href
                 let IsInnerLink = false
                 let IsOuterLink = false
+                let isNoticeLink = false
+                let key = el.currentTarget.dataset.href
+                noticeLinkData.data.forEach(item=>{
+                    if(item.key === key){
+                        handNoticeIs(el)
+                        isNoticeLink = true
+                    }
+                })
                 console.log('href:',key);
-
+                if(isNoticeLink) return
+                NoticeIs.value = 'none'
                 if(key === 'null') return
                 if( key === 'login'){
-                    NowRenderSection.value = 'login'
-                    contentBg.value = './img/ContBg/UserlogIn.png'
+                    restartData()
                     return
                 }
                 if(key === 'index'){
@@ -464,12 +475,7 @@ window.onload = () =>{
                             return
                         }
                     }
-
-     
-
-
                    
-
                 })
                 
                 if(!IsInnerLink){
@@ -656,10 +662,10 @@ window.onload = () =>{
             {type:'資訊帳單', title:'帳單寄送地址',  billType:'紙本帳單'  , txt:'紙本帳單地址', hasEdit: true,editKey:'帳單地址設定', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'電子帳單',     billType:'紙本帳單' , txt:'電子帳單申請', hasEdit: false,editKey:'電子帳單申請', blueTxt:true, hasOrgBool:false ,active: false},
             {type:'資訊帳單', title:'帳單類型',     billType:'電子帳單_待驗證' , txt:'電子信箱待驗證', hasEdit: true,editKey:'帳單類型設定', blueTxt:false, hasOrgBool:false ,active: false},
-            {type:'資訊帳單', title:'電子帳單',     billType:'電子帳單_待驗證' , txt:'*t*t*8*@gmail.com', hasEdit: true,editKey:'變更電子帳單信箱', blueTxt:false, hasOrgBool:false ,active: false},
-            {type:'更多設定', title:'保持登入', txt:'', hasEdit: false,editKey:'keeplogin', blueTxt:false, hasOrgBool:true ,active: true, },
-            {type:'更多設定', title:'接收推播', txt:'', hasEdit: false,editKey:'receive_msg', blueTxt:false, hasOrgBool:true ,active: false, },
-            {type:'更多設定', title:'APP 版本號碼', txt:'7.0.0', hasEdit: false,editKey:'', blueTxt:false, hasOrgBool:false ,active: false, },
+            {type:'資訊帳單', title:'電子帳單',     billType:'電子帳單_待驗證' , txt:'*t*t*8*@gmail.com', hasEdit: true,editKey:'變更電子帳單信箱_notice', blueTxt:false, hasOrgBool:false ,active: false},
+            {type:'更多設定', title:'保持登入', txt:'', hasEdit: false,  editKey:'keeplogin', hasOrgBool:true ,active: true, },
+            {type:'更多設定', title:'接收推播', txt:'', hasEdit: false,  editKey:'接收推播', hasOrgBool:true ,active: false, },
+            {type:'更多設定', title:'APP 版本號碼', txt:'7.0.0', hasEdit: false,editKey:'', hasOrgBool:false ,active: false, },
         ]})
         const packageMemberSetting = (key) =>{
             
@@ -693,7 +699,7 @@ window.onload = () =>{
         })
         const handMemberSettingBool = (el) =>{
             let key = el.currentTarget.dataset.key
-            console.log(key);
+            // console.log(key);
 
             
             if(key === 'keeplogin'){
@@ -703,37 +709,15 @@ window.onload = () =>{
                     }
                 })
             }
-            if(key === 'receive_msg'){
-                MemberSettingNoticeRegion.value = key
+            if(key === '接收推播'){
+                handNoticeIs(el)
                 memberMoreSetListRender.value.forEach(item=>{
                     if(item.editKey === key){
                         item.active = !item.active
                     }
                 })
             }
-            if(key === 'logout'){
-                MemberSettingNoticeRegion.value = key
-            }
-            if(key === '帳單類型更換'){
-                MemberSettingNoticeRegion.value = key
-            }
-            if(key ==='變更電子帳單信箱'){
-                MemberSettingNoticeRegion.value = key
-            }
-        }
-        const MemberSettingNoticeRegion  = ref('none')
-        const handMemberSettingNoticeRegion = (el) =>{
-            let key = el.currentTarget.dataset.key 
-            if( key === 'receive_msg'){
-                MemberSettingNoticeRegion.value = 'none'
-            }
-            if( key === 'logout_y'){
-                MemberSettingNoticeRegion.value = 'none'
-                restartData()
-            }
-            if(key === 'none'){
-                MemberSettingNoticeRegion.value = 'none'
-            }
+
         }
         const backToMemberSetting = () =>{
             NowRenderSection.value = 'detail'
@@ -776,7 +760,7 @@ window.onload = () =>{
             
            
             setTimeout(()=>{
-                console.log('addressListElement',noticeEl.value);
+                // console.log('addressListElement',noticeEl.value);
                 if(key === '顯示地區資料'){
                     noticeEl.value.forEach(item=>{
                         if(item.classList.contains('active')) regionscroll.value.scrollTop = item.offsetTop
@@ -795,7 +779,9 @@ window.onload = () =>{
 
         const handAddressListRender = (el)=>{
             let data = AddressData.data
-            let key = el.currentTarget.dataset.notice
+            let key = el.currentTarget.dataset.key
+            handNoticeIs(el)
+
             if(key === '顯示縣市資料'){
                 data = data.map(item=>{
                     if(item.city === AddressCity.value){
@@ -808,32 +794,6 @@ window.onload = () =>{
                 noticeAddressList.is = data
                 noticeAddressList.key = key
                 
-            }
-            if(key === '變更縣市資料'){
-                let val = el.currentTarget.dataset.key
-                let nochange = false
-                data = data.map(item=>{
-                    if(item.city === val){
-                        AddressCity.value = val
-                        if(item.act){
-                            nochange = true
-                        }                        
-                        item.act = true
-                    }else{
-                        item.act  = false
-                    }
-                    return item
-                } )
-                if(!nochange) {
-                    let defaultRegion = noticeAddressList.is.filter(item=>{
-                        if(item.act) return item
-                    })
-                    AddressRegion.value = defaultRegion[0].region[0].key
-
-                    // console.log('指定city的第一個區域',AddressRegion.value);
-                }
-                noticeAddressList.is = []
-                noticeAddressList.key = ''
             }
             if(key === '顯示地區資料'){
                 data = data.map(item=>{
@@ -856,6 +816,9 @@ window.onload = () =>{
                 noticeAddressList.is = data[0].region
                 noticeAddressList.key = key                             
             }
+        }
+        const changeAddressFn = (el) =>{
+            let key = el.currentTarget.dataset.notice
             if(key === '變更地區資料'){
                 let val = el.currentTarget.dataset.key
                 noticeAddressList.is = noticeAddressList.is.map(item=>{
@@ -869,7 +832,33 @@ window.onload = () =>{
                 } )
                 noticeAddressList.is = []
                 noticeAddressList.key = ''                
-            }
+            }            
+            if(key === '變更縣市資料'){
+                let val = el.currentTarget.dataset.key
+                let nochange = false
+                noticeAddressList.is = noticeAddressList.is.map(item=>{
+                    if(item.city === val){
+                        AddressCity.value = val
+                        if(item.act){
+                            nochange = true
+                        }                        
+                        item.act = true
+                    }else{
+                        item.act  = false
+                    }
+                    return item
+                } )
+                if(!nochange) {
+                    let defaultRegion = noticeAddressList.is.filter(item=>{
+                        if(item.act) return item
+                    })
+                    AddressRegion.value = defaultRegion[0].region[0].key
+
+                }
+                noticeAddressList.is = []
+                noticeAddressList.key = ''
+            } 
+            NoticeIs.value = 'none'           
         }
 
         const handnowAddressResult = () =>{
@@ -900,6 +889,27 @@ window.onload = () =>{
          const handbillType = (key) =>{
             billType.value = key
          }
+        // notice整合
+        const noticeData = reactive({data:[
+            {where:'none', key:'none', },
+            {where:'帳單-注意事項', key:'帳單-注意事項', },
+            {where:'會員設定-帳號登出', key:'帳號登出', },
+            {where:'會員設定-接收推播', key:'接收推播', },
+            {where:'會員設定-帳單類型', key:'帳單類型更換', },
+            {where:'紙本帳單-顯示縣市資料', key:'顯示縣市資料', },
+            {where:'紙本帳單-顯示地區資料', key:'顯示地區資料', },
+            {where:'變更電子帳單信箱', key:'變更電子帳單信箱_notice', },
+        ]})
+        const NoticeIs = ref('none')
+        const handNoticeIs = (el) =>{
+            let key = el.currentTarget.dataset.key
+            // console.log('noticeKey',key);
+            noticeData.data.forEach(item=>{
+                if(item.key === key){
+                    NoticeIs.value = key
+                }
+            })
+        }         
 
         onMounted(()=>{
             // console.log('test',noticeEl.value)
@@ -911,6 +921,7 @@ window.onload = () =>{
                 console.error('沒接到API');
             })
         })
+
         
 
             return{
@@ -958,7 +969,9 @@ window.onload = () =>{
                 handnearlyBillItem,    
                 payRecordData,
                 handpayRecordItem,
-                    // notice
+                // notice整合
+                NoticeIs,
+                handNoticeIs,
                 billNoticeBool,
                 handbillNoticeBool,                
                 // herf router
@@ -973,8 +986,6 @@ window.onload = () =>{
                 billInfoListRender,
                 memberMoreSetListRender,
                 handMemberSettingBool,
-                MemberSettingNoticeRegion,
-                handMemberSettingNoticeRegion,
                     // 暱稱
                 nicknameInput,
                 nicknameInputAlert,
@@ -990,6 +1001,7 @@ window.onload = () =>{
                 AddressListRender,
                 noticeEl,
                 handAddressListRender,
+                changeAddressFn,
                 handnowAddressResult,
                 cityscroll,
                 regionscroll,
