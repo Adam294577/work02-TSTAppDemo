@@ -36,7 +36,7 @@ window.onload = () =>{
         const NowRenderSection = ref('login')
         const contentBg = ref('./img/ContBg/UserlogIn.png')       
         const restartData = () =>{
-            NoticeIs.value = ''
+            NoticeIs.value = 'none'
             NowRenderSection.value = 'login'
             contentBg.value = './img/ContBg/UserlogIn.png'
             LoginStep.value = 0
@@ -58,6 +58,7 @@ window.onload = () =>{
             {key:'index_setting',link:['帳單',]},
             // {key:'detail_帳單明細',link:['小額代收明細','通話帳單明細']},
             {key:'detail_會員資料設定',link:['帳單類型',]},
+            {key:'detail_門號設定',link:[]},
             {key:'會員資料設定_帳單類型設定',link:['帳單類型',]},
             {key:'none',link:['']}
             ]})
@@ -75,7 +76,9 @@ window.onload = () =>{
             // arr:[{statusKey:'有使用',msg:'有使用'},{statusKey:'未使用',msg:'未使用'}]},            
             {idx:4 ,search:'帳單類型', title: '帳單類型' ,        statusFn:'帳單類型轉換' , statusIs:'紙本帳單',
             arr:[{statusKey:'紙本帳單',msg:'紙本帳單'},{statusKey:'電子帳單_待驗證',msg:'電子帳單(待驗證)'},{statusKey:'電子帳單_已驗證',msg:'電子帳單(已驗證)'}]},            
-            // {idx:5 ,search:'', title: '' ,        statusFn:'' , statusIs:'',
+            {idx:5 ,search:'還原門號設定', title: '還原門號設定' ,        statusFn:'還原門號設定' , statusIs:'none',
+            arr:[{statusKey:'還原',msg:'還原'}]},            
+            // {idx:6 ,search:'', title: '' ,        statusFn:'' , statusIs:'',
             // arr:[{statusKey:'',msg:''},{statusKey:'',msg:''}]},            
         ]})            
         const quickLinkContIs = (key) =>{
@@ -168,6 +171,9 @@ window.onload = () =>{
             })
             if(statusFn === '帳單類型轉換'){
                 handbillType(key)
+            }
+            if(statusFn === '還原門號設定'){
+                resetPhoneSetttingListStatus()
             }
         }
          // Login
@@ -383,6 +389,8 @@ window.onload = () =>{
             ]})
             const InnerLinkdata = reactive({data:[
                 {backBtn:'',              key:'', headerTxt:'',              contentBg:''},
+                {backBtn:'index',         key:'電子帳單設定', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'index',         key:'門號設定', headerTxt:'門號設定',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
                 {backBtn:'會員資料設定',   key:'變更電子帳單信箱', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'會員資料設定',   key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
@@ -424,7 +432,6 @@ window.onload = () =>{
                 })
                 console.log('href:',key);
                 if(isNoticeLink) return
-                NoticeIs.value = 'none'
                 if(key === 'null') return
                 if( key === 'login'){
                     restartData()
@@ -433,6 +440,16 @@ window.onload = () =>{
                 if(key === 'index'){
                     NowRenderSection.value = 'index'
                     contentBg.value = './img/ContBg/index.png'
+
+      
+                    if(NoticeIs.value === '門號設定變更成功'){
+                        quickLinkData.data.forEach(item=>{
+                            if(item.key === 'detail_門號設定' && item.link.length === 0) item.link.push('還原門號設定')
+                        })          
+                    }
+                    resetPhoneSetttingList()
+                    NoticeIs.value = 'none'   
+                    phoneSetttingNoticeBool.value = false          
                     return
                 }
                 InnerLinkdata.data.forEach(item=>{
@@ -466,13 +483,10 @@ window.onload = () =>{
                             },50)
                         }
                         backBtnIs.value.key = item.backBtn
-
-
                         nicknameInputAlert.value = false
-         
                     }
-                   
                 })
+                NoticeIs.value = 'none'
                 
                 if(!IsInnerLink){
                     IsOuterLink = handOuterLink(el,IsOuterLink)    
@@ -723,6 +737,7 @@ window.onload = () =>{
             detailCont.value[0] = '會員資料設定'
             detailCont.value[1] = '會員資料設定'
         }
+
         // detail - 會員資料設定 - 暱稱
         const nicknameInput = ref('')
         const nicknameInputAlert = ref(false)
@@ -889,6 +904,119 @@ window.onload = () =>{
             billType.value = key
             backToMemberSetting()
          }
+        //  datail- 門號設定
+        const phoneSetttingList = reactive({data:[
+            {show:true ,idx:0, key:'來話顯示(語音/影像)', act:false,},
+            {show:true ,idx:1, key:'話中插接語音電話', act:false,},
+            {show:true ,idx:2, key:'去化保密(語音/影像)', act:true,},
+            {show:true ,idx:3, key:'限制撥打(語音/影像)', act:false,},
+            {show:true ,idx:4, key:'指定轉接語音電話', act:false,},
+            {show:true ,idx:5, key:'簡訊_限發簡訊', act:false,},
+            {show:true ,idx:6, key:'限制接受語音/影像電話', act:false,},
+            {show:true ,idx:7, key:'限播交友類簡碼加值', act:true,},
+            {show:true ,idx:8, key:'簡訊_限收簡訊', act:false,},
+            {show:true ,idx:9, key:'IDD_限撥國際發話', act:false,},
+            {show:true ,idx:10, key:'指定轉接影像電話', act:false,},
+            {show:true ,idx:11, key:'020/050付費語音資訊', act:false,},
+            {show:true ,idx:12, key:'國際漫遊不發話_語音影像簡訊', act:false,},
+            {show:true ,idx:13, key:'拒接國際來電', act:false,},
+            {show:true ,idx:14, key:'國際漫遊不受話_語音影像簡訊', act:false,},
+        ]})
+        const phoneSetttingList_modify = reactive({data:[
+            {show:true ,idx:0, key:'來話顯示(語音/影像)', act:false,},
+            {show:true ,idx:1, key:'話中插接語音電話', act:false,},
+            {show:true ,idx:2, key:'去化保密(語音/影像)', act:true,},
+            {show:true ,idx:3, key:'限制撥打(語音/影像)', act:false,},
+            {show:true ,idx:4, key:'指定轉接語音電話', act:false,},
+            {show:true ,idx:5, key:'簡訊_限發簡訊', act:false,},
+            {show:true ,idx:6, key:'限制接受語音/影像電話', act:false,},
+            {show:true ,idx:7, key:'限播交友類簡碼加值', act:true,},
+            {show:true ,idx:8, key:'簡訊_限收簡訊', act:false,},
+            {show:true ,idx:9, key:'IDD_限撥國際發話', act:false,},
+            {show:true ,idx:10, key:'指定轉接影像電話', act:false,},
+            {show:true ,idx:11, key:'020/050付費語音資訊', act:false,},
+            {show:true ,idx:12, key:'國際漫遊不發話_語音影像簡訊', act:false,},
+            {show:true ,idx:13, key:'拒接國際來電', act:false,},
+            {show:true ,idx:14, key:'國際漫遊不受話_語音影像簡訊', act:false,},
+        ]})
+        const handphoneSetttingBool = (el) =>{
+            let key = el.currentTarget.dataset.key
+            phoneSetttingList_modify.data.forEach(item=>{
+                if(item.key === key){
+                    item.act = !item.act
+                }
+                
+            })
+     
+        }
+        const phoneSetttingNoticeBool = ref(false)
+        const handphoneSetttingNoticeBool = () =>{
+            phoneSetttingNoticeBool.value = !phoneSetttingNoticeBool.value
+            if(phoneSetttingNoticeBool.value){
+                NoticeIs.value = '門號設定-注意事項'
+            }
+        }
+        const resetPhoneSetttingList = () =>{
+            let idx = 0
+            phoneSetttingList.data.forEach(item=>{
+                phoneSetttingList_modify.data[idx].act = item.act
+                idx++
+            })
+        }
+        const resetPhoneSetttingListStatus = () =>{
+            // 有選擇過 才有這情境調整
+            quickLinkData.data.forEach(item=>{
+                if(item.key === 'detail_門號設定') item.link = []
+                
+            })
+            quickLinkList.data.forEach(item=>{
+                if(item.idx === 5){
+                    item.statusIs = 'none'
+                }
+            })
+            phoneSetttingList_modify.data.forEach(item=>{
+                if(!item.show){
+                    item.show = true
+                }
+            })
+            resetPhoneSetttingList()
+        }
+        const phonechangeItem = ref([])
+        const handphoneSetttingStatus = () =>{
+            phonechangeItem.value = []
+            let count = 0
+            let idx = 0
+            if(!phoneSetttingNoticeBool.value){
+                NoticeIs.value = '門號設定未勾選注意事項'
+                return
+            }
+            phoneSetttingList_modify.data.forEach(item=>{
+                if(item.act === true && phoneSetttingList.data[idx].act === false) {
+                    count++
+                    phonechangeItem.value.push(item.key)
+                    item.show = false
+                }
+                if(item.act === false && phoneSetttingList.data[idx].act === true) {
+                    count++
+                    phonechangeItem.value.push(item.key)
+                    item.show = false
+                }
+                idx++
+            })
+
+            if(count === 0) {
+                NoticeIs.value = '門號設定無變更'
+            }else{
+                NoticeIs.value = '門號設定變更成功'
+                phoneSetttingNoticeBool.value = false
+             
+            }
+            
+        }
+
+        
+
+
         // notice整合
         const noticeData = reactive({data:[
             {where:'none', key:'none', },
@@ -909,7 +1037,21 @@ window.onload = () =>{
                     NoticeIs.value = key
                 }
             })
-        }         
+        }       
+        const NoticeDemoPos = reactive({data:[
+            {key:'帳單-注意事項',BtnPosY: `bottom: 3.2rem;`},
+            {key:'門號設定-注意事項',BtnPosY: `bottom: 14rem;`},
+            {key:'門號設定未勾選注意事項',BtnPosY: `bottom: 20rem;`},
+        ]})  
+        const NoticeDemoBtnPos = computed(()=>{
+            let BtnPosY = ''
+            NoticeDemoPos.data.forEach(item=>{
+                if(item.key === NoticeIs.value){
+                    BtnPosY = item.BtnPosY
+                }
+            })
+            return BtnPosY
+        })
 
         onMounted(()=>{
             // console.log('test',noticeEl.value)
@@ -969,11 +1111,14 @@ window.onload = () =>{
                 handnearlyBillItem,    
                 payRecordData,
                 handpayRecordItem,
+                // datail- 門號設定
+                
                 // notice整合
                 NoticeIs,
                 handNoticeIs,
                 billNoticeBool,
-                handbillNoticeBool,                
+                handbillNoticeBool,       
+                NoticeDemoBtnPos,         
                 // herf router
                 handHrefCont,
                 // detail - serviceDetailBox
@@ -1007,6 +1152,13 @@ window.onload = () =>{
                 regionscroll,
                 // 帳單類型
                 billType,
+                // 門號設定
+                phoneSetttingList_modify,
+                phoneSetttingNoticeBool,
+                handphoneSetttingNoticeBool,
+                handphoneSetttingBool,
+                handphoneSetttingStatus,
+                phonechangeItem,
             }   
             
         },
