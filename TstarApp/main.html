@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>  
     <title>台灣大哥大TS_Demo</title>
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
     <div id="app">
@@ -27,7 +26,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/18</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/20</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -44,7 +43,6 @@
                     :key="list.key"
                     @click="handNavIcon"
                     ></li>
-                   
                 </ul>
             </div>            
             <div class="container">
@@ -384,6 +382,21 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="block">
+                                <div class="itemTitle">基本設定</div>
+                                <!-- generalSettingRender -->
+                                <ul class="settingList">
+                                    <li 
+                                    v-for="list in generalSettingRender"
+                                    :key="list.key"
+                                    :data-href="list.msg"
+                                    @click="handHrefCont"
+                                    >
+                                    <span>{{list.msg}}</span>
+                                    <img :src="list.url" alt="">
+                                </li>
+                                </ul>                                
                             </div>
                             <div class="block">
                                 <div class="itemTitle">客戶服務</div>
@@ -743,7 +756,28 @@
                                 </div>
                             </div>
                             <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="detailCont[0] === '電子帳單設定'">
+                            <div class="demobox">
+                                <img src="./img/detail/demo_變更電子帳單信箱.png" alt="">
+                            </div> 
+                            <div class="orgBtn center mt-3">確認送出</div>
                         </div>    
+                        <div class="ItemBox" v-if="detailCont[0] === '門號設定'">
+                              <ul class="phoneSetttingList">
+                                <li v-for="list in phoneSetttingList_modify.data" :key="list.key">
+                                    <span>{{list.key}}</span>
+                                    <i v-show="list.show" :data-key="list.key" :class="['orgBool',{'active':list.act}]" @click="handphoneSetttingBool"></i>
+                                </li>
+                                <label>
+                                    <img @click="handphoneSetttingNoticeBool" :data-bool="phoneSetttingNoticeBool" 
+                                    :src="phoneSetttingNoticeBool? `./img/setting/check_act.png` : `./img/setting/check.png`" alt="勾勾">
+                                    <span>本人已知悉同意上述相關事項</span>
+                                </label>
+                              </ul>
+                              <div class="orgBtn center mt-3" @click="handphoneSetttingStatus">確定</div>
+                            <div class="block null"></div>
+                        </div>                        
                         <div class="ItemBox" v-if="detailCont[0] === '加值服務申辦內容'">
                             <div class="serviceDetailBox">
                                 <div class="applyIs" v-for="list in serviceItemDataRender" :key="list.id">
@@ -783,6 +817,7 @@
                             <div class="block null"></div>
                         </div>   
                     </div>
+
                      <!-- 會員資料設定編輯細項 -->
                     <div class="detailCont">
                         <div class="ItemBox" v-if="detailCont[0] === '變更暱稱'">
@@ -926,8 +961,38 @@
                     <div class="noticeBox" v-if="NoticeIs === '帳單-注意事項'">
                         <div class="noticeTxt">
                             <img class="demoImg" src="./img/detail/demo_帳單notice.png" alt="">
-                            <span class="orgtxt" @click="handNoticeIs" data-key="none">確認</span>
+                            <span class="orgtxt" :style="NoticeDemoBtnPos" @click="handNoticeIs" data-key="none">確認</span>
                         </div>
+                    </div>
+                    <!-- 門號設定 -->
+                     <div class="noticeBox" v-if="NoticeIs === '門號設定無變更'">
+                        <div class="whiteblock">
+                            <h1 class="title">提醒</h1>
+                            <span class="msg">你沒有變更任何服務</span>
+                            <span class="btn" @click="handNoticeIs" data-key="none">確定</span>
+                        </div>
+                    </div>                     
+                     <div class="noticeBox" v-if="NoticeIs === '門號設定變更成功'">
+                        <div class="whiteblock">
+                            <h1 class="title">提醒</h1>
+                            <div class="phonechangeItem">
+                                <p v-for="list in phonechangeItem" :key="list.key">【{{list}}】</p>
+                            </div>
+                            <span class="msg sm">申請/取消服務已送出，系統將於1小時候未你處理完成</span>
+                            <span class="btn" @click="handHrefCont" data-href="index">確定</span>
+                        </div>
+                    </div>                     
+                    <div class="noticeBox" v-if="NoticeIs === '門號設定-注意事項'">
+                        <div class="noticeTxt">
+                            <img class="demoImg" src="./img/detail/demo_門號設定notice.png" alt="">
+                            <span class="orgtxt" :style="NoticeDemoBtnPos" @click="handNoticeIs" data-key="none">確認</span>
+                        </div> 
+                    </div>
+                    <div class="noticeBox" v-if="NoticeIs === '門號設定未勾選注意事項'">
+                        <div class="noticeTxt">
+                            <img class="demoImg" src="./img/detail/demo_門號設定未勾選注意事項.png" alt="">
+                            <span class="orgtxt" :style="NoticeDemoBtnPos" @click="handNoticeIs" data-key="none">確定</span>
+                        </div> 
                     </div>
                 </div>
     

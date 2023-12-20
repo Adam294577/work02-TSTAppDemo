@@ -142,6 +142,18 @@ body {
   background: white;
 }
 
+.orgBool {
+  position: absolute;
+  cursor: pointer;
+  right: 0.5rem;
+}
+.orgBool::after {
+  content: url(../img/setting/whitebool.png);
+}
+.orgBool.active::after {
+  content: url(../img/setting/whitebool_act.png);
+}
+
 .container {
   margin: auto;
   width: 450px;
@@ -783,7 +795,6 @@ body {
   font-weight: bold;
   position: absolute;
   right: 2rem;
-  bottom: 3.2rem;
   color: rgb(255, 94, 0);
 }
 .noticeBox .whiteblock {
@@ -799,6 +810,7 @@ body {
 .noticeBox .whiteblock .msg {
   display: inline-block;
   padding-left: 1rem;
+  padding-right: 1rem;
   padding-top: 1rem;
   padding-bottom: 4rem;
 }
@@ -886,6 +898,11 @@ body {
 }
 .detailHeader .LeftBtn span {
   color: #FFF;
+}
+
+.block.null {
+  position: relative;
+  z-index: -1;
 }
 
 .detailCont .ItemBox .block, .detailCont .ItemBox .whiteblock {
@@ -1493,16 +1510,6 @@ body {
   margin-left: 0.5rem;
   cursor: pointer;
 }
-.memberSettingBox ul span.orgBool {
-  position: absolute;
-  right: 0.5rem;
-}
-.memberSettingBox ul span.orgBool::after {
-  content: url(../img/setting/whitebool.png);
-}
-.memberSettingBox ul span.orgBool.active::after {
-  content: url(../img/setting/whitebool_act.png);
-}
 .memberSettingBox .nickname {
   width: 100%;
   padding: 0.7rem 0;
@@ -1542,4 +1549,34 @@ body {
   display: block;
   width: 100%;
   padding: 0.7rem 0;
+}
+
+.phoneSetttingList li {
+  position: relative;
+  padding: 1rem 0;
+  border-bottom: 1px solid #EEE;
+  padding-left: 1rem;
+  font-size: 1.1rem;
+}
+.phoneSetttingList li:last-child {
+  border: none;
+}
+.phoneSetttingList label {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+.phoneSetttingList label img {
+  cursor: pointer;
+}
+.phoneSetttingList label span {
+  font-size: 0.9rem;
+  color: rgb(255, 94, 0);
+}
+
+.phonechangeItem p {
+  margin-left: 1.5rem;
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
 }/*# sourceMappingURL=main.css.map */
