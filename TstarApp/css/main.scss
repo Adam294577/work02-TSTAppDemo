@@ -157,6 +157,15 @@ body{
         }
     }
 } 
+.orgtxt{
+    color: $mainOrg;           
+}
+.txt-sm{
+    font-size: 0.9rem;
+}
+.pl-2{
+    padding-left: 0.5rem;
+}
 .container{
     margin: auto;
     width: 450px;
@@ -384,6 +393,7 @@ body{
                         }
                     }
                     .needPay{
+       
                         span{
                             &:nth-child(1){
                                 color: $mainOrg;
@@ -1212,6 +1222,7 @@ body{
                 }
             }
         }
+
     }  
     // 訊息中心 - nav
     .mailnav{
@@ -1423,6 +1434,7 @@ body{
             .item{
                 width: 33%;
                 position: relative;
+                cursor: pointer;
                 img{
                     position: absolute;
                     margin-top: 0.5rem;

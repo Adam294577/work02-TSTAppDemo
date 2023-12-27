@@ -550,6 +550,14 @@
                         </div>                      
                         <div class="ItemBox" v-if="detailCont[0] === '帳單明細'">
                             <div class="whiteblock ">
+                                <ul class="generalList">
+                                    <li>
+                                        <span>門號切換</span>
+                                        <span>09088***55</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="whiteblock ">
                                 <div class="billResult thisMonth">
                                     <div class="noPay">
                                         <ul class="generalList thisMonthList">
@@ -557,21 +565,42 @@
                                                 <span>每月出帳日</span>
                                                 <span>11日</span>
                                             </li>
-                                            <li>
+                                            <li v-show="quickLinkList.data[1].statusIs === '有餘額'">
                                                 <span>累積應繳金額</span>
-                                                <span>$0</span>
+                                                <span >$5207</span>
                                             </li>
-                                            <li>
+                                            <li v-show="quickLinkList.data[1].statusIs === '無餘額'">
+                                                <span>累積應繳金額</span>
+                                                <span >$0</span>
+                                            </li>
+                                            <li v-show="quickLinkList.data[1].statusIs === '有餘額'">
+                                                <span>繳款截止日</span>
+                                                <span>5/27</span>
+                                            </li>
+                                            <li v-show="quickLinkList.data[1].statusIs === '無餘額'">
                                                 <span>繳款截止日</span>
                                                 <span>你已完成繳款</span>
                                             </li>
                                         </ul>
     
                                     </div>
-                                    <div class="needPay">
-    
-                                    </div>
-                                    <div class="payIcon">
+                                    <div class="payIcon" v-show="quickLinkList.data[1].statusIs === '有餘額'">
+                                        <div class="item" data-href="billcard" @click="handHrefCont">
+                                            <img src="./img/bill/n1_act.png" alt="">
+                                            <span>信用卡繳款</span>
+                                        </div>
+                                        <div class="item" data-href="billatm" @click="handHrefCont">
+                                            <img src="./img/bill/n2_act.png" alt="">
+                                            <span>銀行轉帳繳款</span>
+                                        </div>
+                                        <div class="item" data-href="billshop" @click="handHrefCont">
+                                            <img src="./img/bill/n3_act.png" alt="">
+                                            <span>超商條碼繳款</span>
+                                        </div>
+                                    </div> 
+
+
+                                    <div class="payIcon" v-show="quickLinkList.data[1].statusIs === '無餘額'">
                                         <div class="item">
                                             <img src="./img/bill/n1.png" alt="">
                                             <span>信用卡繳款</span>
@@ -588,8 +617,10 @@
     
                                     
                                 </div>
-    
                             </div>
+                            <span class="orgtxt txt-sm pl-2">
+                                *非目前登入門號使用信用卡/銀行轉帳繳款時需輸入證號
+                            </span>
                             <div class="whiteblock ">
                                 <ul class="generalList">
                                     <li>

@@ -154,6 +154,18 @@ body {
   content: url(../img/setting/whitebool_act.png);
 }
 
+.orgtxt {
+  color: rgb(255, 94, 0);
+}
+
+.txt-sm {
+  font-size: 0.9rem;
+}
+
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
 .container {
   margin: auto;
   width: 450px;
@@ -1238,6 +1250,7 @@ body {
 .detailCont .billResult .payIcon .item {
   width: 33%;
   position: relative;
+  cursor: pointer;
 }
 .detailCont .billResult .payIcon .item img {
   position: absolute;
