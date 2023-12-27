@@ -1,4 +1,3 @@
-
 window.onload = () =>{
 
     const {createApp, ref, reactive, computed, watch, onMounted , onUpdated} = Vue
@@ -59,6 +58,7 @@ window.onload = () =>{
             // {key:'detail_帳單明細',link:['小額代收明細','通話帳單明細']},
             {key:'detail_會員資料設定',link:['帳單類型',]},
             {key:'detail_門號設定',link:[]},
+            // {key:'detail_原台灣之星VoLTE服務',link:['有無支援volte']},
             {key:'會員資料設定_帳單類型設定',link:['帳單類型',]},
             {key:'none',link:['']}
             ]})
@@ -78,6 +78,8 @@ window.onload = () =>{
             arr:[{statusKey:'紙本帳單',msg:'紙本帳單'},{statusKey:'電子帳單_待驗證',msg:'電子帳單(待驗證)'},{statusKey:'電子帳單_已驗證',msg:'電子帳單(已驗證)'}]},            
             {idx:5 ,search:'還原門號設定', title: '還原門號設定' ,        statusFn:'還原門號設定' , statusIs:'none',
             arr:[{statusKey:'還原',msg:'還原'}]},            
+            // {idx:6 ,search:'有無支援volte', title: '手機型號支援' , statusFn:'有無支援volte' , statusIs:'無',
+            // arr:[{statusKey:'無',msg:'無'},{statusKey:'有',msg:'有'}]},            
             // {idx:6 ,search:'', title: '' ,        statusFn:'' , statusIs:'',
             // arr:[{statusKey:'',msg:''},{statusKey:'',msg:''}]},            
         ]})            
@@ -388,23 +390,25 @@ window.onload = () =>{
                 {key:'變更電子帳單信箱_notice'}
             ]})
             const InnerLinkdata = reactive({data:[
-                {backBtn:'',              key:'', headerTxt:'',              contentBg:''},
-                {backBtn:'index',         key:'電子帳單設定', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
-                {backBtn:'index',         key:'門號設定', headerTxt:'門號設定',              contentBg:'./img/ContBg/fa_gray.png'},
-                {backBtn:'index',         key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
-                {backBtn:'會員資料設定',   key:'變更電子帳單信箱', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
-                {backBtn:'會員資料設定',   key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
-                {backBtn:'會員資料設定',   key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/lavender.png'},
-                {backBtn:'會員資料設定',   key:'電子帳單申請', headerTxt:'電子帳單申請',              contentBg:'./img/ContBg/fa_gray.png'},
-                {backBtn:'會員資料設定',   key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/fa_gray.png'},
-                {backBtn:'會員資料設定',   key:'email設定', headerTxt:'Email設定',              contentBg:'./img/ContBg/fa_gray.png'},
-                {backBtn:'會員資料設定',   key:'變更暱稱', headerTxt:'變更暱稱',              contentBg:'./img/ContBg/gray.png'},
-                {backBtn:'index',         key:'et3', headerTxt:'Tinder 交友平台',              contentBg:'./img/ContBg/black.png'},
-                {backBtn:'index',         key:'et2', headerTxt:'MyVideo',              contentBg:'./img/ContBg/black.png'},
-                {backBtn:'index',         key:'訊息中心', headerTxt:'訊息中心',              contentBg:'./img/ContBg/gray.png'},
-                {backBtn:'index',         key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
-                {backBtn:'index',         key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
-                {backBtn:'index',         key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'',                  key:'', headerTxt:'',              contentBg:''},
+                {backBtn:'原台灣之星VoLTE服務',key:'voltehomepage', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
+                {backBtn:'index',             key:'原台灣之星VoLTE服務', headerTxt:'VoLTE服務',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'index',             key:'電子帳單設定', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'index',             key:'門號設定', headerTxt:'門號設定',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'index',             key:'會員資料設定', headerTxt:'會員資料設定',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'會員資料設定',       key:'變更電子帳單信箱', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'會員資料設定',       key:'帳單類型設定', headerTxt:'帳單類型設定',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'會員資料設定',       key:'帳單地址設定', headerTxt:'帳單地址設定',              contentBg:'./img/ContBg/lavender.png'},
+                {backBtn:'會員資料設定',       key:'電子帳單申請', headerTxt:'電子帳單申請',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'會員資料設定',       key:'版本說明', headerTxt:'版本說明',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'會員資料設定',       key:'email設定', headerTxt:'Email設定',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'會員資料設定',       key:'變更暱稱', headerTxt:'變更暱稱',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'index',             key:'et3', headerTxt:'Tinder 交友平台',              contentBg:'./img/ContBg/black.png'},
+                {backBtn:'index',             key:'et2', headerTxt:'MyVideo',              contentBg:'./img/ContBg/black.png'},
+                {backBtn:'index',             key:'訊息中心', headerTxt:'訊息中心',              contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'index',             key:'帳單明細', headerTxt:'多門號切換繳款與帳單明細',contentBg:'./img/ContBg/gray.png'},
+                {backBtn:'index',             key:'合約方案', headerTxt:'合約方案',              contentBg:'./img/ContBg/black.png'},
+                {backBtn:'index',             key:'billshop', headerTxt:'超商繳費條碼',              contentBg:'./img/ContBg/gray.png'},
                 
             ]})
             const handOuterLink = (el, bool) =>{
@@ -433,6 +437,8 @@ window.onload = () =>{
                 console.log('href:',key);
                 if(isNoticeLink) return
                 if(key === 'null') return
+                
+               
                 if( key === 'login'){
                     restartData()
                     return
@@ -452,17 +458,24 @@ window.onload = () =>{
                     phoneSetttingNoticeBool.value = false          
                     return
                 }
+                
                 InnerLinkdata.data.forEach(item=>{
                     if(key === item.key){
                         NowRenderSection.value = 'detail'
                         detailCont.value[0] = item.key
                         detailHeaderBg.value = `background-color: #000;`
+
+                        if(key === 'voltehomepage'){
+                            NowRenderSection.value = 'volte'
+                            handlinkToVolteNav(el)
+                            console.log('成功跳轉至volte頁面');
+                        }
                         
                         
                         if(detailCont.value[0] === 'et2'){
                             detailCont.value[0] = '加值服務申辦內容'
                             detailHeaderBg.value = `background-color: transparent;`
-                            serviceItemIs.value = item.headerTxt
+                            serviceItemIs.value = 'MyVideo'
                         }
                         if(detailCont.value[0] === 'et3'){
                             detailCont.value[0] = '加值服務申辦內容'
@@ -950,11 +963,9 @@ window.onload = () =>{
      
         }
         const phoneSetttingNoticeBool = ref(false)
-        const handphoneSetttingNoticeBool = () =>{
+        const handphoneSetttingNoticeBool = (el) =>{
             phoneSetttingNoticeBool.value = !phoneSetttingNoticeBool.value
-            if(phoneSetttingNoticeBool.value){
-                NoticeIs.value = '門號設定-注意事項'
-            }
+            if(phoneSetttingNoticeBool.value)  handNoticeIs(el)
         }
         const resetPhoneSetttingList = () =>{
             let idx = 0
@@ -1020,6 +1031,8 @@ window.onload = () =>{
         // notice整合
         const noticeData = reactive({data:[
             {where:'none', key:'none', },
+            {where:'volte-注意事項', key:'volte-注意事項', },
+            {where:'門號設定-注意事項', key:'門號設定-注意事項', },
             {where:'帳單-注意事項', key:'帳單-注意事項', },
             {where:'會員設定-帳號登出', key:'帳號登出', },
             {where:'會員設定-接收推播', key:'接收推播', },
@@ -1039,6 +1052,7 @@ window.onload = () =>{
             })
         }       
         const NoticeDemoPos = reactive({data:[
+            {key:'volte-注意事項',BtnPosY: `bottom: 3.2rem;`},
             {key:'帳單-注意事項',BtnPosY: `bottom: 3.2rem;`},
             {key:'門號設定-注意事項',BtnPosY: `bottom: 14rem;`},
             {key:'門號設定未勾選注意事項',BtnPosY: `bottom: 20rem;`},
@@ -1052,6 +1066,30 @@ window.onload = () =>{
             })
             return BtnPosY
         })
+
+        // Volte Page
+        const VolteNav = reactive({Is:[
+            {key:'服務說明'},
+            {key:'啟用教學'},
+            {key:'支援手機'},
+        ]})
+        const VolteContIs =  ref('')
+        const handlinkToVolteNav = (el) =>{
+            let key = el.currentTarget.dataset.volte
+            VolteNav.Is.forEach(item=>{
+                if(item.key === key) VolteContIs.value = key
+            })
+            VolteContBool.value = false
+            scrollEl.value.scrollTop = 0      
+            console.log('volte顯示的內容是:',VolteContIs.value);
+        }
+        const VolteContBool = ref(false)
+        
+
+        const handVolteContBool = (el) =>{
+            VolteContBool.value = !VolteContBool.value
+        }
+
 
         onMounted(()=>{
             // console.log('test',noticeEl.value)
@@ -1159,6 +1197,11 @@ window.onload = () =>{
                 handphoneSetttingBool,
                 handphoneSetttingStatus,
                 phonechangeItem,
+                // volte
+                VolteContIs,
+                handlinkToVolteNav,
+                VolteContBool,
+                handVolteContBool,              
             }   
             
         },
