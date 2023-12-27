@@ -26,7 +26,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/20</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/27</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -521,6 +521,9 @@
                             <div class="ItemBox" v-if="detailCont[0] === '訊息中心'">
                                 <span>編輯</span>               
                             </div>                        
+                            <div class="ItemBox" v-if="detailCont[1] === 'VoLTE服務'">
+                                <span data-key="volte-注意事項" @click="handNoticeIs">注意事項</span>               
+                            </div>                        
                         </div>
                     </div>
                     <!-- index -->
@@ -770,14 +773,43 @@
                                     <i v-show="list.show" :data-key="list.key" :class="['orgBool',{'active':list.act}]" @click="handphoneSetttingBool"></i>
                                 </li>
                                 <label>
-                                    <img @click="handphoneSetttingNoticeBool" :data-bool="phoneSetttingNoticeBool" 
+                                    <img @click="handphoneSetttingNoticeBool" :data-bool="phoneSetttingNoticeBool"  data-key="門號設定-注意事項"
                                     :src="phoneSetttingNoticeBool? `./img/setting/check_act.png` : `./img/setting/check.png`" alt="勾勾">
                                     <span>本人已知悉同意上述相關事項</span>
                                 </label>
                               </ul>
                               <div class="orgBtn center mt-3" @click="handphoneSetttingStatus">確定</div>
                             <div class="block null"></div>
-                        </div>                        
+                        </div>   
+                        <div class="ItemBox" v-if="detailCont[0] === '原台灣之星VoLTE服務'">
+                            <div class="detailvolteCont">
+                                <h2>用戶資訊</h2>
+                                <div class="userData">
+                                    <li>
+                                        <span class="title">門號</span>
+                                        <span class="val">09088***55</span>
+                                        <img src="" alt="">
+                                    </li>
+                                    <li>
+                                        <span class="title">資費專案</span>
+                                        <span class="val">4G_無約單門號專案</span>
+                                        <img src="./img/setting/volte_t.png" alt="">
+                                    </li>
+                                    <li>
+                                        <span class="title">手機型號</span>
+                                        <span class="val">此型號不支援</span>
+                                        <img src="./img/setting/volte_f.png" alt="">
+                                    </li>
+                                </div>
+                                <span class="cantUse">很抱歉，你的資格不符!無法申請VOLTE好聲音服務。</span>
+                                <div class="volteBtnBox">
+                                    <div class="volteBtn" data-href="voltehomepage" data-volte="服務說明" @click="handHrefCont">了解VoLTE服務</div>
+                                    <div class="volteBtn" data-href="voltehomepage" data-volte="啟用教學" @click="handHrefCont">如何設定VoLTE</div>
+                                    <!-- <div class="volteBtn" data-href="voltehomepage" data-volte="支援手機" @click="handHrefCont">支援手機</div> -->
+                                </div>
+                            </div>
+                            <div class="block null"></div>
+                        </div>                                             
                         <div class="ItemBox" v-if="detailCont[0] === '加值服務申辦內容'">
                             <div class="serviceDetailBox">
                                 <div class="applyIs" v-for="list in serviceItemDataRender" :key="list.id">
@@ -817,7 +849,7 @@
                             <div class="block null"></div>
                         </div>   
                     </div>
-
+                    
                      <!-- 會員資料設定編輯細項 -->
                     <div class="detailCont">
                         <div class="ItemBox" v-if="detailCont[0] === '變更暱稱'">
@@ -964,6 +996,12 @@
                             <span class="orgtxt" :style="NoticeDemoBtnPos" @click="handNoticeIs" data-key="none">確認</span>
                         </div>
                     </div>
+                    <div class="noticeBox" v-if="NoticeIs === 'volte-注意事項'">
+                        <div class="noticeTxt">
+                            <img class="demoImg" src="./img/detail/demo_volte注意事項.png" alt="">
+                            <span class="orgtxt" :style="NoticeDemoBtnPos" @click="handNoticeIs" data-key="none">確認</span>
+                        </div>
+                    </div>
                     <!-- 門號設定 -->
                      <div class="noticeBox" v-if="NoticeIs === '門號設定無變更'">
                         <div class="whiteblock">
@@ -995,7 +1033,51 @@
                         </div> 
                     </div>
                 </div>
-    
+
+                <section class="volte" v-if="NowRenderSection === 'volte'">
+                    <div class="detailHeader" :style="detailHeaderBg">
+                        <div id="backBtn" data-href="原台灣之星VoLTE服務" @click="handHrefCont">
+                            <img src="./img/detail/detail_back.png" alt="">
+                        </div>                  
+                        <h2></h2>
+                        <div class="volteheader" @click="handVolteContBool">
+                            <span>原台灣之星VoLTE服務</span>
+                            <img src="./img/detail/detail_back.png" alt="">
+                        </div>
+                        <ul class="volteNavList" v-if="VolteContBool">
+                            <li data-volte="服務說明" @click="handlinkToVolteNav">服務說明</li>
+                            <li data-volte="啟用教學" @click="handlinkToVolteNav">啟用教學</li>
+                            <li data-volte="支援手機" @click="handlinkToVolteNav">支援手機</li>
+                        </ul>                        
+                        
+                    </div>
+                    <div class="detailCont">
+                        <div class="ItemBox" v-if="VolteContIs === '服務說明'">
+                            <div class="demobox">
+                                <img src="./img/volte/vo服務demo.png" alt="" style="transform: translateY(-2rem);">
+                            </div>  
+                        </div>
+                        <div class="ItemBox" v-if="VolteContIs === '啟用教學'">
+                            <div class="demobox">
+                                <img src="./img/detail/demo_volte啟用教學.png" alt="" style="transform: translateY(-1rem);">
+                            </div>  
+                            <div class="demobox">
+                                <img src="./img/detail/demo_volte申請.png" alt="" style="transform: translateY(-2rem);">
+                            </div>  
+                            <div class="block null"></div>
+                        </div>
+                        <div class="ItemBox" v-if="VolteContIs === '支援手機'">
+                            <div class="demobox">
+                                <img src="./img/volte/vo支援demo.png" alt="" style="transform: translateY(-2rem);">
+                            </div>  
+                        </div>
+                        <div class="ItemBox">
+
+                        </div>                        
+                    </div>
+
+                </section>
+                
                 </main>
                 
             </div>
@@ -1007,15 +1089,10 @@
                 <span></span>
             </div>            
         </div>
-
-
-
-
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="./js/vue.js"></script>
     <script src="./js/main.js"></script>
- 
 </body>
 </html>
 

@@ -867,25 +867,24 @@ body {
   width: 390px;
   height: 50px;
   z-index: 10;
+  display: flex;
+  align-items: center;
 }
 .detailHeader #backBtn {
   cursor: pointer;
   position: absolute;
-  top: 50%;
   left: 1rem;
-  transform: translateY(-50%);
 }
 .detailHeader h2 {
-  padding-top: 0.8rem;
   font-size: 17px;
   text-align: center;
   color: #FFF;
+  width: 100%;
 }
 .detailHeader .rigntBtn {
   cursor: pointer;
   position: absolute;
   right: 1rem;
-  top: 0.7rem;
 }
 .detailHeader .rigntBtn span {
   color: #FFF;
@@ -893,8 +892,6 @@ body {
 .detailHeader .LeftBtn {
   cursor: pointer;
   position: absolute;
-  left: 1rem;
-  top: 0.7rem;
 }
 .detailHeader .LeftBtn span {
   color: #FFF;
@@ -1579,4 +1576,91 @@ body {
   margin-left: 1.5rem;
   margin-top: 0.2rem;
   font-size: 0.9rem;
+}
+
+.detailvolteCont {
+  position: relative;
+}
+.detailvolteCont h2 {
+  font-size: 16px;
+  margin-left: 1rem;
+  font-weight: normal;
+}
+.detailvolteCont .userData {
+  padding: 0 1rem;
+  background: #FFF;
+}
+.detailvolteCont .userData li {
+  height: 2.5rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.detailvolteCont .userData .title {
+  width: 4rem;
+}
+.detailvolteCont .userData .val {
+  margin-left: 2rem;
+  color: #999;
+}
+.detailvolteCont .userData img {
+  position: absolute;
+  right: 1rem;
+}
+.detailvolteCont .cantUse {
+  display: inline-block;
+  width: 390px;
+  padding: 1rem;
+  color: rgb(255, 94, 0);
+}
+.detailvolteCont .volteBtnBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.detailvolteCont .volteBtn {
+  cursor: pointer;
+  display: inline-block;
+  width: 280px;
+  border: 1px solid rgb(255, 94, 0);
+  color: rgb(255, 94, 0);
+  border-radius: 30px;
+  text-align: center;
+  padding: 0.5rem 0;
+  margin-top: 2rem;
+}
+
+.volteheader {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5411764706);
+  cursor: pointer;
+}
+.volteheader span {
+  color: #FFF;
+  margin-left: 1rem;
+}
+.volteheader img {
+  position: absolute;
+  right: 1rem;
+  transform: rotate(-90deg);
+}
+
+.volteNavList {
+  position: fixed;
+  margin-top: 19.3rem;
+  padding-left: 2rem;
+  background: rgba(0, 0, 0, 0.5411764706);
+  width: 390px;
+}
+.volteNavList li {
+  cursor: pointer;
+  color: #FFF;
+  padding: 1rem 0;
 }/*# sourceMappingURL=main.css.map */
