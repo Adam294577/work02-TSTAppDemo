@@ -677,8 +677,9 @@ window.onload = () =>{
             {type:'資訊帳單', title:'電子帳單',     billType:'電子帳單_已驗證' , txt:'*t*t*8*@gmail.com', hasEdit: true,editKey:'變更電子帳單信箱', blueTxt:false, hasOrgBool:false ,active: false},
             {type:'更多設定', title:'保持登入', txt:'', hasEdit: false,  editKey:'keeplogin', hasOrgBool:true ,active: true, },
             {type:'更多設定', title:'接收推播', txt:'', hasEdit: false,  editKey:'接收推播', hasOrgBool:true ,active: false, },
-            {type:'更多設定', title:'APP 版本號碼', txt:'7.1.0', hasEdit: false,editKey:'版本說明', hasOrgBool:false ,active: false, },
+            {type:'更多設定', title:'APP 版本號碼', txt:'-', hasEdit: false,editKey:'版本說明', hasOrgBool:false ,active: false, },
         ]})
+        const nowversionIs = ref('7.1.0')
         const packageMemberSetting = (key) =>{
             
             let result = memberSettingData.data.filter(item=>{
@@ -707,6 +708,11 @@ window.onload = () =>{
         })
         const memberMoreSetListRender = computed(()=>{
             let data =  packageMemberSetting('更多設定')
+            data.forEach(item=>{
+                if(item.title === 'APP 版本號碼'){
+                    item.txt = nowversionIs.value
+                }
+            })
             return data
         })
         const handMemberSettingBool = (el) =>{
@@ -1175,6 +1181,7 @@ window.onload = () =>{
                 handserviceItemBool,
                 nextWantApplyIs,
                 // detail - 會員資料設定
+                nowversionIs,
                 memberInfoListRender,
                 billInfoListRender,
                 memberMoreSetListRender,
