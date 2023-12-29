@@ -92,7 +92,7 @@ body {
 }
 .leftNav .updateTxt {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 1rem;
   display: inline-block;
   width: 100%;
   text-align: center;
@@ -101,7 +101,7 @@ body {
   text-align: center;
 }
 .leftNav .updateTxt.version {
-  bottom: 1rem;
+  bottom: 4rem;
 }
 
 .orgBtn, .whiteBtn {
