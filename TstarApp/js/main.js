@@ -4,20 +4,6 @@ window.onload = () =>{
     const App = {
 
         setup(){
-        //  UserData
-        const DemoUserData = reactive({
-        InfoData:[{
-            name:'宋卉雯',phoneNum:'0908868755',password:'amanda123'},
-        ],
-        contractData:[{
-            key:'4G_無約單門號專案',
-            summaryMsg:['同4G牌告資費(降速之行動上網不計費)','*此專案優惠內容為終身優惠，惟終'],
-            detailMsg:['同4G牌告資費(降速之行動上網不計費)','*此專案優惠內容為終身優惠，惟終止契約、降轉資費或異動專案時，專案優惠內容即終止'],
-            deadline:{msg:'2015/02/25 ~ 2015/02/25'}
-        }],
-        PhoneStatusData:[
-
-        ]})
         // loading
         const loading = ref(true)
         const handLoading = () =>{
@@ -302,16 +288,16 @@ window.onload = () =>{
                 {idx:2 ,type: 'customService',msg:'案件查詢'},
                 {idx:3 ,type: 'customService',msg:'手機維護保固'},
                 {idx:4 ,type: 'customService',msg:'網內外門號查詢'},
-                {idx:1 ,type: 'serviceManagement',msg:'Google Play'},
-                {idx:2 ,type: 'serviceManagement',msg:'小額付款'},
-                {idx:3 ,type: 'serviceManagement',msg:'更多設定'},
+                {idx:1 ,type: 'serviceManagement',msg:'Google Play', dcb:'DCB_google'},
+                {idx:2 ,type: 'serviceManagement',msg:'小額付款', dcb:'DCB小額'},
+                {idx:3 ,type: 'serviceManagement',msg:'更多設定', dcb:'moresetting'},
             ]})
 
             const packageSettingList =  (arr) =>{
                 let Newarr = []
                 Newarr = arr.map(item=>{
                     item.url = `./img/setting/list/${item.type}${item.idx}.png`
-                    item.key = `${item.type}${item.idx}`
+                    item.key = `${item.type}_${item.idx}`
                     return item
                 })
                 
@@ -347,14 +333,6 @@ window.onload = () =>{
                     if(item.type === 'serviceManagement') return item
                 })
                 data = packageSettingList(data)
-                data = data.map(item=>{
-                    if(item.msg === 'Google Play' || item.msg === '小額付款'){
-                        item.bool = true
-                    }else{
-                        item.bool = false
-                    }
-                    return item
-                })
                 return data
 
             })
@@ -393,6 +371,9 @@ window.onload = () =>{
             const InnerLinkdata = reactive({data:[
                 {backBtn:'',                  key:'', headerTxt:'',              contentBg:''},
                 {backBtn:'原台灣之星VoLTE服務',key:'voltehomepage', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
+                {backBtn:'代收服務',           key:'serviceManagement_1', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
+                {backBtn:'代收服務',           key:'serviceManagement_2', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
+                {backBtn:'index',           key:'serviceManagement_3', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'index',             key:'原台灣之星VoLTE服務', headerTxt:'VoLTE服務',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'index',             key:'電子帳單設定', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'index',             key:'門號設定', headerTxt:'門號設定',              contentBg:'./img/ContBg/fa_gray.png'},
@@ -469,6 +450,13 @@ window.onload = () =>{
                             NowRenderSection.value = 'volte'
                             handlinkToVolteNav(el)
                             console.log('成功跳轉至volte頁面');
+                        }
+
+                        if(item.backBtn === '代收服務'){
+                            NowRenderSection.value = 'DCBservice'
+                            handlinkToDCBNav(el)
+                            console.log('成功跳轉至DCB頁面');
+                            backBtnIs.value.key = 'index'
                         }
                         
                         
@@ -1088,6 +1076,29 @@ window.onload = () =>{
         const handVolteContBool = (el) =>{
             VolteContBool.value = !VolteContBool.value
         }
+        // DCB Page
+        const DCBNav = reactive({Is:[
+            {key:'DCB首頁'},
+            {key:'DCB_google'},
+            {key:'DCB_apple'},
+            {key:'DCB小額'},
+        ]})
+        const DCBContIs =  ref('')
+        const handlinkToDCBNav = (el) =>{
+            let key = el.currentTarget.dataset.dcb
+            DCBNav.Is.forEach(item=>{
+                if(item.key === key) DCBContIs.value = key
+            })
+            DCBContBool.value = false
+            scrollEl.value.scrollTop = 0      
+            console.log('DCB顯示的內容是:',DCBContIs.value);
+        }
+        const DCBContBool = ref(false)
+        
+
+        const handDCBContBool = (el) =>{
+            DCBContBool.value = !DCBContBool.value
+        }
 
 
         onMounted(()=>{
@@ -1201,6 +1212,11 @@ window.onload = () =>{
                 handlinkToVolteNav,
                 VolteContBool,
                 handVolteContBool,              
+                // DCB
+                DCBContIs,
+                handlinkToDCBNav,
+                DCBContBool,
+                handDCBContBool,              
             }   
             
         },

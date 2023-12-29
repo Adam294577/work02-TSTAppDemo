@@ -166,6 +166,10 @@ body {
   padding-left: 0.5rem;
 }
 
+.whitetxt {
+  color: #FFF;
+}
+
 .container {
   margin: auto;
   width: 450px;
@@ -731,23 +735,6 @@ body {
   color: #FFF;
   padding-left: 1rem;
 }
-.home .ItemBox.setting .settingList .boolBox {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 2rem;
-}
-.home .ItemBox.setting .settingList .boolBox .bool, .home .ItemBox.setting .settingList .boolBox .txt {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-weight: bold;
-  right: 0;
-  width: 80px;
-}
-.home .ItemBox.setting .settingList .boolBox .txt {
-  color: #FFF;
-}
 .home .ItemBox.setting .TelecomBilling {
   background: #050b21;
   display: flex;
@@ -786,6 +773,35 @@ body {
   top: 0.5rem;
   right: 1rem;
   font-size: 0.8rem;
+}
+
+.serviceManagement {
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.serviceManagement li {
+  background: #050b21;
+  cursor: pointer;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  color: #d5d9fe;
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1rem;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.serviceManagement p {
+  position: absolute;
+  right: 3rem;
+}
+.serviceManagement .arrow {
+  position: absolute;
+  right: 0.5rem;
 }
 
 .noticeBox {
@@ -1645,7 +1661,7 @@ body {
   margin-top: 2rem;
 }
 
-.volteheader {
+.volteheader, .DCBheader {
   position: absolute;
   top: 100%;
   width: 100%;
@@ -1655,25 +1671,29 @@ body {
   background: rgba(0, 0, 0, 0.5411764706);
   cursor: pointer;
 }
-.volteheader span {
+.volteheader span, .DCBheader span {
   color: #FFF;
   margin-left: 1rem;
 }
-.volteheader img {
+.volteheader img, .DCBheader img {
   position: absolute;
   right: 1rem;
   transform: rotate(-90deg);
 }
 
-.volteNavList {
+.volteNavList, .DCBNavList {
   position: fixed;
   margin-top: 19.3rem;
   padding-left: 2rem;
   background: rgba(0, 0, 0, 0.5411764706);
   width: 390px;
 }
-.volteNavList li {
+.volteNavList li, .DCBNavList li {
   cursor: pointer;
   color: #FFF;
   padding: 1rem 0;
+}
+
+.DCBNavList {
+  margin-top: 22.6rem;
 }/*# sourceMappingURL=main.css.map */
