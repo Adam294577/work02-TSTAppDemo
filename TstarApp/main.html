@@ -26,7 +26,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/27</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/29</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -455,29 +455,20 @@
                                     </li>
                                 </ul>
                                 <div class="itemTitle">服務管理</div>                        
-                                <ul class="settingList">
+                                <ul class="serviceManagement">
                                     <li 
                                     v-for="list in serviceManagementRender"
                                     :key="list.key"
-                                    :data-href="list.msg"
+                                    :data-href="list.key"
+                                    :data-dcb="list.dcb"
                                     @click="handHrefCont"
+
                                     >
-                                    <span>{{list.msg}}</span>
                                     <img :src="list.url" alt="">
-    
-                                    <ul class="boolBox"  v-show="list.msg === 'Google Play'">
-                                        <bool class="txt" v-show="list.bool">已開啟</bool>
-                                        <bool class="txt" v-show="!list.bool">已關閉</bool>
-                                    </ul>
-                                    <ul class="boolBox"  v-show="list.msg === '小額付款'">
-                                        <bool class="bool" v-show="list.bool">
-                                            <img src="./img/setting/bool.png" alt="">
-                                        </bool>
-                                        <bool class="bool" v-show="!list.bool">
-                                            <img src="./img/setting/bool.png" alt="">
-                                        </bool>
-                                    </ul>
-                                    
+                                    <span>{{list.msg}}</span>
+                                    <p class="whitetxt" v-show="list.msg === 'Google Play'">已開啟</p>
+                                    <p class="whitetxt" v-show="list.msg === '小額付款'">已開啟</p>
+                                    <img class="arrow" src="./img/setting/list/arrow.png" alt="">
                                 </li>
                                 </ul>
                             </div>
@@ -1105,6 +1096,49 @@
                         <div class="ItemBox">
 
                         </div>                        
+                    </div>
+
+                </section>
+
+                <section class="DCBservice" v-if="NowRenderSection === 'DCBservice'">
+                    <div class="detailHeader" :style="detailHeaderBg">
+                        <div id="backBtn" data-href="index" @click="handHrefCont">
+                            <img src="./img/detail/detail_back.png" alt="">
+                        </div>                  
+                        <h2></h2>
+                        <div class="DCBheader" @click="handDCBContBool">
+                            <span>電信帳單代收</span>
+                            <img src="./img/detail/detail_back.png" alt="">
+                        </div>
+                        <ul class="DCBNavList" v-if="DCBContBool">
+                            <li data-dcb="DCB首頁" @click="handlinkToDCBNav">首頁</li>
+                            <li data-dcb="DCB_google" @click="handlinkToDCBNav">Google Play</li>
+                            <li data-dcb="DCB_apple" @click="handlinkToDCBNav">Apple Store</li>
+                            <li data-dcb="DCB小額" @click="handlinkToDCBNav">小額付款代收</li>
+                        </ul>                        
+                        
+                    </div>
+                    <div class="detailCont">
+                        <div class="ItemBox" v-if="DCBContIs === 'DCB首頁'">
+                            <div class="demobox">
+                                <img src="./img/dcb/demo_首頁.png" alt="" style="transform: translateY(-2rem);">
+                            </div>   
+                        </div>
+                        <div class="ItemBox" v-if="DCBContIs === 'DCB_google'">
+                            <div class="demobox">
+                                <img src="./img/dcb/demo_google.png" alt="" style="transform: translateY(-2rem);">
+                            </div>
+                        </div>
+                        <div class="ItemBox" v-if="DCBContIs === 'DCB_apple'">
+                            <div class="demobox">
+                                <img src="./img/dcb/demo_apple.png" alt="" style="transform: translateY(-2rem);">
+                            </div>   
+                        </div>
+                        <div class="ItemBox" v-if="DCBContIs === 'DCB小額'">
+                            <div class="demobox">
+                                <img src="./img/dcb/demo_小額.png" alt="" style="transform: translateY(-2rem);">
+                            </div>  
+                        </div>                     
                     </div>
 
                 </section>

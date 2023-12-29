@@ -166,6 +166,9 @@ body{
 .pl-2{
     padding-left: 0.5rem;
 }
+.whitetxt{
+    color: #FFF;
+}
 .container{
     margin: auto;
     width: 450px;
@@ -844,25 +847,8 @@ body{
                         }
                     }                    
                 }
-                .boolBox{
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    height: 2rem;
 
-                    .bool,.txt{
-                        position: absolute;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        font-weight: bold;
-                        right: 0;
-                        width: 80px;
-                    }
-                    .txt{
-                        color: #FFF;
-                    }
 
-                }
             }
             .TelecomBilling{
                 background: $listColor;
@@ -907,6 +893,43 @@ body{
 
         }
     }
+}
+// serviceManagement
+.serviceManagement{
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;    
+    flex-wrap: wrap;
+    li{
+        background: $listColor;
+        cursor: pointer;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        color: #d5d9fe;
+        padding: 0.5rem 0;
+        position: relative; 
+        padding-left: 1rem; 
+        border-radius: 3px;   
+        overflow: hidden;
+    }
+    p{
+        position: absolute;
+        right: 3rem;
+    }
+    .arrow{
+        position: absolute;
+        right: 0.5rem;
+    }
+
+    
+                    
+                    
+                    
+                   
+                    
+                    
 }
 // noticeBox
 .noticeBox{
@@ -1880,7 +1903,7 @@ body{
         
     }
 }
-.volteheader{
+.volteheader,.DCBheader{
     position: absolute;
     top: 100%;
     // border: 1px solid #FFF;
@@ -1900,7 +1923,7 @@ body{
         transform: rotate(-90deg);
     }
 }
-.volteNavList{
+.volteNavList,.DCBNavList{
     position: fixed;
     margin-top: 19.3rem;
     padding-left: 2rem;
@@ -1912,4 +1935,7 @@ body{
         padding: 1rem 0;
     }
 
+}
+.DCBNavList{
+    margin-top: 22.6rem;
 }
