@@ -93,16 +93,19 @@ body{
         position: absolute;
         left: 50%;
         transform: translateX(-50%) scale(0.7);
-        bottom: 3rem;
+        bottom: 5rem;
     }
     .updateTxt{
         position: absolute;
-        bottom: 1rem;
+        bottom: 2.5rem;
         display: inline-block;
         width: 100%;
         text-align: center;
         .updateMsg{
             text-align: center;
+        }
+        &.version{
+            bottom: 1rem;
         }
     }
 }
