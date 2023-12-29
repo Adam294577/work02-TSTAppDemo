@@ -216,6 +216,7 @@ window.onload = () =>{
                         })
                     }
                 })
+                
                 scrollEl.value.scrollTop = 0
             }            
             // 首頁- calldata
@@ -328,6 +329,8 @@ window.onload = () =>{
                 return data
 
             })
+
+            // 要重構!
             const serviceManagementRender = computed(()=>{
                 let data = settingList.data.filter(item=>{
                     if(item.type === 'serviceManagement') return item
@@ -336,6 +339,31 @@ window.onload = () =>{
                 return data
 
             })
+        // 服務管理顯示
+        const ServiceRemindBool = computed(()=>{
+            if(GoogleServiceBool.value || SmallPaymentServiceBool.value){
+                // console.log('服務狀態-on');
+                return true
+            }else{
+                // console.log('服務狀態-off');
+                return false
+            }
+        })
+        const GoogleServiceBool = ref(true)
+        const SmallPaymentServiceBool = ref(false)
+        const DCBNoticeMsg = reactive({is:["開啟/關閉","服務項目"]})
+        const handGoogleServiceBool =()=>{
+            DCBNoticeMsg.is[1] =  "GooGle Play電信帳單代收"
+            NoticeIs.value = '電信代收調整'
+            if(GoogleServiceBool.value){
+                GoogleServiceBool.value = !GoogleServiceBool.value
+                DCBNoticeMsg.is[0] =  "關閉"
+            }else{
+                GoogleServiceBool.value = !GoogleServiceBool.value
+                NoticeIs.value = '電信代收調整'
+                DCBNoticeMsg.is[0] =  "開通"
+            }
+        }            
         //href Control
             const detailCont = ref(['key','headerName'])
             const detailHeaderBg = ref('')
@@ -370,10 +398,11 @@ window.onload = () =>{
             ]})
             const InnerLinkdata = reactive({data:[
                 {backBtn:'',                  key:'', headerTxt:'',              contentBg:''},
-                {backBtn:'原台灣之星VoLTE服務',key:'voltehomepage', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
+                {backBtn:'serviceManagement_3',key:'設定交易安全碼', headerTxt:'設定交易安全碼',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'代收服務',           key:'serviceManagement_1', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
                 {backBtn:'代收服務',           key:'serviceManagement_1', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
                 {backBtn:'代收服務',           key:'serviceManagement_2', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
-                {backBtn:'index',           key:'serviceManagement_3', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'index',           key:'serviceManagement_3', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/lavender.png'},
                 {backBtn:'index',             key:'原台灣之星VoLTE服務', headerTxt:'VoLTE服務',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'index',             key:'電子帳單設定', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'index',             key:'門號設定', headerTxt:'門號設定',              contentBg:'./img/ContBg/fa_gray.png'},
@@ -435,6 +464,9 @@ window.onload = () =>{
                         })          
                     }
                     resetPhoneSetttingList()
+                    if(NoticeIs.value === '代收額度變更完成'){
+                        scrollEl.value.scrollTop = 500
+                    }
                     NoticeIs.value = 'none'   
                     phoneSetttingNoticeBool.value = false          
                     return
@@ -1018,6 +1050,9 @@ window.onload = () =>{
         // notice整合
         const noticeData = reactive({data:[
             {where:'none', key:'none', },
+            {where:'電信帳單代收', key:'電信代收調整', },
+            {where:'電信帳單代收', key:'代收額度確認', },
+            {where:'電信帳單代收', key:'代收額度調整', },
             {where:'volte-注意事項', key:'volte-注意事項', },
             {where:'門號設定-注意事項', key:'門號設定-注意事項', },
             {where:'帳單-注意事項', key:'帳單-注意事項', },
@@ -1085,6 +1120,7 @@ window.onload = () =>{
         ]})
         const DCBContIs =  ref('')
         const handlinkToDCBNav = (el) =>{
+            NowRenderSection.value = 'DCBservice'
             let key = el.currentTarget.dataset.dcb
             DCBNav.Is.forEach(item=>{
                 if(item.key === key) DCBContIs.value = key
@@ -1094,11 +1130,45 @@ window.onload = () =>{
             console.log('DCB顯示的內容是:',DCBContIs.value);
         }
         const DCBContBool = ref(false)
-        
-
         const handDCBContBool = (el) =>{
             DCBContBool.value = !DCBContBool.value
         }
+        const DCB_num = ref(500)
+        const Fin_DCB_num = ref(500)
+
+        const handDCB_num = (el) =>{
+            let num = el.currentTarget.dataset.key
+            if(num === "0"){
+                DCB_num.value = 0
+            } 
+            if(num === "500"){
+                DCB_num.value = 500
+            } 
+            if(NowRenderSection.value === 'detail'){
+                NoticeIs.value = 'none'
+            }else{
+                NoticeIs.value = '代收額度確認'
+            }
+        }
+        const updateDCB_num = (el) =>{
+            Fin_DCB_num.value = DCB_num.value
+            NoticeIs.value = '代收額度變更完成'
+        }
+
+        const handSmallPaymentServiceBool =()=>{
+            NoticeIs.value = '電信代收調整'
+            DCBNoticeMsg.is[1] =  "小額付款"
+            if(SmallPaymentServiceBool.value){
+                SmallPaymentServiceBool.value = !SmallPaymentServiceBool.value
+                DCBNoticeMsg.is[0] =  "關閉"
+            }else{
+                SmallPaymentServiceBool.value = !SmallPaymentServiceBool.value
+                NoticeIs.value = '電信代收調整'
+                DCBNoticeMsg.is[0] =  "開通"
+
+            }
+        }
+        
 
 
         onMounted(()=>{
@@ -1151,6 +1221,13 @@ window.onload = () =>{
                 backBtnIs,
                 detailCont,
                 detailHeaderBg,
+                // 服務管理顯示
+                GoogleServiceBool,
+                SmallPaymentServiceBool,
+                handGoogleServiceBool,
+                handSmallPaymentServiceBool,
+                ServiceRemindBool,      
+                DCBNoticeMsg,          
                 // detail - 多門號切換繳款與帳單明細
                     // nav
                 billNavIs,
@@ -1159,8 +1236,6 @@ window.onload = () =>{
                 handnearlyBillItem,    
                 payRecordData,
                 handpayRecordItem,
-                // datail- 門號設定
-                
                 // notice整合
                 NoticeIs,
                 handNoticeIs,
@@ -1216,7 +1291,11 @@ window.onload = () =>{
                 DCBContIs,
                 handlinkToDCBNav,
                 DCBContBool,
-                handDCBContBool,              
+                handDCBContBool,   
+                DCB_num,
+                Fin_DCB_num,
+                handDCB_num,
+                updateDCB_num,
             }   
             
         },

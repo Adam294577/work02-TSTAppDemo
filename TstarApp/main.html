@@ -434,11 +434,12 @@
                                 
                                 <div class="itemMsg">
                                     <div class="TelecomBilling">
-                                        <div class="circle"></div>
+                                        <div v-show="Fin_DCB_num === 0" class="circle" style="border-color: #353c59;"></div>
+                                        <div v-show="Fin_DCB_num !== 0" class="circle"></div>
                                         <div class="cont">
                                             <span>可用餘額</span>
-                                            <span>$500</span>
-                                            <span>代收與溢繳總額$500</span>
+                                            <span>${{Fin_DCB_num}}</span>
+                                            <span>代收與溢繳總額${{Fin_DCB_num}}</span>
                                             <a href="#" data-href="線上溢繳" @click="handHrefCont">
                                                 <span class="orgBtn2">線上溢繳</span>
                                             </a>
@@ -447,27 +448,35 @@
                                 </div>    
                                 <div class="itemTitle topBorder">代收額度管理</div>                        
                                 <ul class="settingList">
-                                    <li class="Collectionlimit">
+                                    <li class="Collectionlimit" data-key="代收額度調整" @click="handNoticeIs">
                                         <span>目前額度</span>
                                         <img src="./img/setting/list/Collectionlimit.png" alt="123">
-                                        <span class="limitVal">$500</span>
+                                        <span class="limitVal">${{Fin_DCB_num}}</span>
                                         <span class="limitmsg">你最高可設定至$500</span>
                                     </li>
                                 </ul>
-                                <div class="itemTitle">服務管理</div>                        
+                                <div class="itemTitle">服務管理</div>    
+                                <!-- 要重構! -->
                                 <ul class="serviceManagement">
                                     <li 
                                     v-for="list in serviceManagementRender"
                                     :key="list.key"
                                     :data-href="list.key"
+                                    data-key="電信代收調整"
                                     :data-dcb="list.dcb"
                                     @click="handHrefCont"
 
                                     >
                                     <img :src="list.url" alt="">
                                     <span>{{list.msg}}</span>
-                                    <p class="whitetxt" v-show="list.msg === 'Google Play'">已開啟</p>
-                                    <p class="whitetxt" v-show="list.msg === '小額付款'">已開啟</p>
+                                    <p class="whitetxt" v-show="list.msg === 'Google Play'">
+                                        <span v-show="GoogleServiceBool">已開啟</span>
+                                        <img  v-show="!GoogleServiceBool" src="./img/setting/bool.png" alt="">
+                                    </p>
+                                    <p class="whitetxt" v-show="list.msg === '小額付款'">
+                                        <span v-show="SmallPaymentServiceBool">已開啟</span>
+                                        <img  v-show="!SmallPaymentServiceBool"src="./img/setting/bool.png" alt="">
+                                    </p>
                                     <img class="arrow" src="./img/setting/list/arrow.png" alt="">
                                 </li>
                                 </ul>
@@ -870,6 +879,77 @@
                             </div>                        
                             <div class="block null"></div>
                         </div>   
+                        <!-- 代收-更多設定 -->
+                        <div class="ItemBox" v-if="detailCont[0] === 'serviceManagement_3'">
+                             <div class="DCB_box">
+                                <div class="DCB_block">
+                                    <div class="title">GooGle Play電信帳單代收</div>
+                                    <ul class="DCB_List">
+                                        <li>
+                                            <span>服務開關</span>
+                                            <span class="bool" @click="handGoogleServiceBool"><img :src=" GoogleServiceBool ? './img/setting/whitebool_act.png' : './img/setting/whitebool.png'" alt=""></span>
+                                        </li>
+                                        <li>
+                                            <span>Google Play代收說明</span>
+                                            <span data-dcb="DCB_google" @click="handlinkToDCBNav" class="link"><img src="./img/dcb/arrow.png" alt=""></span>
+                                        </li>
+                                    </ul>
+                                </div>  
+                                <div class="DCB_block mt-4">
+                                    <div class="title">小額付款</div>
+                                    <ul class="DCB_List">
+                                        <li>
+                                            <span>服務開關</span>
+                                            <span class="bool" @click="handSmallPaymentServiceBool"><img :src=" SmallPaymentServiceBool ? './img/setting/whitebool_act.png' : './img/setting/whitebool.png'" alt=""></span>
+                                        </li>
+                                        <li v-show="SmallPaymentServiceBool">
+                                            <span>設定交易安全碼</span>
+                                            <span data-href="設定交易安全碼" @click="handHrefCont" class="link"><img src="./img/dcb/arrow.png" alt=""></span>
+                                        </li>
+                                        <li>
+                                            <span>小額付款說明</span>
+                                            <span data-dcb="DCB小額" @click="handlinkToDCBNav" class="link"><img src="./img/dcb/arrow.png" alt=""></span>
+                                        </li>
+                                    </ul>
+                                </div>                                  
+                                <div class="DCB_block mt-4 pb-8" v-show="ServiceRemindBool">
+                                    <div class="title font-normal">代收額度管理</div>
+                                    <ul class="DCB_List">
+                                        <li>
+                                            <span>目前額度</span>
+                                            <span class="msg">${{Fin_DCB_num}}元</span>
+                                        </li>
+                                        <li>
+                                            <span>目前餘額</span>
+                                            <span class="msg">${{Fin_DCB_num}}元</span>
+                                        </li>
+                                        <li >
+                                            <span>額度調整申請</span>
+                                            <button data-key="代收額度調整"  @click="handNoticeIs">
+                                                <span>{{DCB_num}}</span>
+                                            </button>
+                                            <span class="msg">元</span>
+                                        </li>
+                    
+                                    </ul>
+                                    <div class="orgBtn center mt-4" data-key="代收額度確認"  @click="handNoticeIs">
+                                        確定
+                                    </div>
+                               
+                                </div>                                  
+      
+                             </div>   
+                             <img v-show="ServiceRemindBool" src="./img/dcb/demo_moresetting.png" alt="">
+                             <div v-show="ServiceRemindBool" data-href="線上溢繳" @click="handHrefCont" class="orgBtn center mt-4">線上溢繳</div>   
+           
+                            <div class="block null"></div>
+                        </div>    
+                        <div class="ItemBox" v-if="detailCont[0] === '設定交易安全碼'">
+                            <div class="demobox">
+                                <img src="./img/detail/demo_交易安全碼.png" alt="" style="position: relative; top: -1rem;">
+                            </div>                        
+                            <div class="block null"></div>
+                        </div>                                            
                     </div>
                     
                      <!-- 會員資料設定編輯細項 -->
@@ -1011,6 +1091,39 @@
                             <span class="btn" @click="handHrefCont" data-href="login">確定</span>
                         </div>
                     </div>  
+                     <!-- notice - 電信帳單代收 -->
+                     <div class="noticeBox" v-if="NoticeIs === '電信代收調整'">
+                        <div class="whiteblock">
+                            <h1 class="title">提醒</h1>
+                            <span class="msg">已為你{{DCBNoticeMsg.is[0]}}{{DCBNoticeMsg.is[1]}}服務</span>
+                            <span class="btn" @click="handNoticeIs" data-key="none">確定</span>
+                        </div>
+                    </div>                      
+                     <div class="noticeBox" v-if="NoticeIs === '代收額度調整'">
+                        <div class="whiteblock">
+                            <h1 class="title">選擇額度</h1>
+                            <ul class="noticeList">
+                                <li @click="handDCB_num" data-key="500" :class="[{'active': DCB_num === 500}]">500</li>
+                                <li @click="handDCB_num" data-key="0" :class="[{'active': DCB_num === 0}]">0</li>
+                            </ul>
+                        </div>
+                    </div>                      
+                     <div class="noticeBox" v-if="NoticeIs === '代收額度確認'">
+                         <div class="whiteblock">
+                            <span class="msg">請確認電信代收調整額度至{{DCB_num}}元
+                                <span class="remindtxt">提醒你，按下確認立即生效</span>
+                            </span>
+                            <span class="btn cancel" @click="handNoticeIs" data-key="none">取消</span>
+                            <span class="btn" @click="updateDCB_num">確定</span>
+
+                        </div>
+                    </div>                      
+                     <div class="noticeBox" v-if="NoticeIs === '代收額度變更完成'">
+                         <div class="whiteblock">
+                            <span class="msg">你的可用額度已經調整成{{Fin_DCB_num}}元</span>
+                            <span class="btn" @click="handHrefCont" data-href="index">確定</span>
+                        </div>
+                    </div>                      
                     <!-- 帳單-注意事項 -->
                     <div class="noticeBox" v-if="NoticeIs === '帳單-注意事項'">
                         <div class="noticeTxt">
