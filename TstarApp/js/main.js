@@ -406,12 +406,13 @@ window.onload = () =>{
                 {txt:'',        key:'信用卡自動轉帳代繳設定',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=tUnX%7EpxcjWbXH.--TyPArmQ.qSyMjnGwcGn%3D&landing_uri=https://ow.tstarcs.taiwanmobile.com/TWM/credit-card-direct-debit.php?t=1701619200045'},
                 {txt:'',        key:'國際漫遊',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/roaming_apply.php?t=1701619200045'},
                 {txt:'',        key:'門號用量加購',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php'},
-                {txt:'',        key:'MOMO_麥當勞55折起',         url:'https://momo.dm/mmjNvj'},
                 {txt:'',        key:'老客戶專屬優惠',url:'https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst5457E361347647AA981D1B38621F2DB5SF4Kk&ru=https%3A%2F%2Fshop.tstartel.com%2Fpromo_market%2F188sptd_23%2Findex.html'},
                 {txt:'disney+', key:'et1',         url:'https://disneyplus.taiwanmobile.com/'},
                 {txt:'來電答鈴', key:'et4',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=%2BPu-MXCvyBsqsZ-bmeWYiFzabH_N%7EnBT.BF%3D&landing_uri=http://rbt.tstartel.com/web/web/index.jsp'},
-                {txt:'',        key:'5G台灣隊迎星',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
-                {txt:'',        key:'myfone萬元禮券',         url:'https://www.myfone.com.tw/mbuy/index.php?action=myfone-sale&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_myfone_sale2312&utm_term=tstarfriends'},
+                {txt:'',        key:'App獨享活動a1',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
+                {txt:'',        key:'App獨享活動a2',         url:'https://www.myfone.com.tw/s/uWMhIul'},
+                {txt:'',        key:'momo優惠活動b1',         url:'https://momo.dm/mmjNvj'},
+                {txt:'',        key:'momo優惠活動b2',         url:'https://www.momoshop.com.tw/category/DgrpCategory.jsp?d_code=1803300050&p_orderType=6&showType=chessboardType'},
             ]})
             const noticeLinkData = reactive({data:[
                 {key:'變更電子帳單信箱_notice'}
