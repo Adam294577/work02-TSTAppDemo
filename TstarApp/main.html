@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>  
-    <title>台灣大哥大TS_Demo</title>
+    <title>台灣大哥大TST_Demo</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
@@ -26,7 +26,7 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2023/12/29</span></span>
+            <span class="updateTxt">最後更新日期: <span class="updateMsg">2024/01/02</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -456,27 +456,26 @@
                                     </li>
                                 </ul>
                                 <div class="itemTitle">服務管理</div>    
-                                <!-- 要重構! -->
                                 <ul class="serviceManagement">
                                     <li 
                                     v-for="list in serviceManagementRender"
                                     :key="list.key"
-                                    :data-href="list.key"
-                                    data-key="電信代收調整"
+                                    :data-key="list.act ? 'dcb' :'電信代收調整'"
+                                    :data-href="list.dcb"
                                     :data-dcb="list.dcb"
-                                    @click="handHrefCont"
-
+                                    @click="handNoticeIs"
                                     >
                                     <img :src="list.url" alt="">
                                     <span>{{list.msg}}</span>
-                                    <p class="whitetxt" v-show="list.msg === 'Google Play'">
-                                        <span v-show="GoogleServiceBool">已開啟</span>
-                                        <img  v-show="!GoogleServiceBool" src="./img/setting/bool.png" alt="">
+                                    <p class="whitetxt">
+                                        <span v-show="list.act">已開啟</span>
+                                        <img  v-show="!list.act" src="./img/setting/bool.png" alt="">
                                     </p>
-                                    <p class="whitetxt" v-show="list.msg === '小額付款'">
-                                        <span v-show="SmallPaymentServiceBool">已開啟</span>
-                                        <img  v-show="!SmallPaymentServiceBool"src="./img/setting/bool.png" alt="">
-                                    </p>
+                                    <img class="arrow" src="./img/setting/list/arrow.png" alt="">
+                                </li>
+                                <li data-href="DCB更多設定"  @click="handHrefCont">
+                                    <img src="./img/setting/list/serviceManagement3.png" alt="">
+                                    <span>更多設定</span>
                                     <img class="arrow" src="./img/setting/list/arrow.png" alt="">
                                 </li>
                                 </ul>
@@ -834,8 +833,8 @@
                                 </div>
                                 <span class="cantUse">很抱歉，你的資格不符!無法申請VOLTE好聲音服務。</span>
                                 <div class="volteBtnBox">
-                                    <div class="volteBtn" data-href="voltehomepage" data-volte="服務說明" @click="handHrefCont">了解VoLTE服務</div>
-                                    <div class="volteBtn" data-href="voltehomepage" data-volte="啟用教學" @click="handHrefCont">如何設定VoLTE</div>
+                                    <div class="volteBtn" data-href="volte_服務說明" data-volte="服務說明" @click="handHrefCont">了解VoLTE服務</div>
+                                    <div class="volteBtn" data-href="volte_啟用教學" data-volte="啟用教學" @click="handHrefCont">如何設定VoLTE</div>
                                     <!-- <div class="volteBtn" data-href="voltehomepage" data-volte="支援手機" @click="handHrefCont">支援手機</div> -->
                                 </div>
                             </div>
@@ -879,8 +878,7 @@
                             </div>                        
                             <div class="block null"></div>
                         </div>   
-                        <!-- 代收-更多設定 -->
-                        <div class="ItemBox" v-if="detailCont[0] === 'serviceManagement_3'">
+                        <div class="ItemBox" v-if="detailCont[0] === 'DCB更多設定'">
                              <div class="DCB_box">
                                 <div class="DCB_block">
                                     <div class="title">GooGle Play電信帳單代收</div>
