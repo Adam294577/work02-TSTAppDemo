@@ -419,6 +419,7 @@ window.onload = () =>{
             const InnerLinkdata = reactive({data:[
                 {backBtn:'',                  key:'', headerTxt:'',              contentBg:''},
                 {backBtn:'DCB更多設定',        key:'設定交易安全碼', headerTxt:'設定交易安全碼',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'DCB',              key:'DCB首頁', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
                 {backBtn:'DCB',              key:'DCB_google', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
                 {backBtn:'DCB',              key:'DCB小額', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
                 {backBtn:'index',             key:'DCB更多設定', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/lavender.png'},

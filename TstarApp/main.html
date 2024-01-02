@@ -26,7 +26,8 @@
                 </div>
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
-            <span class="updateTxt">最後更新日期: <span class="updateMsg">2024/01/02</span></span>
+            <span class="updateTxt version"><span class="updateMsg">v{{nowversionIs}}</span></span>
+            <span class="updateTxt">最後更新日期 <span class="updateMsg">2024/01/02</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -428,34 +429,44 @@
                                 </ul>
                             </div>
                             <div class="block">
-                                <div class="itemTitle">電信帳單代收
+                                <div class="itemTitle cursor-pointer" data-dcb="DCB首頁" data-href="DCB首頁" @click="handHrefCont">
+                                    電信帳單代收
                                     <div class="see"><img src="./img/home/block_see.png" alt=""></div>
                                 </div>
-                                
-                                <div class="itemMsg">
-                                    <div class="TelecomBilling">
-                                        <div v-show="Fin_DCB_num === 0" class="circle" style="border-color: #353c59;"></div>
-                                        <div v-show="Fin_DCB_num !== 0" class="circle"></div>
-                                        <div class="cont">
-                                            <span>可用餘額</span>
-                                            <span>${{Fin_DCB_num}}</span>
-                                            <span>代收與溢繳總額${{Fin_DCB_num}}</span>
-                                            <a href="#" data-href="線上溢繳" @click="handHrefCont">
-                                                <span class="orgBtn2">線上溢繳</span>
-                                            </a>
-                                        </div>
-                                    </div>                                
-                                </div>    
-                                <div class="itemTitle topBorder">代收額度管理</div>                        
-                                <ul class="settingList">
-                                    <li class="Collectionlimit" data-key="代收額度調整" @click="handNoticeIs">
-                                        <span>目前額度</span>
-                                        <img src="./img/setting/list/Collectionlimit.png" alt="123">
-                                        <span class="limitVal">${{Fin_DCB_num}}</span>
-                                        <span class="limitmsg">你最高可設定至$500</span>
-                                    </li>
-                                </ul>
+                                <div v-show="ServiceRemindBool">
+                                    <div class="itemMsg">
+                                        <div class="TelecomBilling">
+                                            <div v-show="Fin_DCB_num === 0" class="circle" style="border-color: #353c59;"></div>
+                                            <div v-show="Fin_DCB_num !== 0" class="circle"></div>
+                                            <div class="cont">
+                                                <span>可用餘額</span>
+                                                <span>${{Fin_DCB_num}}</span>
+                                                <span>代收與溢繳總額${{Fin_DCB_num}}</span>
+                                                <a href="#" data-href="線上溢繳" @click="handHrefCont">
+                                                    <span class="orgBtn2">線上溢繳</span>
+                                                </a>
+                                            </div>
+                                        </div>                                
+                                    </div>    
+                                    <div class="itemTitle topBorder">代收額度管理</div>                        
+                                    <ul class="settingList">
+                                        <li class="Collectionlimit" data-key="代收額度調整" @click="handNoticeIs">
+                                            <span>目前額度</span>
+                                            <img src="./img/setting/list/Collectionlimit.png" alt="123">
+                                            <span class="limitVal">${{Fin_DCB_num}}</span>
+                                            <span class="limitmsg">你最高可設定至$500</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div v-show="!ServiceRemindBool">
+                                    <span class="whitetxt pl-4 fz-20 font-bold msgborder">
+                                        免海外手續費完勝信用卡
+                                    </span>
+                                </div>
+ 
+
                                 <div class="itemTitle">服務管理</div>    
+
                                 <ul class="serviceManagement">
                                     <li 
                                     v-for="list in serviceManagementRender"

@@ -160,6 +160,9 @@ body{
         }
     }
 } 
+.cursor-pointer{
+    cursor: pointer;
+}
 .orgtxt{
     color: $mainOrg;           
 }
@@ -169,11 +172,20 @@ body{
 .pl-2{
     padding-left: 0.5rem;
 }
+.pl-4{
+    padding-left: 1rem;
+}
 .pb-8{
     padding-bottom: 4rem;
 }
 .mt-4{
     margin-top: 1rem;
+}
+.fz-20{
+    font-size: 20px;
+}
+.font-bold{
+    font-weight: bold;
 }
 .whitetxt{
     color: #FFF;
@@ -192,6 +204,25 @@ body{
     background-size: contain;
     overflow: hidden;
 }
+.msgborder{
+    position: relative;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    width: 100%;
+    &::after{
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,0);        
+        width: 90%;
+        height: 2px;
+        background: #3d4971;
+        display: inline-block;
+        border-width: 90%;
+    }
+}
+
 .content{
     background-repeat: no-repeat;
     background-size: cover;
