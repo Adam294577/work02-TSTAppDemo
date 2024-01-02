@@ -169,8 +169,18 @@ body{
 .pl-2{
     padding-left: 0.5rem;
 }
+.pb-8{
+    padding-bottom: 4rem;
+}
+.mt-4{
+    margin-top: 1rem;
+}
 .whitetxt{
     color: #FFF;
+}
+
+.txt-center{
+    text-align: center;
 }
 .container{
     margin: auto;
@@ -919,7 +929,11 @@ body{
     }
     p{
         position: absolute;
-        right: 3rem;
+        right: 2.5rem;
+        img{
+            position: relative; 
+            left: 0.5rem;
+        }
     }
     .arrow{
         position: absolute;
@@ -976,6 +990,10 @@ body{
             padding-right: 1rem;
             padding-top: 1rem;
             padding-bottom: 4rem;
+            .remindtxt{
+                display: inline-block;
+                padding-top: 2rem;
+            }
 
         }
         .btn{
@@ -1941,4 +1959,81 @@ body{
 }
 .DCBNavList{
     margin-top: 22.6rem;
+}
+.DCB_box{
+    width: 390px;
+}
+.DCB_block{
+    width: 95%;
+    margin: auto;
+    // padding: 1rem 0;
+    // border: 1px solid #F00;
+    background: #FFF;
+    margin-top: 1rem;
+    .title{
+        color: $mainOrg;
+        padding: 1rem 0;
+        padding-left: 1rem;
+        font-weight: bold;
+        text-shadow: 0 0 0 $mainOrg;
+        border-bottom: 1px solid #CCC;
+        &.font-normal{
+            font-weight: normal;
+        }
+    }
+
+}
+.DCB_List{
+    li{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #EEE;
+        height: 50px;
+        // border: 1px solid #F00;
+        &:last-child{
+            border: none;
+        }
+        span{
+            &:nth-child(1){
+                padding-left: 1rem;
+            }
+        }
+        img{
+            cursor: pointer;
+            // border: 1px solid #F00;
+        }
+        .link{
+            cursor: pointer;
+            position: relative;
+            left: -2rem;
+        }
+        .bool{
+            position: relative;
+            left: -1rem;
+        }
+        .msg{
+            position: relative;
+            left: -1rem;
+        }
+    }
+    button{
+        width: 170px;
+        height: 30px;
+        background: #FFF;
+        position: relative;
+        left: -1rem;
+        border: 1px solid #CCC;
+        display: flex;
+        align-items: center;
+        &::after{
+            content: url(../img/setting/arrow.png);
+            position: absolute;
+            transform: translateY(-50%);
+            top: 50%;
+            right: 0.5rem;
+
+        }
+    }
+
 }

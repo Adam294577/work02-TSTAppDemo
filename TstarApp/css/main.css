@@ -169,8 +169,20 @@ body {
   padding-left: 0.5rem;
 }
 
+.pb-8 {
+  padding-bottom: 4rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .whitetxt {
   color: #FFF;
+}
+
+.txt-center {
+  text-align: center;
 }
 
 .container {
@@ -800,7 +812,11 @@ body {
 }
 .serviceManagement p {
   position: absolute;
-  right: 3rem;
+  right: 2.5rem;
+}
+.serviceManagement p img {
+  position: relative;
+  left: 0.5rem;
 }
 .serviceManagement .arrow {
   position: absolute;
@@ -844,6 +860,10 @@ body {
   padding-right: 1rem;
   padding-top: 1rem;
   padding-bottom: 4rem;
+}
+.noticeBox .whiteblock .msg .remindtxt {
+  display: inline-block;
+  padding-top: 2rem;
 }
 .noticeBox .whiteblock .btn {
   display: inline-block;
@@ -1699,4 +1719,73 @@ body {
 
 .DCBNavList {
   margin-top: 22.6rem;
+}
+
+.DCB_box {
+  width: 390px;
+}
+
+.DCB_block {
+  width: 95%;
+  margin: auto;
+  background: #FFF;
+  margin-top: 1rem;
+}
+.DCB_block .title {
+  color: rgb(255, 94, 0);
+  padding: 1rem 0;
+  padding-left: 1rem;
+  font-weight: bold;
+  text-shadow: 0 0 0 rgb(255, 94, 0);
+  border-bottom: 1px solid #CCC;
+}
+.DCB_block .title.font-normal {
+  font-weight: normal;
+}
+
+.DCB_List li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #EEE;
+  height: 50px;
+}
+.DCB_List li:last-child {
+  border: none;
+}
+.DCB_List li span:nth-child(1) {
+  padding-left: 1rem;
+}
+.DCB_List li img {
+  cursor: pointer;
+}
+.DCB_List li .link {
+  cursor: pointer;
+  position: relative;
+  left: -2rem;
+}
+.DCB_List li .bool {
+  position: relative;
+  left: -1rem;
+}
+.DCB_List li .msg {
+  position: relative;
+  left: -1rem;
+}
+.DCB_List button {
+  width: 170px;
+  height: 30px;
+  background: #FFF;
+  position: relative;
+  left: -1rem;
+  border: 1px solid #CCC;
+  display: flex;
+  align-items: center;
+}
+.DCB_List button::after {
+  content: url(../img/setting/arrow.png);
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 0.5rem;
 }/*# sourceMappingURL=main.css.map */

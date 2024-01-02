@@ -98,7 +98,7 @@ window.onload = () =>{
         const quickLinkRender = computed(()=>{
             let key = NowRenderSection.value
             key =  quickLinkContIs(key)
-            console.log('quickLink的區域為:',key);
+            // console.log('quickLink的區域為:',key);
 
             let resultKey = []
             let resultRender = []
@@ -113,7 +113,7 @@ window.onload = () =>{
                 return resultRender
             }
            
-            console.log('要顯示的Link資料的Key有哪些:',resultKey[0].link);
+            // console.log('要顯示的Link資料的Key有哪些:',resultKey[0].link);
             resultKey[0].link.forEach(key=>{
                 // console.log(key);
                 let arr = []
@@ -124,7 +124,7 @@ window.onload = () =>{
                 resultRender = resultRender.flat()
             })
             
-            console.log('要用來Render quickLink的data',resultRender);
+            // console.log('要用來Render quickLink的data',resultRender);
             return resultRender
             
         })
@@ -133,8 +133,8 @@ window.onload = () =>{
             let statusFn = el.currentTarget.dataset.fn
             let modifyIdx = 0
             let modifykey = ''
-            console.log('要調整情境的狀態是:',statusFn);
-            console.log('要改變狀態的key',key);
+            // console.log('要調整情境的狀態是:',statusFn);
+            // console.log('要改變狀態的key',key);
             if(statusFn === 'skip帳密'){
                 contentBg.value = "./img/ContBg/index.png"
                 NowRenderSection.value ='index'
@@ -216,6 +216,7 @@ window.onload = () =>{
                         })
                     }
                 })
+                
                 scrollEl.value.scrollTop = 0
             }            
             // 首頁- calldata
@@ -288,9 +289,8 @@ window.onload = () =>{
                 {idx:2 ,type: 'customService',msg:'案件查詢'},
                 {idx:3 ,type: 'customService',msg:'手機維護保固'},
                 {idx:4 ,type: 'customService',msg:'網內外門號查詢'},
-                {idx:1 ,type: 'serviceManagement',msg:'Google Play', dcb:'DCB_google'},
-                {idx:2 ,type: 'serviceManagement',msg:'小額付款', dcb:'DCB小額'},
-                {idx:3 ,type: 'serviceManagement',msg:'更多設定', dcb:'moresetting'},
+                {idx:1 ,type: 'serviceManagement',msg:'Google Play', dcb:'DCB_google' ,act:false},
+                {idx:2 ,type: 'serviceManagement',msg:'小額付款', dcb:'DCB小額' ,act:false},
             ]})
 
             const packageSettingList =  (arr) =>{
@@ -316,7 +316,6 @@ window.onload = () =>{
                     if(item.type === 'generalSetting') return item
                 })
                 data = packageSettingList(data)
-                console.log(data);
                 return data
 
             })
@@ -328,14 +327,63 @@ window.onload = () =>{
                 return data
 
             })
+
             const serviceManagementRender = computed(()=>{
                 let data = settingList.data.filter(item=>{
                     if(item.type === 'serviceManagement') return item
                 })
                 data = packageSettingList(data)
+                data.forEach(item=>{
+                    item.act = false
+                    if(GoogleServiceBool.value && item.idx === 1){
+                        item.act =  true
+                    }
+                    if(SmallPaymentServiceBool.value && item.idx === 2){
+                        item.act =  true
+                    }
+                })
+                // console.log(data);
                 return data
 
             })
+        // 服務管理顯示
+        const ServiceRemindBool = computed(()=>{
+            if(GoogleServiceBool.value || SmallPaymentServiceBool.value){
+                // console.log('服務狀態-on');
+                return true
+            }else{
+                // console.log('服務狀態-off');
+                return false
+            }
+        })
+        const GoogleServiceBool = ref(false)
+        const SmallPaymentServiceBool = ref(false)
+        const DCBNoticeMsg = reactive({is:["開啟/關閉","服務項目"]})
+        const handGoogleServiceBool =()=>{
+            DCBNoticeMsg.is[1] =  "GooGle Play電信帳單代收"
+            NoticeIs.value = '電信代收調整'
+            if(GoogleServiceBool.value){
+                GoogleServiceBool.value = !GoogleServiceBool.value
+                DCBNoticeMsg.is[0] =  "關閉"
+            }else{
+                GoogleServiceBool.value = !GoogleServiceBool.value
+                NoticeIs.value = '電信代收調整'
+                DCBNoticeMsg.is[0] =  "開通"
+            }
+        }  
+        const handSmallPaymentServiceBool =()=>{
+            NoticeIs.value = '電信代收調整'
+            DCBNoticeMsg.is[1] =  "小額付款"
+            if(SmallPaymentServiceBool.value){
+                SmallPaymentServiceBool.value = !SmallPaymentServiceBool.value
+                DCBNoticeMsg.is[0] =  "關閉"
+            }else{
+                SmallPaymentServiceBool.value = !SmallPaymentServiceBool.value
+                NoticeIs.value = '電信代收調整'
+                DCBNoticeMsg.is[0] =  "開通"
+
+            }
+        }          
         //href Control
             const detailCont = ref(['key','headerName'])
             const detailHeaderBg = ref('')
@@ -370,10 +418,12 @@ window.onload = () =>{
             ]})
             const InnerLinkdata = reactive({data:[
                 {backBtn:'',                  key:'', headerTxt:'',              contentBg:''},
-                {backBtn:'原台灣之星VoLTE服務',key:'voltehomepage', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
-                {backBtn:'代收服務',           key:'serviceManagement_1', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
-                {backBtn:'代收服務',           key:'serviceManagement_2', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
-                {backBtn:'index',           key:'serviceManagement_3', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'DCB更多設定',        key:'設定交易安全碼', headerTxt:'設定交易安全碼',              contentBg:'./img/ContBg/fa_gray.png'},
+                {backBtn:'DCB',              key:'DCB_google', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
+                {backBtn:'DCB',              key:'DCB小額', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
+                {backBtn:'index',             key:'DCB更多設定', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/lavender.png'},
+                {backBtn:'volte',             key:'volte_服務說明', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/lavender.png'},
+                {backBtn:'volte',             key:'volte_啟用教學', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/lavender.png'},
                 {backBtn:'index',             key:'原台灣之星VoLTE服務', headerTxt:'VoLTE服務',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'index',             key:'電子帳單設定', headerTxt:'變更電子帳單信箱',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'index',             key:'門號設定', headerTxt:'門號設定',              contentBg:'./img/ContBg/fa_gray.png'},
@@ -394,7 +444,6 @@ window.onload = () =>{
             ]})
             const handOuterLink = (el, bool) =>{
                 let key = el.currentTarget.dataset.href
-                console.log('bool',bool);
                 OuterLinkdata.data.forEach(item=>{
                     if(item.key === key){
                         window.open(item.url, '_blank', 'height=1200, width=500');
@@ -415,7 +464,7 @@ window.onload = () =>{
                         isNoticeLink = true
                     }
                 })
-                console.log('href:',key);
+                // console.log('href:',key);
                 if(isNoticeLink) return
                 if(key === 'null') return
                 
@@ -435,6 +484,9 @@ window.onload = () =>{
                         })          
                     }
                     resetPhoneSetttingList()
+                    if(NoticeIs.value === '代收額度變更完成'){
+                        scrollEl.value.scrollTop = 500
+                    }
                     NoticeIs.value = 'none'   
                     phoneSetttingNoticeBool.value = false          
                     return
@@ -446,17 +498,16 @@ window.onload = () =>{
                         detailCont.value[0] = item.key
                         detailHeaderBg.value = `background-color: #000;`
 
-                        if(key === 'voltehomepage'){
+                        if(item.backBtn === 'volte'){
                             NowRenderSection.value = 'volte'
                             handlinkToVolteNav(el)
-                            console.log('成功跳轉至volte頁面');
+                            // console.log('成功跳轉至volte頁面');
                         }
 
-                        if(item.backBtn === '代收服務'){
+                        if(item.backBtn === 'DCB'){
                             NowRenderSection.value = 'DCBservice'
                             handlinkToDCBNav(el)
-                            console.log('成功跳轉至DCB頁面');
-                            backBtnIs.value.key = 'index'
+                            // console.log('成功跳轉至DCB頁面');
                         }
                         
                         
@@ -491,7 +542,6 @@ window.onload = () =>{
                 
                 if(!IsInnerLink){
                     IsOuterLink = handOuterLink(el,IsOuterLink)    
-                    console.log('調用外網功能',IsOuterLink);
                     if(!IsOuterLink){
                         console.warn('尚未指定ineerhref');  
                     }
@@ -576,7 +626,6 @@ window.onload = () =>{
         ]})
         const handpayRecordItem = (el) =>{
             let key = el.currentTarget.dataset.key
-            console.log(key);
             payRecordData.data.forEach(item=>{
                 if(key === item.payDate && item.open === true) return item.open = false
                     item.open = false
@@ -1024,6 +1073,9 @@ window.onload = () =>{
         // notice整合
         const noticeData = reactive({data:[
             {where:'none', key:'none', },
+            {where:'電信帳單代收', key:'電信代收調整', },
+            {where:'電信帳單代收', key:'代收額度確認', },
+            {where:'電信帳單代收', key:'代收額度調整', },
             {where:'volte-注意事項', key:'volte-注意事項', },
             {where:'門號設定-注意事項', key:'門號設定-注意事項', },
             {where:'帳單-注意事項', key:'帳單-注意事項', },
@@ -1037,7 +1089,20 @@ window.onload = () =>{
         const NoticeIs = ref('none')
         const handNoticeIs = (el) =>{
             let key = el.currentTarget.dataset.key
-            // console.log('noticeKey',key);
+            console.log('noticeKey',key);
+            if(key === '電信代收調整'){
+                // console.log('dcb',el.currentTarget.dataset.href);
+                if(el.currentTarget.dataset.href === 'DCB_google'){
+                    handGoogleServiceBool()
+                }
+                if(el.currentTarget.dataset.href === 'DCB小額'){
+                    handSmallPaymentServiceBool()
+                }
+            }
+            if(key === 'dcb'){
+                handHrefCont(el)
+            }
+
             noticeData.data.forEach(item=>{
                 if(item.key === key){
                     NoticeIs.value = key
@@ -1091,6 +1156,7 @@ window.onload = () =>{
         ]})
         const DCBContIs =  ref('')
         const handlinkToDCBNav = (el) =>{
+            NowRenderSection.value = 'DCBservice'
             let key = el.currentTarget.dataset.dcb
             DCBNav.Is.forEach(item=>{
                 if(item.key === key) DCBContIs.value = key
@@ -1100,11 +1166,33 @@ window.onload = () =>{
             console.log('DCB顯示的內容是:',DCBContIs.value);
         }
         const DCBContBool = ref(false)
-        
-
         const handDCBContBool = (el) =>{
             DCBContBool.value = !DCBContBool.value
         }
+        const DCB_num = ref(500)
+        const Fin_DCB_num = ref(500)
+
+        const handDCB_num = (el) =>{
+            let num = el.currentTarget.dataset.key
+            if(num === "0"){
+                DCB_num.value = 0
+            } 
+            if(num === "500"){
+                DCB_num.value = 500
+            } 
+            if(NowRenderSection.value === 'detail'){
+                NoticeIs.value = 'none'
+            }else{
+                NoticeIs.value = '代收額度確認'
+            }
+        }
+        const updateDCB_num = (el) =>{
+            Fin_DCB_num.value = DCB_num.value
+            NoticeIs.value = '代收額度變更完成'
+        }
+
+
+        
 
 
         onMounted(()=>{
@@ -1157,6 +1245,13 @@ window.onload = () =>{
                 backBtnIs,
                 detailCont,
                 detailHeaderBg,
+                // 服務管理顯示
+                GoogleServiceBool,
+                SmallPaymentServiceBool,
+                handGoogleServiceBool,
+                handSmallPaymentServiceBool,
+                ServiceRemindBool,      
+                DCBNoticeMsg,          
                 // detail - 多門號切換繳款與帳單明細
                     // nav
                 billNavIs,
@@ -1165,8 +1260,6 @@ window.onload = () =>{
                 handnearlyBillItem,    
                 payRecordData,
                 handpayRecordItem,
-                // datail- 門號設定
-                
                 // notice整合
                 NoticeIs,
                 handNoticeIs,
@@ -1223,7 +1316,11 @@ window.onload = () =>{
                 DCBContIs,
                 handlinkToDCBNav,
                 DCBContBool,
-                handDCBContBool,              
+                handDCBContBool,   
+                DCB_num,
+                Fin_DCB_num,
+                handDCB_num,
+                updateDCB_num,
             }   
             
         },
