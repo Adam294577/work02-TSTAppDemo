@@ -250,26 +250,41 @@ window.onload = () =>{
                 {key:"et2" , title:'MyVideo',msg:'首次申裝 前30天免費',price:'首月免費'},
                 {key:"et3" , title:'Tinder 交友平台',msg:'情人節孤單終結 右滑配對正桃花',price:'$470/月'},
                 {key:"et4" , title:'來電答鈴',msg:'好音樂襯托你的好品味',price:'$30/月'},
+                {key:"rt1" , title:'台台合併優惠'},
+                {key:"rt2" , title:'iphone15'},
+                {key:"rt3" , title:'google_pixel_8'},
+                {key:"rt4" , title:'OP_享樂生活'},
+                {key:"rt5" , title:'好速成雙'},
+                {key:"rt6" , title:'OpenPossible聯名卡'},
             ]})
-            const serviceItemNodata = ref(false)
-            const serviceItemRender = computed(()=>{
+            const EntertainmentItemRender = computed(()=>{
                 let arr = []
                 let key = ''
                 serviceNav.data.forEach(item=>{
                     if(item.act){
-                        key = item.key 
+                        key = 'et'
                     }
                 })
                 arr = serviceItem.data.filter(item=>{
                     return item.key.slice(0,2) === key
                 })
-                if(arr.length === 0){
-                    serviceItemNodata.value = true
-                }else{
-                    serviceItemNodata.value = false
-                }
+
                 return arr
 
+            })
+            const RenewContractItemRender = computed(()=>{
+                let arr = []
+                let key = ''
+                serviceNav.data.forEach(item=>{
+                    if(item.act){
+                        key = 'rt'
+                    }
+                })
+                arr = serviceItem.data.filter(item=>{
+                    return item.key.slice(0,2) === key
+                })
+
+                return arr
             })
             // setting- Nav
             const settingNavIs = ref('基本管理')
@@ -389,30 +404,36 @@ window.onload = () =>{
             const detailHeaderBg = ref('')
             const backBtnIs = ref({key:'index' ,show: true})
             const OuterLinkdata = reactive({data:[
-                {txt:'',        key:'',         url:''},
-                {txt:'',        key:'billcard',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=creditcardPayment'},
-                {txt:'',        key:'billatm',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=depositPayment'},
-                {txt:'',        key:'外網設定密碼',         url:'https://member.taiwanmobile.com/MemberCenter/changePassword/begin.do'},
-                {txt:'',        key:'會員註冊',         url:'https://oauth.taiwanmobile.com/MemberOAuth/twm/login/ed69ee19c30f51db57c4428f02bc78db'},
-                {txt:'',        key:'serviceMail_QA',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/serviceMail_QA.php'},
-                {txt:'',        key:'記錄查詢',         url:'https://emall.tstarcs.taiwanmobile.com/eMall/order/search?t=1701619200045'},
-                {txt:'',        key:'線上溢繳',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/over-pay-auth_s.php?t=1701619200045'},
-                {txt:'',        key:'優惠券',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/Dashboard_coupon.php'},
-                {txt:'',        key:'網內外門號查詢',         url:'https://www.taiwanmobile.com/cs/queryTWMPhoneNbr/enterPage.htm?t=1701619200045'},
-                {txt:'',        key:'手機維護保固',         url:'https://www.taiwanmobile.com/cs/public/trusIndex.action?t=1701619200045'},
-                {txt:'',        key:'案件查詢',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/caseSearch_s.php?t=1701619200045'},
-                {txt:'',        key:'聯絡客服',         url:'https://littlemy.taiwanmobile.com/?eservice=TSTAPP&TA=null&M=null'},
-                {txt:'',        key:'電子發票與載具設定',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/electronicInvoice.php'},
-                {txt:'',        key:'信用卡自動轉帳代繳設定',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=tUnX%7EpxcjWbXH.--TyPArmQ.qSyMjnGwcGn%3D&landing_uri=https://ow.tstarcs.taiwanmobile.com/TWM/credit-card-direct-debit.php?t=1701619200045'},
-                {txt:'',        key:'國際漫遊',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/roaming_apply.php?t=1701619200045'},
-                {txt:'',        key:'門號用量加購',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php'},
-                {txt:'',        key:'老客戶專屬優惠',url:'https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst5457E361347647AA981D1B38621F2DB5SF4Kk&ru=https%3A%2F%2Fshop.tstartel.com%2Fpromo_market%2F188sptd_23%2Findex.html'},
-                {txt:'disney+', key:'et1',         url:'https://disneyplus.taiwanmobile.com/'},
-                {txt:'來電答鈴', key:'et4',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=%2BPu-MXCvyBsqsZ-bmeWYiFzabH_N%7EnBT.BF%3D&landing_uri=http://rbt.tstartel.com/web/web/index.jsp'},
-                {txt:'',        key:'App獨享活動a1',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
-                {txt:'',        key:'App獨享活動a2',         url:'https://www.myfone.com.tw/s/uWMhIul'},
-                {txt:'',        key:'momo優惠活動b1',         url:'https://momo.dm/mmjNvj'},
-                {txt:'',        key:'momo優惠活動b2',         url:'https://www.momoshop.com.tw/category/DgrpCategory.jsp?d_code=1803300050&p_orderType=6&showType=chessboardType'},
+                {txt:'',                ey:'',         url:''},
+                {txt:'',                ey:'billcard',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=creditcardPayment'},
+                {txt:'',                ey:'billatm',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/payment-auth_b.php?attest_to=depositPayment'},
+                {txt:'',                ey:'外網設定密碼',         url:'https://member.taiwanmobile.com/MemberCenter/changePassword/begin.do'},
+                {txt:'',                ey:'會員註冊',         url:'https://oauth.taiwanmobile.com/MemberOAuth/twm/login/ed69ee19c30f51db57c4428f02bc78db'},
+                {txt:'',                ey:'serviceMail_QA',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/serviceMail_QA.php'},
+                {txt:'',                ey:'記錄查詢',         url:'https://emall.tstarcs.taiwanmobile.com/eMall/order/search?t=1701619200045'},
+                {txt:'',                ey:'線上溢繳',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/over-pay-auth_s.php?t=1701619200045'},
+                {txt:'',                ey:'優惠券',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/Dashboard_coupon.php'},
+                {txt:'',                ey:'網內外門號查詢',         url:'https://www.taiwanmobile.com/cs/queryTWMPhoneNbr/enterPage.htm?t=1701619200045'},
+                {txt:'',                ey:'手機維護保固',         url:'https://www.taiwanmobile.com/cs/public/trusIndex.action?t=1701619200045'},
+                {txt:'',                ey:'案件查詢',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/caseSearch_s.php?t=1701619200045'},
+                {txt:'',                ey:'聯絡客服',         url:'https://littlemy.taiwanmobile.com/?eservice=TSTAPP&TA=null&M=null'},
+                {txt:'',                ey:'電子發票與載具設定',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/electronicInvoice.php'},
+                {txt:'',                ey:'信用卡自動轉帳代繳設定',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=tUnX%7EpxcjWbXH.--TyPArmQ.qSyMjnGwcGn%3D&landing_uri=https://ow.tstarcs.taiwanmobile.com/TWM/credit-card-direct-debit.php?t=1701619200045'},
+                {txt:'',                ey:'國際漫遊',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/roaming_apply.php?t=1701619200045'},
+                {txt:'',                ey:'門號用量加購',         url:'https://ow.tstarcs.taiwanmobile.com/TWM/transQuanPlug_s.php'},
+                {txt:'',                ey:'老客戶專屬優惠',url:'https://sso.tstarcs.taiwanmobile.com/mc-ws/twm/sso/apptoken.action?appToken=tst5457E361347647AA981D1B38621F2DB5SF4Kk&ru=https%3A%2F%2Fshop.tstartel.com%2Fpromo_market%2F188sptd_23%2Findex.html'},
+                {txt:'disney+',         ey:'et1',         url:'https://disneyplus.taiwanmobile.com/'},
+                {txt:'來電答鈴',        key:'et4',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=%2BPu-MXCvyBsqsZ-bmeWYiFzabH_N%7EnBT.BF%3D&landing_uri=http://rbt.tstartel.com/web/web/index.jsp'},
+                {txt:'台台合併優惠',        key:'rt1',         url:'https://tstarcs.taiwanmobile.com/index.html'},
+                {txt:'iphone15',           key:'rt2',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=vlIJdZ%7ECHBqtBgKA%2BMLdznVe-qE%7Eq%2ByZcYD%3D&landing_uri=https://www.taiwanmobile.com/content/event/apple/iphone-15/'},
+                {txt:'google_pixel_8',     key:'rt3',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=nHByxw-Ay_hedY-j%7EDLFu_EgHd%7EJYhsYFUo%3D&landing_uri=https://www.taiwanmobile.com/content/event/google/pixel-8/'},
+                {txt:'OP_享樂生活',         key:'rt4',         url:'https://www.taiwanmobile.com/events/OP/op_6.html'},
+                {txt:'好速成雙',            key:'rt5',         url:'https://www.taiwanmobile.com/events/doubleplay/5G_double_play.html'},
+                {txt:'OpenPossible聯名卡',  key:'rt6',         url:'https://oauth.taiwanmobile.com/MemberOAuth/sso/SSOLogin?sso_token=wFm.Fbfts-CCEjBXd_Bu%2FPfst.FdibzOfnT%3D&landing_uri=https://www.taiwanmobile.com/csonline/plcc/open_possible.html'},
+                {txt:'',                key:'App獨享活動a1',         url:'https://www.myfone.com.tw/mbuy/index.php?action=tstarfriends&utm_source=tstar&utm_medium=tstapp&utm_campaign=tstarfriends_2312&utm_term=tstarfriends'},
+                {txt:'',                key:'App獨享活動a2',         url:'https://www.myfone.com.tw/s/uWMhIul'},
+                {txt:'',                key:'momo優惠活動b1',         url:'https://momo.dm/mmjNvj'},
+                {txt:'',                key:'momo優惠活動b2',         url:'https://www.momoshop.com.tw/category/DgrpCategory.jsp?d_code=1803300050&p_orderType=6&showType=chessboardType'},
             ]})
             const noticeLinkData = reactive({data:[
                 {key:'變更電子帳單信箱_notice'}
@@ -1234,8 +1255,8 @@ window.onload = () =>{
                  // service - Nav   
                 serviceNav,
                 handserviceNav,
-                serviceItemNodata,
-                serviceItemRender,
+                EntertainmentItemRender,
+                RenewContractItemRender,
                 // setting- Nav
                 settingNavIs,
                 handsettingNav,

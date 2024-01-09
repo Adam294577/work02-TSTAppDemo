@@ -27,7 +27,7 @@
             </ul>
             <img class="AppIcon" src="./img/AppUI2.png" alt="">
             <span class="updateTxt version"><span class="updateMsg">v{{nowversionIs}}</span></span>
-            <span class="updateTxt">最後更新日期 <span class="updateMsg">2024/01/02</span></span>
+            <span class="updateTxt">最後更新日期 <span class="updateMsg">2024/01/09</span></span>
         </div>
         <div id="payload" v-if="loading">
             <div class="LeftBlock"></div>
@@ -221,10 +221,11 @@
                         </div>
                         <div class="block" 
                         style="cursor: pointer;"
-                        v-for="list in serviceItemRender"
+                        v-for="list in EntertainmentItemRender"
                         :key="list.key"
                         :data-href="list.key"
                         @click="handHrefCont"
+                        v-show="serviceNav.data[0].act === true"
                         >
                             <img class="iconImg" :src="`./img/service/${list.key}.png`" alt="">
                             <div class="itemTitle appIcon">{{list.title}}</div>
@@ -232,7 +233,18 @@
                             <div class="itemPrice">{{list.price}}</div>
                             <img class="serviceBanner" :src="`./img/service/banner_${list.key}.png`" alt="">
                         </div>  
-                        <div class="block nodata" v-if="serviceItemNodata">
+                        <div class="block "  v-show="serviceNav.data[1].act === true">
+                            <img 
+                            v-for="list in RenewContractItemRender" :key="list.key"
+                            class="rtImg" :src="`./img/discount/${list.key}.png`" :data-href="list.key" @click="handHrefCont" alt="">
+                            <!-- <img class="rtImg" src="./img/discount/c1.png" alt="">
+                            <img class="rtImg" src="./img/discount/c1.png" alt="">
+                            <img class="rtImg" src="./img/discount/c1.png" alt="">
+                            <img class="rtImg" src="./img/discount/c1.png" alt="">
+                            <img class="rtImg" src="./img/discount/c1.png" alt="">
+                            <img class="rtImg" src="./img/discount/c1.png" alt=""> -->
+                        </div>                    
+                        <div class="block nodata"  v-show="serviceNav.data[2].act === true">
                             <div class="msg">
                                 <span>目前沒有適合的方案</span>
                                 <span>先去其他地方逛逛吧</span>

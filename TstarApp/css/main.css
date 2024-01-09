@@ -211,6 +211,14 @@ body {
   overflow: hidden;
 }
 
+.rtImg {
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+.rtImg:last-child {
+  padding-bottom: 1rem;
+}
+
 .msgborder {
   position: relative;
   padding-bottom: 0.5rem;
