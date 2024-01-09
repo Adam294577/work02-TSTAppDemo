@@ -180,12 +180,7 @@
                         <div class="block">
                             <div class="itemTitle">手機裝置</div>
                             <div class="itemMsg">
-                               <div class="device">
-                                <img src="./img/home/andriod.png" alt="andriod">
-                                <span>
-                                    你正在使用andriod手機
-                                </span>
-                               </div>
+                                <img :src="`./img/home/${UserDevice}.png`" alt="android">
                             </div>
                         </div>
                         <div class="block otherLink">
@@ -499,7 +494,7 @@
                                     <img class="arrow" src="./img/setting/list/arrow.png" alt="">
                                 </li>
                                 <li data-href="DCB更多設定"  @click="handHrefCont">
-                                    <img src="./img/setting/list/serviceManagement3.png" alt="">
+                                    <img src="./img/setting/list/serviceManagement4.png" alt="">
                                     <span>更多設定</span>
                                     <img class="arrow" src="./img/setting/list/arrow.png" alt="">
                                 </li>
@@ -905,8 +900,8 @@
                         </div>   
                         <div class="ItemBox" v-if="detailCont[0] === 'DCB更多設定'">
                              <div class="DCB_box">
-                                <div class="DCB_block">
-                                    <div class="title">GooGle Play電信帳單代收</div>
+                                <div class="DCB_block" v-show="UserDevice === 'android'">
+                                    <div class="title">Google Play電信帳單代收</div>
                                     <ul class="DCB_List">
                                         <li>
                                             <span>服務開關</span>
@@ -915,6 +910,19 @@
                                         <li>
                                             <span>Google Play代收說明</span>
                                             <span data-dcb="DCB_google" @click="handlinkToDCBNav" class="link"><img src="./img/dcb/arrow.png" alt=""></span>
+                                        </li>
+                                    </ul>
+                                </div>  
+                                <div class="DCB_block" v-show="UserDevice === 'ios'">
+                                    <div class="title">App Store電信帳單代收</div>
+                                    <ul class="DCB_List">
+                                        <li>
+                                            <span>服務開關</span>
+                                            <span class="bool" @click="handAppleServiceBool"><img :src=" AppleServiceBool ? './img/setting/whitebool_act.png' : './img/setting/whitebool.png'" alt=""></span>
+                                        </li>
+                                        <li>
+                                            <span>App Store代收說明</span>
+                                            <span data-dcb="DCB_apple" @click="handlinkToDCBNav" class="link"><img src="./img/dcb/arrow.png" alt=""></span>
                                         </li>
                                     </ul>
                                 </div>  

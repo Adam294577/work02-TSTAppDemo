@@ -33,6 +33,21 @@ window.onload = () =>{
             scrollEl.value.scrollTop = 0      
             settingNavIs.value = '基本管理'
         }
+
+        // 使用者裝置
+        const UserDevice = computed(()=>{
+            let arr = []
+            arr = quickLinkList.data.filter(item=>{
+                return item.search === '手機裝置'
+            })
+            if(arr[0].statusIs === 'android'){
+                return 'android'
+            }
+            if(arr[0].statusIs === 'iPhone'){
+                return 'ios'
+            }
+        })
+
         // quickLink
         const quickLinkData = reactive(
             {data:[
@@ -40,7 +55,7 @@ window.onload = () =>{
             {key:'index_home',link:['帳單',"手機裝置"]},
             {key:'index_service',link:['',]},
             {key:'index_discount',link:['',]},
-            {key:'index_setting',link:['帳單',]},
+            {key:'index_setting',link:['帳單',"手機裝置"]},
             {key:'detail_帳單明細',link:['帳單',]},
             // {key:'detail_帳單明細',link:['小額代收明細','通話帳單明細']},
             {key:'detail_會員資料設定',link:['帳單類型',]},
@@ -57,8 +72,8 @@ window.onload = () =>{
             arr:[{statusKey:'skip帳密',msg:'跳過登入帳密'}]},
             {idx:1 ,search:'帳單', title: '帳單' ,        statusFn:'帳單餘額調整' , statusIs:'有餘額',
             arr:[{statusKey:'有餘額',msg:'有餘額未繳'},{statusKey:'無餘額',msg:'已完成繳款'}]},
-            // {idx:2 ,search:'手機裝置', title: '手機裝置' , statusFn:'手機裝置更換' , statusIs:'androidPhone',
-            // arr:[{statusKey:'androidPhone',msg:'Android'},{statusKey:'iPhone',msg:'Apple'}]},
+            {idx:2 ,search:'手機裝置', title: '手機裝置' , statusFn:'手機裝置更換' , statusIs:'android',
+            arr:[{statusKey:'android',msg:'android'},{statusKey:'iPhone',msg:'Apple'}]},
             // {idx:3 ,search:'小額代收明細', title: '小額代收' ,        statusFn:'小額代收使用狀況' , statusIs:'有使用',
             // arr:[{statusKey:'有使用',msg:'有使用'},{statusKey:'未使用',msg:'未使用'}]},            
             {idx:4 ,search:'帳單類型', title: '帳單類型' ,        statusFn:'帳單類型轉換' , statusIs:'紙本帳單',
@@ -304,8 +319,9 @@ window.onload = () =>{
                 {idx:2 ,type: 'customService',msg:'案件查詢'},
                 {idx:3 ,type: 'customService',msg:'手機維護保固'},
                 {idx:4 ,type: 'customService',msg:'網內外門號查詢'},
-                {idx:1 ,type: 'serviceManagement',msg:'Google Play', dcb:'DCB_google' ,act:false},
-                {idx:2 ,type: 'serviceManagement',msg:'小額付款', dcb:'DCB小額' ,act:false},
+                {idx:1 ,type: 'serviceManagement',msg:'Google Play', dcb:'DCB_google' ,act:false ,device:['android']},
+                {idx:3 ,type: 'serviceManagement',msg:'App Store', dcb:'DCB_apple' ,act:false ,device:['ios']},
+                {idx:2 ,type: 'serviceManagement',msg:'小額付款', dcb:'DCB小額' ,act:false ,device:['ios', 'android']},
             ]})
 
             const packageSettingList =  (arr) =>{
@@ -350,32 +366,57 @@ window.onload = () =>{
                 data = packageSettingList(data)
                 data.forEach(item=>{
                     item.act = false
-                    if(GoogleServiceBool.value && item.idx === 1){
+
+                    if(GoogleServiceBool.value && item.idx === 1 ){
                         item.act =  true
                     }
                     if(SmallPaymentServiceBool.value && item.idx === 2){
                         item.act =  true
                     }
+                    if(AppleServiceBool.value && item.idx === 3){
+                        item.act =  true
+                    }
                 })
-                // console.log(data);
+                data = data.filter(item=>{return item.device.indexOf(UserDevice.value) !== -1 })
+                console.log(data);
                 return data
 
             })
         // 服務管理顯示
         const ServiceRemindBool = computed(()=>{
-            if(GoogleServiceBool.value || SmallPaymentServiceBool.value){
-                // console.log('服務狀態-on');
-                return true
-            }else{
-                // console.log('服務狀態-off');
-                return false
+            if(UserDevice.value === 'android'){
+                if(GoogleServiceBool.value || SmallPaymentServiceBool.value){
+                    return true
+                }else{
+                    return false
+                }
+            }
+            if(UserDevice.value === 'ios'){
+                if(AppleServiceBool.value || SmallPaymentServiceBool.value){
+                    return true
+                }else{
+                    return false
+                }
             }
         })
+        const AppleServiceBool = ref(false)
         const GoogleServiceBool = ref(false)
         const SmallPaymentServiceBool = ref(false)
         const DCBNoticeMsg = reactive({is:["開啟/關閉","服務項目"]})
+        const handAppleServiceBool =()=>{
+            DCBNoticeMsg.is[1] =  "Apple iTune電信帳單代收"
+            NoticeIs.value = '電信代收調整'
+            if(AppleServiceBool.value){
+                AppleServiceBool.value = !AppleServiceBool.value
+                DCBNoticeMsg.is[0] =  "關閉"
+            }else{
+                AppleServiceBool.value = !AppleServiceBool.value
+                NoticeIs.value = '電信代收調整'
+                DCBNoticeMsg.is[0] =  "開通"
+            }
+        }  
         const handGoogleServiceBool =()=>{
-            DCBNoticeMsg.is[1] =  "GooGle Play電信帳單代收"
+            DCBNoticeMsg.is[1] =  "Google Play電信帳單代收"
             NoticeIs.value = '電信代收調整'
             if(GoogleServiceBool.value){
                 GoogleServiceBool.value = !GoogleServiceBool.value
@@ -442,6 +483,7 @@ window.onload = () =>{
                 {backBtn:'',                  key:'', headerTxt:'',              contentBg:''},
                 {backBtn:'DCB更多設定',        key:'設定交易安全碼', headerTxt:'設定交易安全碼',              contentBg:'./img/ContBg/fa_gray.png'},
                 {backBtn:'DCB',              key:'DCB首頁', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
+                {backBtn:'DCB',              key:'DCB_apple', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
                 {backBtn:'DCB',              key:'DCB_google', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
                 {backBtn:'DCB',              key:'DCB小額', headerTxt:'',              contentBg:'./img/ContBg/2b_gray.png'},
                 {backBtn:'index',             key:'DCB更多設定', headerTxt:'電信帳單代收',              contentBg:'./img/ContBg/lavender.png'},
@@ -1121,6 +1163,9 @@ window.onload = () =>{
                 if(el.currentTarget.dataset.href === 'DCB小額'){
                     handSmallPaymentServiceBool()
                 }
+                if(el.currentTarget.dataset.href === 'DCB_apple'){
+                    handAppleServiceBool()
+                }
             }
             if(key === 'dcb'){
                 handHrefCont(el)
@@ -1234,6 +1279,8 @@ window.onload = () =>{
             return{
                 // loading
                 loading,
+                // 使用者裝置
+                UserDevice,
                 // quickLink
                 quickLinkList,
                 quickLinkRender,
@@ -1269,9 +1316,11 @@ window.onload = () =>{
                 detailCont,
                 detailHeaderBg,
                 // 服務管理顯示
+                AppleServiceBool,
                 GoogleServiceBool,
                 SmallPaymentServiceBool,
                 handGoogleServiceBool,
+                handAppleServiceBool,
                 handSmallPaymentServiceBool,
                 ServiceRemindBool,      
                 DCBNoticeMsg,          
