@@ -71,10 +71,12 @@ body{
         .LinkBox{
 
             li{
+                position: relative;
                 cursor: pointer;
                 margin-top: 0.5rem;
-                padding-left: 1rem;                
+                padding-left: 2rem;                
                 &.quickLinkTitle{
+                    padding-left: 1rem;    
                     font-size: 20px;
                     font-weight: bold;
                 }
@@ -85,6 +87,11 @@ body{
                 &:nth-child(1){
                     cursor: default;
                 }
+            }
+            .linkIcon{
+                position: absolute;
+                left: 1rem;
+                top: 2px;
             }
 
         }

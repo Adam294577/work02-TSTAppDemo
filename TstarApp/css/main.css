@@ -69,11 +69,13 @@ body {
   background: #FFF;
 }
 .leftNav .quickLink .LinkBox li {
+  position: relative;
   cursor: pointer;
   margin-top: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 2rem;
 }
 .leftNav .quickLink .LinkBox li.quickLinkTitle {
+  padding-left: 1rem;
   font-size: 20px;
   font-weight: bold;
 }
@@ -83,6 +85,11 @@ body {
 }
 .leftNav .quickLink .LinkBox li:nth-child(1) {
   cursor: default;
+}
+.leftNav .quickLink .LinkBox .linkIcon {
+  position: absolute;
+  left: 1rem;
+  top: 2px;
 }
 .leftNav .AppIcon {
   position: absolute;
